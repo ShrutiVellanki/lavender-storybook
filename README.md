@@ -1,4 +1,4 @@
-# 🐷🎨 Lavender Storybook
+# Lavender Storybook
 
 **[Live Demo](https://lavender-storybook.vercel.app)**
 
