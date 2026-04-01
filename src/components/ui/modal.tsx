@@ -52,11 +52,8 @@ export function Modal({
           const firstFocusable = contentRef.current?.querySelector<HTMLElement>(
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
           )
-          if (firstFocusable) {
-            firstFocusable.focus()
-          } else {
-            contentRef.current?.focus()
-          }
+          if (firstFocusable) firstFocusable.focus()
+          else contentRef.current?.focus()
         })
       })
       return () => cancelAnimationFrame(t)
@@ -70,9 +67,7 @@ export function Modal({
     if (open) {
       const prev = document.body.style.overflow
       document.body.style.overflow = "hidden"
-      return () => {
-        document.body.style.overflow = prev
-      }
+      return () => { document.body.style.overflow = prev }
     }
   }, [open])
 
@@ -88,7 +83,7 @@ export function Modal({
       <div
         aria-hidden
         onClick={handleBackdropClick}
-        className="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 z-[9998] bg-black/40 backdrop-blur-[2px]"
       />
       <div
         ref={contentRef}
@@ -99,17 +94,17 @@ export function Modal({
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         className={cn(
-          "relative z-[10000] w-full max-w-md rounded-lg bg-card p-5 shadow-lg outline-none border border-border",
+          "relative z-[10000] w-full max-w-md rounded-xl bg-card p-6 shadow-lg outline-none border border-border",
           contentClassName,
         )}
       >
-        <div className={cn("flex flex-col gap-3", className)}>
+        <div className={cn("flex flex-col gap-4", className)}>
           {(title || showCloseButton) && (
             <div className="flex items-start justify-between gap-3">
               {title && (
                 <h2
                   id={titleId}
-                  className="m-0 text-base font-semibold text-card-foreground"
+                  className="text-[15px] font-semibold text-foreground tracking-[-0.01em]"
                 >
                   {title}
                 </h2>
@@ -119,9 +114,9 @@ export function Modal({
                   type="button"
                   onClick={onClose}
                   aria-label="Close dialog"
-                  className="ml-auto p-1 border-none rounded bg-transparent text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
+                  className="ml-auto -mt-1 -mr-1 p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                 >
-                  <X size={16} />
+                  <X size={14} />
                 </button>
               )}
             </div>

@@ -86,7 +86,7 @@ export function TabsList({
       aria-orientation={orientation}
       aria-label={ariaLabel}
       className={cn(
-        "inline-flex items-center gap-1 rounded-md bg-muted p-1 text-muted-foreground",
+        "inline-flex items-center gap-1 rounded-lg bg-muted/50 p-1 text-muted-foreground",
         orientation === "vertical" && "flex-col",
         className,
       )}
@@ -173,8 +173,8 @@ export function TabsTrigger({
       onClick={() => setValue(value)}
       onKeyDown={handleKeyDown}
       className={cn(
-        "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5",
-        "text-sm font-medium ring-offset-background transition-all",
+        "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5",
+        "text-[13px] font-medium ring-offset-background transition-all",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         "disabled:pointer-events-none disabled:opacity-50",
         selected

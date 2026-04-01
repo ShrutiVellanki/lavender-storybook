@@ -106,17 +106,17 @@ export function StarRating({
             >
               <Star
                 className={cn(
-                  "h-7 w-7 transition-colors",
+                  "h-5 w-5 transition-colors",
                   filled
                     ? "fill-primary text-primary"
-                    : "fill-transparent text-muted-foreground",
+                    : "fill-transparent text-muted-foreground/40",
                 )}
               />
             </button>
           )
         })}
       </div>
-      <div className="mt-2 text-sm text-muted-foreground">
+      <div className="mt-2 text-[12px] text-muted-foreground">
         Selected rating: {selectedValue}
       </div>
     </div>

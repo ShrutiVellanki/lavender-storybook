@@ -26,22 +26,22 @@ export function ErrorDisplay({
         className,
       )}
     >
-      <div className="p-8 rounded-xl bg-card border border-border max-w-md w-full mx-4">
-        <div className="flex items-center justify-center mb-6">
+      <div className="p-6 rounded-xl bg-card border border-border max-w-md w-full mx-4 shadow-sm">
+        <div className="flex items-center justify-center mb-5">
           <div className="p-3 rounded-full bg-destructive/10">
-            <AlertCircle className="w-8 h-8 text-destructive" />
+            <AlertCircle className="w-6 h-6 text-destructive" />
           </div>
         </div>
-        <h2 className="text-xl font-semibold text-card-foreground text-center mb-2">
+        <h2 className="text-[15px] font-semibold text-card-foreground text-center mb-1.5 tracking-[-0.01em]">
           {title}
         </h2>
-        <p className="text-muted-foreground text-center mb-6">{message}</p>
+        <p className="text-[13px] text-muted-foreground text-center mb-5">{message}</p>
         {onRetry && (
           <button
             onClick={onRetry}
-            className="flex items-center justify-center w-full px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+            className="flex items-center justify-center w-full h-9 px-4 rounded-lg text-[13px] font-medium bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 active:scale-[0.98] transition-all duration-150"
           >
-            <RefreshCcw className="w-4 h-4 mr-2" />
+            <RefreshCcw className="w-3.5 h-3.5 mr-2" />
             Try again
           </button>
         )}

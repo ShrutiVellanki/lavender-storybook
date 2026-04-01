@@ -161,7 +161,8 @@ export function Tooltip({
     }
   }, [isOpen])
 
-  const child = cloneElement(children, {
+  const childProps = (children as ReactElement<Record<string, unknown>>).props as Record<string, any>
+  const child = cloneElement(children as ReactElement<Record<string, unknown>>, {
     ref: (node: HTMLElement) => {
       triggerRef.current = node
       const originalRef = (children as any).ref
@@ -173,19 +174,19 @@ export function Tooltip({
     },
     "aria-describedby": isOpen ? tooltipId : undefined,
     onMouseEnter: (event: React.MouseEvent) => {
-      children.props.onMouseEnter?.(event)
+      childProps.onMouseEnter?.(event)
       setOpen(true)
     },
     onMouseLeave: (event: React.MouseEvent) => {
-      children.props.onMouseLeave?.(event)
+      childProps.onMouseLeave?.(event)
       setOpen(false)
     },
     onFocus: (event: React.FocusEvent) => {
-      children.props.onFocus?.(event)
+      childProps.onFocus?.(event)
       setOpen(true)
     },
     onBlur: (event: React.FocusEvent) => {
-      children.props.onBlur?.(event)
+      childProps.onBlur?.(event)
       setOpen(false)
     },
   })
@@ -199,7 +200,7 @@ export function Tooltip({
             ref={tooltipRef}
             id={tooltipId}
             role="tooltip"
-            className="fixed z-[1000] rounded-md bg-popover text-popover-foreground border border-border px-2.5 py-2 text-xs leading-snug max-w-[240px] shadow-md pointer-events-none"
+            className="fixed z-[1000] rounded-lg bg-popover text-popover-foreground border border-border px-3 py-2 text-[12px] leading-snug max-w-[240px] shadow-md pointer-events-none"
             style={{
               top: position?.top ?? -9999,
               left: position?.left ?? -9999,

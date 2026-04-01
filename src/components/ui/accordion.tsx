@@ -189,8 +189,8 @@ export function AccordionTrigger({ children, className }: AccordionTriggerProps)
         onClick={() => toggleValue(value)}
         onKeyDown={handleKeyDown}
         className={cn(
-          "w-full text-left py-4 px-4 bg-transparent border-none cursor-pointer text-[15px] font-semibold",
-          "flex justify-between items-center text-foreground hover:bg-accent/50 transition-colors rounded-md",
+          "w-full text-left py-3 px-4 bg-transparent border-none cursor-pointer text-[13px] font-semibold tracking-[-0.01em]",
+          "flex justify-between items-center text-foreground hover:bg-accent/50 transition-colors rounded-lg",
           className,
         )}
       >
@@ -231,7 +231,7 @@ export function AccordionContent({
       role="region"
       aria-labelledby={triggerId}
       hidden={!isOpen}
-      className={cn("px-4 pb-4 text-foreground text-sm", className)}
+      className={cn("px-4 pb-4 text-foreground text-[13px]", className)}
     >
       {children}
     </div>

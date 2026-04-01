@@ -1,6 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import CreditCardForm from "@/components/ui/credit-card-form"
+import { CreditCardForm, CreditCardDisplay } from "@/components/ui/credit-card-form"
 
 const meta: Meta<typeof CreditCardForm> = {
   title: "Components/CreditCardForm",
@@ -11,7 +11,7 @@ const meta: Meta<typeof CreditCardForm> = {
     docs: {
       description: {
         component:
-          "Complete credit card payment form with real-time validation. Detects card type (Visa, Mastercard, Amex), formats card number with appropriate spacing, validates via Luhn algorithm, and validates expiry and CVC with card-type-aware rules.",
+          "Interactive credit card form with a 3D card preview that flips when editing the CVV. Detects card type (Visa, Mastercard, Amex, Discover) and formats the card number with appropriate spacing. Includes CreditCardDisplay for standalone card rendering.",
       },
     },
   },
@@ -22,5 +22,23 @@ export default meta
 type Story = StoryObj<typeof CreditCardForm>
 
 export const Default: Story = {
-  render: () => <CreditCardForm />,
+  render: () => <CreditCardForm onSubmit={(data) => console.log("Card submitted:", data)} />,
+}
+
+export const WithDisplayOnly: StoryObj<typeof CreditCardDisplay> = {
+  render: () => (
+    <CreditCardDisplay
+      data={{ number: "4242 4242 4242 4242", name: "SHRUTI VELLANKI", expiry: "12/28", cvv: "123" }}
+      flipped={false}
+    />
+  ),
+}
+
+export const DisplayFlipped: StoryObj<typeof CreditCardDisplay> = {
+  render: () => (
+    <CreditCardDisplay
+      data={{ number: "5500 0000 0000 0004", name: "SHRUTI VELLANKI", expiry: "06/27", cvv: "456" }}
+      flipped={true}
+    />
+  ),
 }

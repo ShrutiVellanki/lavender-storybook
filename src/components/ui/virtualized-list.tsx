@@ -48,8 +48,8 @@ export function VirtualizedList<T>({
         height,
         overflowY: "auto",
         position: "relative",
-        border: "1px solid #e5e7eb",
-        borderRadius: 8,
+        border: "1px solid var(--border)",
+        borderRadius: 10,
       }}
       role="list"
       aria-label="Virtualized list"

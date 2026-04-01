@@ -22,8 +22,8 @@ export function Loading({
         className,
       )}
     >
-      <Loader2 className="w-12 h-12 text-primary animate-spin" />
-      <p className="mt-4 text-lg font-medium text-foreground">{message}</p>
+      <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      <p className="mt-3 text-[14px] font-medium text-muted-foreground tracking-[-0.01em]">{message}</p>
     </div>
   )
 }

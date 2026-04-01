@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #fafafc;
+    --foreground: #575279;
+    --card: #ffffff;
+    --card-foreground: #575279;
+    --popover: #f3f2f7;
+    --popover-foreground: #575279;
+    --primary: #907aa9;
+    --primary-foreground: #ffffff;
+    --secondary: #efeef5;
+    --secondary-foreground: #575279;
+    --muted: #efeef5;
+    --muted-foreground: #9893a5;
+    --accent: #efeef5;
+    --accent-foreground: #575279;
+    --destructive: #b4637a;
+    --destructive-foreground: #ffffff;
+    --border: #dfdee8;
+    --input: #dfdee8;
+    --ring: #907aa9;
+    --chart-1: #907aa9;
+    --chart-2: #56949f;
+    --chart-3: #286983;
+    --chart-4: #ea9d34;
+    --chart-5: #d7827e;
+    --radius: 0.625rem;
+    --sidebar-background: #fafafc;
+    --sidebar-foreground: #575279;
+    --sidebar-primary: #907aa9;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #efeef5;
+    --sidebar-accent-foreground: #575279;
+    --sidebar-border: #dfdee8;
+    --sidebar-ring: #907aa9;
+  }
+
+  .dark {
+    --background: #1e1e2e;
+    --foreground: #cdcce0;
+    --card: #262639;
+    --card-foreground: #cdcce0;
+    --popover: #2f2f44;
+    --popover-foreground: #cdcce0;
+    --primary: #af9ad2;
+    --primary-foreground: #1e1e2e;
+    --secondary: #282842;
+    --secondary-foreground: #cdcce0;
+    --muted: #282842;
+    --muted-foreground: #6e6c88;
+    --accent: #282842;
+    --accent-foreground: #cdcce0;
+    --destructive: #d4708a;
+    --destructive-foreground: #cdcce0;
+    --border: #3a3a54;
+    --input: #3a3a54;
+    --ring: #af9ad2;
+    --chart-1: #af9ad2;
+    --chart-2: #89bcc6;
+    --chart-3: #3a84a4;
+    --chart-4: #d9ae6e;
+    --chart-5: #d29290;
+    --sidebar-background: #1e1e2e;
+    --sidebar-foreground: #cdcce0;
+    --sidebar-primary: #af9ad2;
+    --sidebar-primary-foreground: #1e1e2e;
+    --sidebar-accent: #282842;
+    --sidebar-accent-foreground: #cdcce0;
+    --sidebar-border: #3a3a54;
+    --sidebar-ring: #af9ad2;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    line-height: 1.6;
+    letter-spacing: -0.011em;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}

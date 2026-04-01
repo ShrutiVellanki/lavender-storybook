@@ -1,25 +1,39 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { Badge } from "@/components/ui/badge"
+import {
+  ShoppingCart,
+  UtensilsCrossed,
+  Car,
+  ShoppingBag,
+  Zap,
+  Film,
+  CheckCircle2,
+  Clock,
+  XCircle,
+  Star,
+  Bell,
+} from "lucide-react"
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
     docs: {
       description: {
-        component: "Inline label for status, category, or count. Four variants: default, secondary, destructive, and outline. Renders as a styled div with pill border-radius.",
+        component:
+          "Inline label for status, category, or count. Supports seven variants and an optional leading icon. Pass any React node as the `icon` prop — SVGs are automatically sized to 12px.",
       },
     },
   },
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "secondary", "destructive", "outline"],
-      description: "The visual style of the badge.",
+      options: ["default", "secondary", "destructive", "outline", "success", "warning", "danger"],
     },
+    icon: { control: false },
   },
 }
 
@@ -32,6 +46,13 @@ export const Default: Story = {
   },
 }
 
+export const WithIcon: Story = {
+  args: {
+    children: "Groceries",
+    icon: <ShoppingCart />,
+  },
+}
+
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
@@ -39,6 +60,22 @@ export const AllVariants: Story = {
       <Badge variant="secondary">Secondary</Badge>
       <Badge variant="destructive">Destructive</Badge>
       <Badge variant="outline">Outline</Badge>
+      <Badge variant="success">Success</Badge>
+      <Badge variant="warning">Warning</Badge>
+      <Badge variant="danger">Danger</Badge>
+    </div>
+  ),
+}
+
+export const CategoryBadges: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Badge icon={<ShoppingCart />}>Groceries</Badge>
+      <Badge icon={<UtensilsCrossed />}>Dining</Badge>
+      <Badge icon={<Car />}>Transport</Badge>
+      <Badge icon={<ShoppingBag />}>Shopping</Badge>
+      <Badge icon={<Zap />}>Utilities</Badge>
+      <Badge icon={<Film />}>Entertainment</Badge>
     </div>
   ),
 }
@@ -46,10 +83,21 @@ export const AllVariants: Story = {
 export const StatusBadges: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Badge variant="default">Active</Badge>
-      <Badge variant="secondary">Pending</Badge>
-      <Badge variant="destructive">Overdue</Badge>
-      <Badge variant="outline">Draft</Badge>
+      <Badge variant="success" icon={<CheckCircle2 />}>completed</Badge>
+      <Badge variant="warning" icon={<Clock />}>pending</Badge>
+      <Badge variant="danger" icon={<XCircle />}>failed</Badge>
+    </div>
+  ),
+}
+
+export const IconVariants: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Badge variant="default" icon={<Star />}>Featured</Badge>
+      <Badge variant="success" icon={<CheckCircle2 />}>Verified</Badge>
+      <Badge variant="warning" icon={<Bell />}>Notification</Badge>
+      <Badge variant="destructive" icon={<XCircle />}>Error</Badge>
+      <Badge variant="outline" icon={<Clock />}>Scheduled</Badge>
     </div>
   ),
 }

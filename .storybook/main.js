@@ -14,7 +14,7 @@ module.exports = {
     config.resolve = config.resolve || {}
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@": path.resolve(__dirname, ".."),
+      "@": path.resolve(__dirname, "../src"),
     }
     return config
   },

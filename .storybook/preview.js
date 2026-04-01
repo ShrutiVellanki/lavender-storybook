@@ -1,4 +1,4 @@
-import "../app/globals.css"
+import "../src/styles/globals.css"
 import { withThemeByClassName } from "@storybook/addon-themes"
 
 /** @type { import('@storybook/react').Preview } */

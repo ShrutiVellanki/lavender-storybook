@@ -143,7 +143,7 @@ export function Select<T>({
       {label && (
         <label
           htmlFor={`${listboxId}-button`}
-          className="block mb-1.5 text-sm font-medium text-foreground"
+          className="block mb-1.5 text-[12px] font-medium text-muted-foreground"
         >
           {label}
         </label>
@@ -162,7 +162,7 @@ export function Select<T>({
         aria-haspopup="listbox"
         aria-activedescendant={activeDescendant}
         className={cn(
-          "w-full px-3 py-2 text-left text-sm rounded-md border border-input bg-background",
+          "w-full h-9 px-3 text-left text-[13px] rounded-lg border border-input bg-background",
           "flex justify-between items-center",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ring-offset-background",
           "disabled:opacity-50 disabled:cursor-not-allowed",
@@ -182,10 +182,10 @@ export function Select<T>({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute top-full left-0 right-0 mt-1 p-1 rounded-md border border-border bg-popover shadow-md max-h-60 overflow-y-auto z-[1000]"
+          className="absolute top-full left-0 right-0 mt-1 p-1 rounded-lg border border-border bg-popover shadow-md max-h-60 overflow-y-auto z-[1000]"
         >
           {options.length === 0 && (
-            <li className="px-3 py-2 text-sm text-muted-foreground">
+            <li className="px-3 py-2 text-[13px] text-muted-foreground">
               No options available.
             </li>
           )}
@@ -209,7 +209,7 @@ export function Select<T>({
                   selectOption(option)
                 }}
                 className={cn(
-                  "px-3 py-2 text-sm rounded-sm cursor-pointer transition-colors",
+                  "px-3 py-2 text-[13px] rounded-md cursor-pointer transition-colors",
                   isHighlighted && "bg-accent text-accent-foreground",
                   isSelected && "font-semibold",
                   !isHighlighted && "text-popover-foreground",

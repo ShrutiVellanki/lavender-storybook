@@ -31,7 +31,7 @@ function resolveVariant(value: number, max: number): ProgressBarVariant {
 
 const sizeClasses: Record<string, string> = {
   sm: "h-1.5",
-  default: "h-2.5",
+  default: "h-1.5",
   lg: "h-4",
 }
 
@@ -59,10 +59,10 @@ export function ProgressBar({
       {(label || showValue) && (
         <div className="flex items-center justify-between mb-1.5">
           {label && (
-            <span className="text-sm font-medium text-foreground">{label}</span>
+            <span className="text-[13px] font-medium text-foreground tracking-[-0.01em]">{label}</span>
           )}
           {showValue && (
-            <span className="text-sm tabular-nums text-muted-foreground">
+            <span className="text-[12px] tabular-nums text-muted-foreground">
               {formatted}
             </span>
           )}
