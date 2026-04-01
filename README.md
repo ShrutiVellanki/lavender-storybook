@@ -24,7 +24,7 @@ A themed, copy-paste React component library documented with Storybook. Built as
 
 ## Purpose
 
-Lavender Storybook is the single source of truth for every UI component used in [Lavender Finance](https://github.com/ShrutiVellanki/lavender-finance). It is a **copy-paste** library — components are copied directly into consuming projects rather than installed as a package.
+Lavender Storybook is the single source of truth for every UI component used in [Lavender Finance](https://github.com/ShrutiVellanki/lavender-finance). Components are copied directly into consuming projects rather than installed as a package.
 
 Use this repo to:
 
@@ -108,37 +108,6 @@ stories/
 └── preview.ts                  # Global decorators, theme setup
 ```
 
-## Components
-
-| Component | Description |
-|---|---|
-| Accordion | Collapsible content sections with keyboard navigation |
-| Autocomplete | Type-ahead search with async suggestions and blur-clear |
-| Badge | Status and category labels with icon support |
-| Button | Primary, outline, ghost, link, and danger variants |
-| Card | Container with header, title, and content slots |
-| Chart | Composable chart container, tooltip, and legend |
-| Combobox | Searchable select with custom `renderOption` / `renderValue` |
-| CreditCardForm | Multi-field card input with live preview and flip animation |
-| Dropdown / Select | Custom listbox with `renderOption`, `renderValue`, `hideLabel` |
-| ErrorDisplay | Error state with retry action |
-| LanguageSwitcher | Toggle between supported locales |
-| Loading | Spinner with optional message |
-| Modal | Dialog overlay with focus trapping and keyboard dismiss |
-| Pagination | Page navigation with previous / next and page numbers |
-| PassportForm | Identity verification form with country-specific validation |
-| PinCode | Numeric PIN input with individual digit fields |
-| ProgressBar | Horizontal bar with label, auto-variant coloring |
-| Sidebar | Collapsible navigation with brand, items, footer, and tooltips |
-| StarRating | Interactive star rating input |
-| StatCard | KPI card with label, value, icon, trend, and description |
-| Tabs | Accessible tabbed interface with keyboard arrow navigation |
-| ThemeProvider | Context provider for light / dark theme state |
-| ThemeSwitcher | Toggle button between Lavender Dawn and Lavender Moon |
-| Tooltip | Hover / focus tooltip with configurable placement |
-| TransactionList | Formatted transaction row display |
-| VirtualizedList | Windowed rendering for large lists |
-
 ## Theming
 
 All components ship with two themes:
@@ -191,14 +160,29 @@ export const Default: Story = {
 
 6. **Verify** — run `npm run storybook` and confirm the story renders in both Dawn and Moon themes.
 
-## Usage (Copy-Paste)
+## Usage
 
 To use a component in another project:
 
 1. Copy the component directory (e.g. `src/components/ui/Button/`) into your project
-2. Copy the Lavender theme tokens from `src/index.css` into your global stylesheet
-3. Ensure `clsx` and `tailwind-merge` are installed (used by `cn()`)
-4. Import and use — no package installation required
+2. Copy `src/lib/utils.ts` (the `cn()` helper used by nearly every component)
+3. Copy the Lavender theme tokens from `src/index.css` into your global stylesheet
+
+**Required peer dependencies** — these must be installed in your project:
+
+| Package | Used by |
+|---|---|
+| `clsx` | `cn()` utility |
+| `tailwind-merge` | `cn()` utility |
+| `lucide-react` | Most components (icons) |
+| `recharts` | Chart components only |
+
+Some components depend on other components in this library:
+
+| Component | Also requires |
+|---|---|
+| TransactionList | Pagination |
+| ThemeSwitcher | ThemeProvider |
 
 ## Related
 
