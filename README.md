@@ -4,29 +4,25 @@ The design system behind [Lavender Finance](https://github.com/ShrutiVellanki/la
 
 ## Screenshots
 
-<p>
-  <img src="./docs/screenshots/storybook.png" alt="Storybook" width="720" />
-</p>
 
-<p>
-  <img src="./docs/screenshots/design-tokens.png" alt="Design Tokens" width="720" />
-</p>
 
-<p>
-  <img src="./docs/screenshots/components.png" alt="Components" width="720" />
-</p>
+
+
+
 
 ## Tech Stack
 
-| Tool | Role |
-|---|---|
-| React 18 | Component runtime |
-| TypeScript | Static typing |
-| Storybook 8 | Documentation and visual testing |
-| Tailwind CSS v4 | Utility-first styling via CSS custom properties |
-| Recharts | Chart primitives |
-| Lucide React | Icons |
-| clsx + tailwind-merge | Classname composition (`cn()`) |
+
+| Tool                  | Role                                            |
+| --------------------- | ----------------------------------------------- |
+| React 18              | Component runtime                               |
+| TypeScript            | Static typing                                   |
+| Storybook 8           | Documentation and visual testing                |
+| Tailwind CSS v4       | Utility-first styling via CSS custom properties |
+| Recharts              | Chart primitives                                |
+| Lucide React          | Icons                                           |
+| clsx + tailwind-merge | Classname composition (`cn()`)                  |
+
 
 ## Getting Started
 
@@ -100,7 +96,7 @@ type Story = StoryObj<typeof MyComponent>;
 export const Default: Story = { args: {} };
 ```
 
-4. Verify it renders in both themes.
+1. Verify it renders in both themes.
 
 ## Usage
 
@@ -117,6 +113,3 @@ Copy a component directory into your project along with `src/lib/utils.ts` and t
 - TransactionList requires Pagination
 - ThemeSwitcher requires ThemeProvider
 
-## Related
-
-[Lavender Finance](https://github.com/ShrutiVellanki/lavender-finance) — the app that consumes this library.
