@@ -4,12 +4,12 @@ import { Meta, ColorPalette, ColorItem, Typeset } from '@storybook/blocks'
 
 # Getting Started
 
-Everything you need to adopt the Lavender theme in your own project. Components reference CSS custom properties for all colors — switching themes is a single class toggle on `<html>`.
+Everything you need to adopt the Lavender Design System 🐷🎨.
 
 ## Table of Contents
 
 - [Themes](#themes)
-- [Quick Setup](#quick-setup)
+- [Quick Setup](#quick-setup) — install, `cn()`, CSS tokens, Tailwind config, ThemeProvider
 - [Semantic Colors](#semantic-colors)
 - [Chart Colors](#chart-colors)
 - [Extended Palette: Lavender Dawn](#extended-palette-lavender-dawn)
@@ -43,9 +43,16 @@ Switching is controlled by the `dark` class on the document root:
 ### 1. Install dependencies
 
 ```bash
-npm install clsx tailwind-merge lucide-react
+npm install clsx tailwind-merge lucide-react tailwindcss-animate
 npm install recharts          # only if using Chart components
 ```
+
+| Package | Purpose |
+|---------|---------|
+| `clsx` + `tailwind-merge` | The `cn()` class-merging utility used by every component |
+| `lucide-react` | Icons (chevrons, close, search, spinner, etc.) |
+| `tailwindcss-animate` | Accordion expand/collapse and spinner animations |
+| `recharts` | Only needed for Chart components |
 
 ### 2. Add the `cn()` utility
 
@@ -61,6 +68,8 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ### 3. Add theme variables to your global CSS
+
+Copy the tokens into your stylesheet (e.g. `globals.css`):
 
 ```css
 @tailwind base;
@@ -130,7 +139,45 @@ export function cn(...inputs: ClassValue[]) {
 }
 ```
 
-### 4. Use ThemeProvider
+### 4. Configure Tailwind
+
+Map the CSS variables to Tailwind utilities in your `tailwind.config.ts`:
+
+```ts
+import type { Config } from "tailwindcss"
+
+const config: Config = {
+  darkMode: ["class"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        card: { DEFAULT: "var(--card)", foreground: "var(--card-foreground)" },
+        popover: { DEFAULT: "var(--popover)", foreground: "var(--popover-foreground)" },
+        primary: { DEFAULT: "var(--primary)", foreground: "var(--primary-foreground)" },
+        secondary: { DEFAULT: "var(--secondary)", foreground: "var(--secondary-foreground)" },
+        muted: { DEFAULT: "var(--muted)", foreground: "var(--muted-foreground)" },
+        accent: { DEFAULT: "var(--accent)", foreground: "var(--accent-foreground)" },
+        destructive: { DEFAULT: "var(--destructive)", foreground: "var(--destructive-foreground)" },
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate")],
+}
+export default config
+```
+
+### 5. Use ThemeProvider
 
 Wrap your app to enable theme switching with localStorage persistence:
 
