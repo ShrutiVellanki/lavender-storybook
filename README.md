@@ -2,6 +2,26 @@
 
 A themed, copy-paste React component library documented with Storybook. Built as the design system for [Lavender Finance](https://github.com/ShrutiVellanki/lavender-finance).
 
+## Screenshots
+
+### Component Stories
+
+<p>
+  <img src="./docs/screenshots/storybook.png" alt="Storybook" width="720" />
+</p>
+
+### Design Tokens
+
+<p>
+  <img src="./docs/screenshots/design-tokens.png" alt="Design Tokens" width="720" />
+</p>
+
+### Interactive Components
+
+<p>
+  <img src="./docs/screenshots/components.png" alt="Components" width="720" />
+</p>
+
 ## Tech Stack
 
 - **React 18** with TypeScript
