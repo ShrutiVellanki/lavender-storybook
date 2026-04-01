@@ -3,9 +3,6 @@ const path = require("path")
 module.exports = {
   stories: [
     "../stories/**/*.mdx",
-    "!../stories/Introduction.mdx",
-    "!../stories/GettingStarted.mdx",
-    "!../stories/Theming.mdx",
     "../stories/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [

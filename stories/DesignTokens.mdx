@@ -1,210 +1,203 @@
 import { Meta, ColorPalette, ColorItem, Typeset } from '@storybook/blocks'
 
-<Meta title="Design Tokens" />
+<Meta title="Getting Started" />
 
-# Design Tokens
+# Getting Started
 
-All components reference CSS custom properties for colors, meaning a theme switch is a single class toggle on the document root. Below is the complete token inventory.
+Everything you need to adopt the Lavender theme in your own project. Components reference CSS custom properties for all colors — switching themes is a single class toggle on `<html>`.
+
+## Table of Contents
+
+- [Themes](#themes)
+- [Quick Setup](#quick-setup)
+- [Semantic Colors](#semantic-colors)
+- [Chart Colors](#chart-colors)
+- [Extended Palette: Lavender Dawn](#extended-palette-lavender-dawn)
+- [Extended Palette: Lavender Moon](#extended-palette-lavender-moon)
+- [Spacing and Radius](#spacing-and-radius)
+- [Typography](#typography)
+
+---
+
+## Themes
+
+### ☀️ Lavender Dawn (Light)
+
+A warm, soft palette inspired by Rosé Pine Dawn. Cream backgrounds, muted purple foregrounds, and gentle borders.
+
+### 🌙 Lavender Moon (Dark)
+
+A deep, moody palette inspired by Rosé Pine Moon. Dark purple backgrounds with soft lavender accents.
+
+Switching is controlled by the `dark` class on the document root:
+
+```html
+<html>              <!-- Lavender Dawn -->
+<html class="dark"> <!-- Lavender Moon -->
+```
+
+---
+
+## Quick Setup
+
+### 1. Install dependencies
+
+```bash
+npm install clsx tailwind-merge lucide-react
+npm install recharts          # only if using Chart components
+```
+
+### 2. Add the `cn()` utility
+
+Create `lib/utils.ts`:
+
+```ts
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+### 3. Add theme variables to your global CSS
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #fafafc;
+    --foreground: #575279;
+    --card: #ffffff;
+    --card-foreground: #575279;
+    --popover: #f3f2f7;
+    --popover-foreground: #575279;
+    --primary: #907aa9;
+    --primary-foreground: #ffffff;
+    --secondary: #efeef5;
+    --secondary-foreground: #575279;
+    --muted: #efeef5;
+    --muted-foreground: #797593;
+    --accent: #efeef5;
+    --accent-foreground: #575279;
+    --destructive: #b4637a;
+    --destructive-foreground: #ffffff;
+    --border: #dfdee8;
+    --input: #dfdee8;
+    --ring: #907aa9;
+    --chart-1: #907aa9;
+    --chart-2: #56949f;
+    --chart-3: #286983;
+    --chart-4: #ea9d34;
+    --chart-5: #d7827e;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: #232136;
+    --foreground: #e0def4;
+    --card: #2a273f;
+    --card-foreground: #e0def4;
+    --popover: #393552;
+    --popover-foreground: #e0def4;
+    --primary: #c4a7e7;
+    --primary-foreground: #232136;
+    --secondary: #2a283e;
+    --secondary-foreground: #e0def4;
+    --muted: #2a283e;
+    --muted-foreground: #908caa;
+    --accent: #2a283e;
+    --accent-foreground: #e0def4;
+    --destructive: #eb6f92;
+    --destructive-foreground: #e0def4;
+    --border: #44415a;
+    --input: #44415a;
+    --ring: #c4a7e7;
+    --chart-1: #c4a7e7;
+    --chart-2: #9ccfd8;
+    --chart-3: #3e8fb0;
+    --chart-4: #f6c177;
+    --chart-5: #ea9a97;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+}
+```
+
+### 4. Use ThemeProvider
+
+Wrap your app to enable theme switching with localStorage persistence:
+
+```tsx
+import { ThemeProvider } from "@/components/ui/ThemeProvider"
+
+function App() {
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="lavender-theme">
+      {/* your app */}
+    </ThemeProvider>
+  )
+}
+```
+
+Toggle programmatically with the `useTheme` hook:
+
+```tsx
+import { useTheme } from "@/components/ui/ThemeProvider"
+
+const { theme, setTheme } = useTheme()
+setTheme(theme === "light" ? "dark" : "light")
+```
 
 ---
 
 ## Semantic Colors
 
-The core palette used by every component. Each token resolves to a different hex value depending on the active theme.
+The core palette used by every component. Each token resolves to a different value per theme.
 
 <ColorPalette>
-  <ColorItem
-    title="background"
-    subtitle="--background"
-    colors={{ 'Dawn': '#fafafc', 'Moon': '#232136' }}
-  />
-  <ColorItem
-    title="foreground"
-    subtitle="--foreground"
-    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
-  />
-  <ColorItem
-    title="card"
-    subtitle="--card"
-    colors={{ 'Dawn': '#ffffff', 'Moon': '#2a273f' }}
-  />
-  <ColorItem
-    title="card-foreground"
-    subtitle="--card-foreground"
-    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
-  />
-  <ColorItem
-    title="popover"
-    subtitle="--popover"
-    colors={{ 'Dawn': '#f3f2f7', 'Moon': '#393552' }}
-  />
-  <ColorItem
-    title="popover-foreground"
-    subtitle="--popover-foreground"
-    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
-  />
-  <ColorItem
-    title="primary"
-    subtitle="--primary"
-    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
-  />
-  <ColorItem
-    title="primary-foreground"
-    subtitle="--primary-foreground"
-    colors={{ 'Dawn': '#ffffff', 'Moon': '#232136' }}
-  />
-  <ColorItem
-    title="secondary"
-    subtitle="--secondary"
-    colors={{ 'Dawn': '#efeef5', 'Moon': '#2a283e' }}
-  />
-  <ColorItem
-    title="secondary-foreground"
-    subtitle="--secondary-foreground"
-    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
-  />
-  <ColorItem
-    title="muted"
-    subtitle="--muted"
-    colors={{ 'Dawn': '#efeef5', 'Moon': '#2a283e' }}
-  />
-  <ColorItem
-    title="muted-foreground"
-    subtitle="--muted-foreground"
-    colors={{ 'Dawn': '#797593', 'Moon': '#908caa' }}
-  />
-  <ColorItem
-    title="accent"
-    subtitle="--accent"
-    colors={{ 'Dawn': '#efeef5', 'Moon': '#2a283e' }}
-  />
-  <ColorItem
-    title="accent-foreground"
-    subtitle="--accent-foreground"
-    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
-  />
-  <ColorItem
-    title="destructive"
-    subtitle="--destructive"
-    colors={{ 'Dawn': '#b4637a', 'Moon': '#eb6f92' }}
-  />
-  <ColorItem
-    title="destructive-foreground"
-    subtitle="--destructive-foreground"
-    colors={{ 'Dawn': '#ffffff', 'Moon': '#e0def4' }}
-  />
-  <ColorItem
-    title="border"
-    subtitle="--border"
-    colors={{ 'Dawn': '#dfdee8', 'Moon': '#44415a' }}
-  />
-  <ColorItem
-    title="input"
-    subtitle="--input"
-    colors={{ 'Dawn': '#dfdee8', 'Moon': '#44415a' }}
-  />
-  <ColorItem
-    title="ring"
-    subtitle="--ring"
-    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
-  />
+  <ColorItem title="background" subtitle="--background" colors={{ 'Dawn': '#fafafc', 'Moon': '#232136' }} />
+  <ColorItem title="foreground" subtitle="--foreground" colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }} />
+  <ColorItem title="card" subtitle="--card" colors={{ 'Dawn': '#ffffff', 'Moon': '#2a273f' }} />
+  <ColorItem title="primary" subtitle="--primary" colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }} />
+  <ColorItem title="secondary" subtitle="--secondary" colors={{ 'Dawn': '#efeef5', 'Moon': '#2a283e' }} />
+  <ColorItem title="muted-foreground" subtitle="--muted-foreground" colors={{ 'Dawn': '#797593', 'Moon': '#908caa' }} />
+  <ColorItem title="destructive" subtitle="--destructive" colors={{ 'Dawn': '#b4637a', 'Moon': '#eb6f92' }} />
+  <ColorItem title="border" subtitle="--border" colors={{ 'Dawn': '#dfdee8', 'Moon': '#44415a' }} />
+  <ColorItem title="ring" subtitle="--ring" colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }} />
 </ColorPalette>
 
 ---
 
 ## Chart Colors
 
-Five data-visualization colors tuned for contrast in both themes. Use as `stroke="var(--chart-1)"` or `fill="var(--chart-2)"` in Recharts.
+Five data-visualization colors tuned for contrast in both themes. Use as `stroke="var(--chart-1)"` in Recharts.
 
 <ColorPalette>
-  <ColorItem
-    title="chart-1"
-    subtitle="--chart-1 / Primary series"
-    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
-  />
-  <ColorItem
-    title="chart-2"
-    subtitle="--chart-2 / Secondary series"
-    colors={{ 'Dawn': '#56949f', 'Moon': '#9ccfd8' }}
-  />
-  <ColorItem
-    title="chart-3"
-    subtitle="--chart-3 / Tertiary series"
-    colors={{ 'Dawn': '#286983', 'Moon': '#3e8fb0' }}
-  />
-  <ColorItem
-    title="chart-4"
-    subtitle="--chart-4 / Warning / highlight"
-    colors={{ 'Dawn': '#ea9d34', 'Moon': '#f6c177' }}
-  />
-  <ColorItem
-    title="chart-5"
-    subtitle="--chart-5 / Error / negative"
-    colors={{ 'Dawn': '#d7827e', 'Moon': '#ea9a97' }}
-  />
-</ColorPalette>
-
----
-
-## Sidebar Colors
-
-Dedicated tokens for sidebar navigation surfaces, used by Lavender Finance's collapsible sidebar.
-
-<ColorPalette>
-  <ColorItem
-    title="sidebar-background"
-    subtitle="--sidebar-background"
-    colors={{ 'Dawn': '#fafafc', 'Moon': '#232136' }}
-  />
-  <ColorItem
-    title="sidebar-foreground"
-    subtitle="--sidebar-foreground"
-    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
-  />
-  <ColorItem
-    title="sidebar-primary"
-    subtitle="--sidebar-primary"
-    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
-  />
-  <ColorItem
-    title="sidebar-primary-foreground"
-    subtitle="--sidebar-primary-foreground"
-    colors={{ 'Dawn': '#ffffff', 'Moon': '#232136' }}
-  />
-  <ColorItem
-    title="sidebar-accent"
-    subtitle="--sidebar-accent"
-    colors={{ 'Dawn': '#efeef5', 'Moon': '#2a283e' }}
-  />
-  <ColorItem
-    title="sidebar-accent-foreground"
-    subtitle="--sidebar-accent-foreground"
-    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
-  />
-  <ColorItem
-    title="sidebar-border"
-    subtitle="--sidebar-border"
-    colors={{ 'Dawn': '#dfdee8', 'Moon': '#44415a' }}
-  />
-  <ColorItem
-    title="sidebar-ring"
-    subtitle="--sidebar-ring"
-    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
-  />
+  <ColorItem title="chart-1" subtitle="Primary series" colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }} />
+  <ColorItem title="chart-2" subtitle="Secondary series" colors={{ 'Dawn': '#56949f', 'Moon': '#9ccfd8' }} />
+  <ColorItem title="chart-3" subtitle="Tertiary series" colors={{ 'Dawn': '#286983', 'Moon': '#3e8fb0' }} />
+  <ColorItem title="chart-4" subtitle="Warning / highlight" colors={{ 'Dawn': '#ea9d34', 'Moon': '#f6c177' }} />
+  <ColorItem title="chart-5" subtitle="Error / negative" colors={{ 'Dawn': '#d7827e', 'Moon': '#ea9a97' }} />
 </ColorPalette>
 
 ---
 
 ## Extended Palette: Lavender Dawn
 
-The full fixed-hex color scale available as Tailwind utilities (`bg-lavenderDawn-iris`, `text-lavenderDawn-love`, etc.). These are not CSS variables -- they are hardcoded values for use when you need a specific Dawn color regardless of active theme.
+Fixed-hex Tailwind utilities (`bg-lavenderDawn-iris`, `text-lavenderDawn-love`, etc.) for when you need a specific Dawn color regardless of active theme.
 
 <ColorPalette>
   <ColorItem title="base" subtitle="lavenderDawn.base" colors={{ '': '#fafafc' }} />
   <ColorItem title="surface" subtitle="lavenderDawn.surface" colors={{ '': '#ffffff' }} />
   <ColorItem title="overlay" subtitle="lavenderDawn.overlay" colors={{ '': '#f3f2f7' }} />
   <ColorItem title="muted" subtitle="lavenderDawn.muted" colors={{ '': '#9893a5' }} />
-  <ColorItem title="subtle" subtitle="lavenderDawn.subtle" colors={{ '': '#797593' }} />
   <ColorItem title="text" subtitle="lavenderDawn.text" colors={{ '': '#575279' }} />
   <ColorItem title="love" subtitle="lavenderDawn.love" colors={{ '': '#b4637a' }} />
   <ColorItem title="gold" subtitle="lavenderDawn.gold" colors={{ '': '#ea9d34' }} />
@@ -221,14 +214,13 @@ The full fixed-hex color scale available as Tailwind utilities (`bg-lavenderDawn
 
 ## Extended Palette: Lavender Moon
 
-The full fixed-hex color scale for the dark theme, available as Tailwind utilities (`bg-lavenderMoon-iris`, `text-lavenderMoon-love`, etc.).
+Fixed-hex Tailwind utilities for the dark theme (`bg-lavenderMoon-iris`, `text-lavenderMoon-love`, etc.).
 
 <ColorPalette>
   <ColorItem title="base" subtitle="lavenderMoon.base" colors={{ '': '#232136' }} />
   <ColorItem title="surface" subtitle="lavenderMoon.surface" colors={{ '': '#2a273f' }} />
   <ColorItem title="overlay" subtitle="lavenderMoon.overlay" colors={{ '': '#393552' }} />
   <ColorItem title="muted" subtitle="lavenderMoon.muted" colors={{ '': '#6e6a86' }} />
-  <ColorItem title="subtle" subtitle="lavenderMoon.subtle" colors={{ '': '#908caa' }} />
   <ColorItem title="text" subtitle="lavenderMoon.text" colors={{ '': '#e0def4' }} />
   <ColorItem title="love" subtitle="lavenderMoon.love" colors={{ '': '#eb6f92' }} />
   <ColorItem title="gold" subtitle="lavenderMoon.gold" colors={{ '': '#f6c177' }} />
@@ -245,17 +237,15 @@ The full fixed-hex color scale for the dark theme, available as Tailwind utiliti
 
 ## Spacing and Radius
 
-| Token | Value | Tailwind Class | Description |
-|-------|-------|---------------|-------------|
-| `--radius` | `0.5rem` | `rounded-lg` | Default border radius for cards, buttons, inputs |
-| | `calc(var(--radius) - 2px)` | `rounded-md` | Medium radius for inner elements |
-| | `calc(var(--radius) - 4px)` | `rounded-sm` | Small radius for badges, pills |
+| Token | Value | Tailwind | Usage |
+|-------|-------|----------|-------|
+| `--radius` | `0.5rem` | `rounded-lg` | Cards, buttons, inputs |
+| | `calc(var(--radius) - 2px)` | `rounded-md` | Inner elements |
+| | `calc(var(--radius) - 4px)` | `rounded-sm` | Badges, pills |
 
 ---
 
 ## Typography
-
-The default font stack used across all components:
 
 <Typeset
   fontSizes={['0.75rem', '0.875rem', '1rem', '1.125rem', '1.25rem', '1.5rem']}
@@ -264,36 +254,11 @@ The default font stack used across all components:
   fontFamily="Arial, Helvetica, sans-serif"
 />
 
-| Tailwind Class | Size | Typical Usage |
-|----------------|------|---------------|
-| `text-xs` | 0.75rem / 12px | Tooltip content, chart axis labels, Badge text |
-| `text-sm` | 0.875rem / 14px | Body text, form labels, Accordion content, Select options |
-| `text-base` | 1rem / 16px | Modal title, Tab triggers, AccountBalance |
-| `text-lg` | 1.125rem / 18px | Loading message, chart title |
-| `text-xl` | 1.25rem / 20px | ErrorDisplay title, section headings |
-| `text-2xl` | 1.5rem / 24px | CardTitle, page headings |
-
----
-
-## Token Reference
-
-Complete mapping from CSS variable to Tailwind class:
-
-| CSS Variable | Tailwind Class | Used By |
-|-------------|---------------|---------|
-| `--background` | `bg-background` | Page, Loading, ErrorDisplay |
-| `--foreground` | `text-foreground` | Body text, Accordion triggers |
-| `--card` | `bg-card` | Card, Modal, ErrorDisplay |
-| `--card-foreground` | `text-card-foreground` | Card text, Modal title |
-| `--popover` | `bg-popover` | Tooltip, Select dropdown |
-| `--popover-foreground` | `text-popover-foreground` | Tooltip text, Select options |
-| `--primary` | `bg-primary`, `text-primary` | Button default, StarRating fill, focus rings |
-| `--primary-foreground` | `text-primary-foreground` | Button text, Badge text |
-| `--secondary` | `bg-secondary` | Button secondary, ThemeSwitcher |
-| `--muted` | `bg-muted` | TabsList, disabled backgrounds |
-| `--muted-foreground` | `text-muted-foreground` | Placeholder text, secondary labels |
-| `--accent` | `bg-accent` | Hover states (Accordion, Select options) |
-| `--destructive` | `bg-destructive` | Button destructive, ErrorDisplay icon |
-| `--border` | `border-border` | All borders, dividers |
-| `--input` | `border-input` | Select button border |
-| `--ring` | `ring-ring` | Focus rings on interactive elements |
+| Class | Size | Typical usage |
+|-------|------|---------------|
+| `text-xs` | 12px | Tooltips, chart labels, badges |
+| `text-sm` | 14px | Body text, form labels, select options |
+| `text-base` | 16px | Modal titles, tab triggers |
+| `text-lg` | 18px | Section headings |
+| `text-xl` | 20px | Page headings |
+| `text-2xl` | 24px | Hero headings |

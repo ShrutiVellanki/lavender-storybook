@@ -4,25 +4,29 @@ The design system behind [Lavender Finance](https://github.com/ShrutiVellanki/la
 
 ## Screenshots
 
+<p>
+  <img src="./docs/screenshots/storybook.png" alt="Storybook" width="720" />
+</p>
 
+<p>
+  <img src="./docs/screenshots/design-tokens.png" alt="Design Tokens" width="720" />
+</p>
 
-
-
-
+<p>
+  <img src="./docs/screenshots/components.png" alt="Components" width="720" />
+</p>
 
 ## Tech Stack
 
-
-| Tool                  | Role                                            |
-| --------------------- | ----------------------------------------------- |
-| React 18              | Component runtime                               |
-| TypeScript            | Static typing                                   |
-| Storybook 8           | Documentation and visual testing                |
-| Tailwind CSS v4       | Utility-first styling via CSS custom properties |
-| Recharts              | Chart primitives                                |
-| Lucide React          | Icons                                           |
-| clsx + tailwind-merge | Classname composition (`cn()`)                  |
-
+| Tool | Role |
+|---|---|
+| React 18 | Component runtime |
+| TypeScript | Static typing |
+| Storybook 8 | Documentation and visual testing |
+| Tailwind CSS v4 | Utility-first styling via CSS custom properties |
+| Recharts | Chart primitives |
+| Lucide React | Icons |
+| clsx + tailwind-merge | Classname composition (`cn()`) |
 
 ## Getting Started
 
@@ -61,7 +65,7 @@ src/
 └── index.css               # Tailwind base + theme tokens
 stories/
 ├── *.stories.tsx            # One story file per component
-└── DesignTokens.mdx         # Token reference page
+└── DesignTokens.mdx         # Getting Started — setup, themes, color palettes
 .storybook/
 ├── main.js
 └── preview.ts
@@ -74,7 +78,7 @@ Two built-in themes defined as CSS custom properties in `src/index.css`:
 - **Lavender Dawn** — light
 - **Lavender Moon** — dark
 
-Full token reference is on the **Design Tokens** page inside Storybook.
+Full setup instructions, color palettes, and token reference are on the **Getting Started** page inside Storybook.
 
 ## Adding a Component
 
@@ -96,7 +100,7 @@ type Story = StoryObj<typeof MyComponent>;
 export const Default: Story = { args: {} };
 ```
 
-1. Verify it renders in both themes.
+4. Verify it renders in both themes.
 
 ## Usage
 
@@ -113,3 +117,6 @@ Copy a component directory into your project along with `src/lib/utils.ts` and t
 - TransactionList requires Pagination
 - ThemeSwitcher requires ThemeProvider
 
+## Related
+
+[Lavender Finance](https://github.com/ShrutiVellanki/lavender-finance) — the app that consumes this library.
