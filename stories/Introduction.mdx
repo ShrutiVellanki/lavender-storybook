@@ -1,60 +1,340 @@
-import { Meta } from '@storybook/blocks'
+import { Meta, ColorPalette, ColorItem, Typeset } from '@storybook/blocks'
 
 <Meta title="Welcome" />
 
-# Lavender Component Library
+# Lavender
 
-A copy-paste component library built with React, Tailwind CSS, and the **Lavender Dawn / Lavender Moon** theme system. Every component is fully accessible, themeable, and ready to drop into your project.
+The design system and component library powering [**Lavender Finance**](https://github.com/ShrutiVellanki/lavender-finance) -- a personal net-worth tracking dashboard built with React, Vite, and Tailwind CSS.
+
+Lavender provides **24 production-ready components**, two hand-crafted color themes (Lavender Dawn and Lavender Moon), and a complete set of design tokens. Every component is copy-pasteable, fully accessible, and theme-aware out of the box.
+
+| | |
+|---|---|
+| **Framework** | React 18 |
+| **Styling** | Tailwind CSS 3.4 |
+| **Language** | TypeScript |
+| **Docs** | Storybook 8 |
+| **Icons** | Lucide React |
+| **Charts** | Recharts |
 
 ---
 
-## What's Inside
+## Used In: Lavender Finance
+
+Lavender Finance is a personal finance dashboard that uses this component library for its entire UI. The app features net-worth tracking, account management, transaction history, budgeting, and interactive financial charts -- all rendered with components from this Storybook.
+
+Toggle between **Lavender Dawn** (light) and **Lavender Moon** (dark) using the theme switcher in the Storybook toolbar above to preview every component in both themes.
+
+---
+
+## Components
 
 ### Core UI
 
 | Component | Description |
 |-----------|-------------|
-| **Button** | Six variants (default, secondary, destructive, outline, ghost, link) with four sizes |
+| **Button** | Six variants (default, secondary, destructive, outline, ghost, link), four sizes |
 | **Badge** | Inline status labels with four variants |
-| **Card** | Composable container with Header, Title, Description, Content, and Footer slots |
-| **Loading** | Centered spinner with customizable message, supports full-screen and inline modes |
-| **ErrorDisplay** | Friendly error card with optional retry action |
+| **Card** | Composable container with Header, Title, Description, Content, Footer slots |
+| **Loading** | Animated spinner with message, full-screen or inline |
+| **ErrorDisplay** | Error card with icon, message, and optional retry |
 
 ### Interactive
 
 | Component | Description |
 |-----------|-------------|
-| **Accordion** | Single or multiple collapsible panels with full keyboard navigation |
-| **Tabs** | Horizontal or vertical tab navigation with ARIA roving tabindex |
-| **Modal** | Portal-based dialog with focus trap, backdrop click, and Escape key handling |
-| **Tooltip** | Smart-positioned tooltip that clamps to viewport edges |
-| **Select (Dropdown)** | Custom select with keyboard navigation, custom option rendering, and generic typing |
+| **Accordion** | Single or multiple collapsible panels, full keyboard navigation |
+| **Tabs** | Horizontal/vertical tab navigation with ARIA roving tabindex |
+| **Modal** | Portal dialog with focus trap, backdrop click, Escape handling |
+| **Tooltip** | Smart-positioned with viewport clamping |
+| **Select** | Custom dropdown with keyboard nav, generic typing, custom rendering |
 
-### Inputs & Forms
+### Inputs and Forms
 
 | Component | Description |
 |-----------|-------------|
-| **StarRating** | Accessible radio-group star rating with hover preview |
-| **PinCode** | Multi-digit OTP/PIN input with paste support and auto-advance |
-| **Autocomplete** | Async search input with debounce, loading states, and keyboard navigation |
-| **Combobox** | Filterable select dropdown with type-ahead |
-| **CreditCardForm** | Card number, expiry, and CVC with Luhn validation and card type detection |
-| **PassportForm** | Country-aware passport number input with format validation |
+| **StarRating** | Radio-group star rating with hover preview |
+| **PinCode** | Multi-digit OTP input with paste and auto-advance |
+| **Autocomplete** | Async search with debounce and keyboard navigation |
+| **Combobox** | Filterable select with type-ahead |
+| **CreditCardForm** | Luhn validation, card type detection, formatting |
+| **PassportForm** | Country-aware passport validation |
 
 ### Data Display
 
 | Component | Description |
 |-----------|-------------|
-| **TransactionList** | Sortable, searchable, filterable data table with status badges |
-| **VirtualizedList** | Windowed list rendering for large datasets with configurable overscan |
-| **Chart** | Recharts wrapper with themed tooltips, legends, and automatic color mapping |
+| **TransactionList** | Sortable, searchable, filterable data table |
+| **VirtualizedList** | Windowed rendering for large datasets |
+| **Chart** | Recharts wrapper with themed tooltips, legends, color mapping |
 
 ### Theming
 
 | Component | Description |
 |-----------|-------------|
-| **ThemeProvider** | Context provider for light/dark mode with localStorage persistence |
-| **ThemeSwitcher** | One-click toggle between Lavender Dawn and Lavender Moon |
+| **ThemeProvider** | Light/dark context with localStorage persistence |
+| **ThemeSwitcher** | One-click Dawn/Moon toggle |
+
+---
+
+## Design Tokens
+
+All components reference CSS custom properties for colors, meaning a theme switch is a single class toggle on the document root. Below is the complete token inventory.
+
+### Semantic Colors
+
+The core palette used by every component. Each token resolves to a different hex value depending on the active theme.
+
+<ColorPalette>
+  <ColorItem
+    title="background"
+    subtitle="--background"
+    colors={{ 'Dawn': '#faf4ed', 'Moon': '#232136' }}
+  />
+  <ColorItem
+    title="foreground"
+    subtitle="--foreground"
+    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
+  />
+  <ColorItem
+    title="card"
+    subtitle="--card"
+    colors={{ 'Dawn': '#fffaf3', 'Moon': '#2a273f' }}
+  />
+  <ColorItem
+    title="card-foreground"
+    subtitle="--card-foreground"
+    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
+  />
+  <ColorItem
+    title="popover"
+    subtitle="--popover"
+    colors={{ 'Dawn': '#f2e9e1', 'Moon': '#393552' }}
+  />
+  <ColorItem
+    title="popover-foreground"
+    subtitle="--popover-foreground"
+    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
+  />
+  <ColorItem
+    title="primary"
+    subtitle="--primary"
+    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
+  />
+  <ColorItem
+    title="primary-foreground"
+    subtitle="--primary-foreground"
+    colors={{ 'Dawn': '#ffffff', 'Moon': '#232136' }}
+  />
+  <ColorItem
+    title="secondary"
+    subtitle="--secondary"
+    colors={{ 'Dawn': '#f4ede8', 'Moon': '#2a283e' }}
+  />
+  <ColorItem
+    title="secondary-foreground"
+    subtitle="--secondary-foreground"
+    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
+  />
+  <ColorItem
+    title="muted"
+    subtitle="--muted"
+    colors={{ 'Dawn': '#f4ede8', 'Moon': '#2a283e' }}
+  />
+  <ColorItem
+    title="muted-foreground"
+    subtitle="--muted-foreground"
+    colors={{ 'Dawn': '#797593', 'Moon': '#908caa' }}
+  />
+  <ColorItem
+    title="accent"
+    subtitle="--accent"
+    colors={{ 'Dawn': '#f4ede8', 'Moon': '#2a283e' }}
+  />
+  <ColorItem
+    title="accent-foreground"
+    subtitle="--accent-foreground"
+    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
+  />
+  <ColorItem
+    title="destructive"
+    subtitle="--destructive"
+    colors={{ 'Dawn': '#b4637a', 'Moon': '#eb6f92' }}
+  />
+  <ColorItem
+    title="destructive-foreground"
+    subtitle="--destructive-foreground"
+    colors={{ 'Dawn': '#ffffff', 'Moon': '#e0def4' }}
+  />
+  <ColorItem
+    title="border"
+    subtitle="--border"
+    colors={{ 'Dawn': '#dfdad9', 'Moon': '#44415a' }}
+  />
+  <ColorItem
+    title="input"
+    subtitle="--input"
+    colors={{ 'Dawn': '#dfdad9', 'Moon': '#44415a' }}
+  />
+  <ColorItem
+    title="ring"
+    subtitle="--ring"
+    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
+  />
+</ColorPalette>
+
+### Chart Colors
+
+Five data-visualization colors tuned for contrast in both themes. Use as `stroke="var(--chart-1)"` or `fill="var(--chart-2)"` in Recharts.
+
+<ColorPalette>
+  <ColorItem
+    title="chart-1"
+    subtitle="--chart-1 / Primary series"
+    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
+  />
+  <ColorItem
+    title="chart-2"
+    subtitle="--chart-2 / Secondary series"
+    colors={{ 'Dawn': '#56949f', 'Moon': '#9ccfd8' }}
+  />
+  <ColorItem
+    title="chart-3"
+    subtitle="--chart-3 / Tertiary series"
+    colors={{ 'Dawn': '#286983', 'Moon': '#3e8fb0' }}
+  />
+  <ColorItem
+    title="chart-4"
+    subtitle="--chart-4 / Warning / highlight"
+    colors={{ 'Dawn': '#ea9d34', 'Moon': '#f6c177' }}
+  />
+  <ColorItem
+    title="chart-5"
+    subtitle="--chart-5 / Error / negative"
+    colors={{ 'Dawn': '#d7827e', 'Moon': '#ea9a97' }}
+  />
+</ColorPalette>
+
+### Sidebar Colors
+
+Dedicated tokens for sidebar navigation surfaces, used by Lavender Finance's collapsible sidebar.
+
+<ColorPalette>
+  <ColorItem
+    title="sidebar-background"
+    subtitle="--sidebar-background"
+    colors={{ 'Dawn': '#faf4ed', 'Moon': '#232136' }}
+  />
+  <ColorItem
+    title="sidebar-foreground"
+    subtitle="--sidebar-foreground"
+    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
+  />
+  <ColorItem
+    title="sidebar-primary"
+    subtitle="--sidebar-primary"
+    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
+  />
+  <ColorItem
+    title="sidebar-primary-foreground"
+    subtitle="--sidebar-primary-foreground"
+    colors={{ 'Dawn': '#ffffff', 'Moon': '#232136' }}
+  />
+  <ColorItem
+    title="sidebar-accent"
+    subtitle="--sidebar-accent"
+    colors={{ 'Dawn': '#f4ede8', 'Moon': '#2a283e' }}
+  />
+  <ColorItem
+    title="sidebar-accent-foreground"
+    subtitle="--sidebar-accent-foreground"
+    colors={{ 'Dawn': '#575279', 'Moon': '#e0def4' }}
+  />
+  <ColorItem
+    title="sidebar-border"
+    subtitle="--sidebar-border"
+    colors={{ 'Dawn': '#dfdad9', 'Moon': '#44415a' }}
+  />
+  <ColorItem
+    title="sidebar-ring"
+    subtitle="--sidebar-ring"
+    colors={{ 'Dawn': '#907aa9', 'Moon': '#c4a7e7' }}
+  />
+</ColorPalette>
+
+### Extended Palette: Lavender Dawn
+
+The full fixed-hex color scale available as Tailwind utilities (`bg-lavenderDawn-iris`, `text-lavenderDawn-love`, etc.). These are not CSS variables -- they are hardcoded values for use when you need a specific Dawn color regardless of active theme.
+
+<ColorPalette>
+  <ColorItem title="base" subtitle="lavenderDawn.base" colors={{ '': '#faf4ed' }} />
+  <ColorItem title="surface" subtitle="lavenderDawn.surface" colors={{ '': '#fffaf3' }} />
+  <ColorItem title="overlay" subtitle="lavenderDawn.overlay" colors={{ '': '#f2e9e1' }} />
+  <ColorItem title="muted" subtitle="lavenderDawn.muted" colors={{ '': '#9893a5' }} />
+  <ColorItem title="subtle" subtitle="lavenderDawn.subtle" colors={{ '': '#797593' }} />
+  <ColorItem title="text" subtitle="lavenderDawn.text" colors={{ '': '#575279' }} />
+  <ColorItem title="love" subtitle="lavenderDawn.love" colors={{ '': '#b4637a' }} />
+  <ColorItem title="gold" subtitle="lavenderDawn.gold" colors={{ '': '#ea9d34' }} />
+  <ColorItem title="rose" subtitle="lavenderDawn.rose" colors={{ '': '#d7827e' }} />
+  <ColorItem title="pine" subtitle="lavenderDawn.pine" colors={{ '': '#286983' }} />
+  <ColorItem title="foam" subtitle="lavenderDawn.foam" colors={{ '': '#56949f' }} />
+  <ColorItem title="iris" subtitle="lavenderDawn.iris" colors={{ '': '#907aa9' }} />
+  <ColorItem title="highlightLow" subtitle="lavenderDawn.highlightLow" colors={{ '': '#f4ede8' }} />
+  <ColorItem title="highlightMed" subtitle="lavenderDawn.highlightMed" colors={{ '': '#dfdad9' }} />
+  <ColorItem title="highlightHigh" subtitle="lavenderDawn.highlightHigh" colors={{ '': '#cecacd' }} />
+</ColorPalette>
+
+### Extended Palette: Lavender Moon
+
+The full fixed-hex color scale for the dark theme, available as Tailwind utilities (`bg-lavenderMoon-iris`, `text-lavenderMoon-love`, etc.).
+
+<ColorPalette>
+  <ColorItem title="base" subtitle="lavenderMoon.base" colors={{ '': '#232136' }} />
+  <ColorItem title="surface" subtitle="lavenderMoon.surface" colors={{ '': '#2a273f' }} />
+  <ColorItem title="overlay" subtitle="lavenderMoon.overlay" colors={{ '': '#393552' }} />
+  <ColorItem title="muted" subtitle="lavenderMoon.muted" colors={{ '': '#6e6a86' }} />
+  <ColorItem title="subtle" subtitle="lavenderMoon.subtle" colors={{ '': '#908caa' }} />
+  <ColorItem title="text" subtitle="lavenderMoon.text" colors={{ '': '#e0def4' }} />
+  <ColorItem title="love" subtitle="lavenderMoon.love" colors={{ '': '#eb6f92' }} />
+  <ColorItem title="gold" subtitle="lavenderMoon.gold" colors={{ '': '#f6c177' }} />
+  <ColorItem title="rose" subtitle="lavenderMoon.rose" colors={{ '': '#ea9a97' }} />
+  <ColorItem title="pine" subtitle="lavenderMoon.pine" colors={{ '': '#3e8fb0' }} />
+  <ColorItem title="foam" subtitle="lavenderMoon.foam" colors={{ '': '#9ccfd8' }} />
+  <ColorItem title="iris" subtitle="lavenderMoon.iris" colors={{ '': '#c4a7e7' }} />
+  <ColorItem title="highlightLow" subtitle="lavenderMoon.highlightLow" colors={{ '': '#2a283e' }} />
+  <ColorItem title="highlightMed" subtitle="lavenderMoon.highlightMed" colors={{ '': '#44415a' }} />
+  <ColorItem title="highlightHigh" subtitle="lavenderMoon.highlightHigh" colors={{ '': '#56526e' }} />
+</ColorPalette>
+
+### Spacing and Radius
+
+| Token | Value | Tailwind Class | Description |
+|-------|-------|---------------|-------------|
+| `--radius` | `0.5rem` | `rounded-lg` | Default border radius for cards, buttons, inputs |
+| | `calc(var(--radius) - 2px)` | `rounded-md` | Medium radius for inner elements |
+| | `calc(var(--radius) - 4px)` | `rounded-sm` | Small radius for badges, pills |
+
+---
+
+## Typography
+
+The default font stack used across all components:
+
+<Typeset
+  fontSizes={['0.75rem', '0.875rem', '1rem', '1.125rem', '1.25rem', '1.5rem']}
+  fontWeight={400}
+  sampleText="Lavender Finance"
+  fontFamily="Arial, Helvetica, sans-serif"
+/>
+
+| Tailwind Class | Size | Typical Usage |
+|----------------|------|---------------|
+| `text-xs` | 0.75rem / 12px | Tooltip content, chart axis labels, Badge text |
+| `text-sm` | 0.875rem / 14px | Body text, form labels, Accordion content, Select options |
+| `text-base` | 1rem / 16px | Modal title, Tab triggers, AccountBalance |
+| `text-lg` | 1.125rem / 18px | Loading message, chart title |
+| `text-xl` | 1.25rem / 20px | ErrorDisplay title, section headings |
+| `text-2xl` | 1.5rem / 24px | CardTitle, page headings |
 
 ---
 
@@ -62,25 +342,19 @@ A copy-paste component library built with React, Tailwind CSS, and the **Lavende
 
 All components follow these principles:
 
-- **Zero external UI dependencies** — built on native HTML, React, and Tailwind CSS. No Radix, Headless UI, or other UI primitives required at runtime.
-- **Controlled + uncontrolled** — interactive components accept both `value`/`onChange` (controlled) and `defaultValue` (uncontrolled) patterns.
-- **Generic typing** — Select, Autocomplete, Combobox, and VirtualizedList are generic (`<T>`) so they work with any data shape.
-- **ARIA compliant** — roles, states, and keyboard interaction patterns follow WAI-ARIA Authoring Practices.
-- **Theme token based** — all colors reference CSS custom properties, making theme swaps a single class toggle.
+- **Zero external UI dependencies** -- built on native HTML, React, and Tailwind CSS. No Radix, Headless UI, or other UI primitives required at runtime.
+- **Controlled and uncontrolled** -- interactive components accept both `value`/`onChange` (controlled) and `defaultValue` (uncontrolled) patterns.
+- **Generic typing** -- Select, Autocomplete, Combobox, and VirtualizedList are generic (`<T>`) so they work with any data shape.
+- **ARIA compliant** -- roles, states, and keyboard interaction patterns follow WAI-ARIA Authoring Practices.
+- **Theme token based** -- all colors reference CSS custom properties, making theme swaps a single class toggle.
 
 ---
 
-## Quick Start
+## Storybook Setup
 
-```bash
-# Install dependencies
-npm install lucide-react tailwindcss tailwind-merge clsx
+This Storybook is configured with `@storybook/addon-themes`. Use the **theme switcher** in the toolbar to toggle between **Lavender Dawn** and **Lavender Moon** and see every component in both themes.
 
-# Copy a component
-cp components/ui/button.tsx your-project/components/ui/
-
-# Import and use
-import { Button } from "@/components/ui/button"
-```
-
-Browse the **Getting Started** and **Theming** guides in the sidebar for full setup instructions.
+Browse the sidebar for:
+- **Getting Started** -- installation, setup, and usage guide
+- **Theming** -- full token reference, ThemeProvider API, and customization instructions
+- **Components/** -- interactive demos and auto-generated API docs for every component
