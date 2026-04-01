@@ -14,5 +14,6 @@ export type SelectProps<T> = {
     option: T,
     state: { isSelected: boolean; isHighlighted: boolean },
   ) => React.ReactNode
+  renderValue?: (option: T) => React.ReactNode
   className?: string
 }

@@ -2,6 +2,7 @@ import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
 import { Select } from "@/components/ui/Dropdown"
+import { Apple, Cherry, Grape } from "lucide-react"
 
 const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape"]
 
@@ -75,6 +76,41 @@ export const Disabled: Story = {
       label="Disabled select"
     />
   ),
+}
+
+const FRUIT_ICONS: Record<string, React.ReactNode> = {
+  Apple: <Apple className="w-3.5 h-3.5" />,
+  Cherry: <Cherry className="w-3.5 h-3.5" />,
+  Grape: <Grape className="w-3.5 h-3.5" />,
+}
+
+export const WithIcons: Story = {
+  name: "With Icons (renderValue)",
+  render: function IconSelect() {
+    const [value, setValue] = useState<string | undefined>(undefined)
+    return (
+      <Select
+        options={fruits}
+        value={value}
+        onChange={setValue}
+        getOptionLabel={(f) => f}
+        renderOption={(f) => (
+          <span className="flex items-center gap-2">
+            {FRUIT_ICONS[f] && <span className="opacity-60">{FRUIT_ICONS[f]}</span>}
+            {f}
+          </span>
+        )}
+        renderValue={(f) => (
+          <span className="flex items-center gap-2">
+            {FRUIT_ICONS[f] && <span className="opacity-60">{FRUIT_ICONS[f]}</span>}
+            {f}
+          </span>
+        )}
+        placeholder="Pick a fruit"
+        label="Fruit with icon"
+      />
+    )
+  },
 }
 
 export const ObjectOptions: Story = {
