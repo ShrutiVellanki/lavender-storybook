@@ -1,0 +1,201 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Theming" />
+
+# Theming
+
+Lavender uses **CSS custom properties** for theming, with Tailwind CSS utilities mapped to those variables. Switching themes is a matter of toggling a single CSS class on the root element.
+
+---
+
+## The Two Themes
+
+### Lavender Dawn (Light)
+
+A warm, soft palette inspired by Rosé Pine Dawn. Cream backgrounds, muted purple foregrounds, and gentle borders.
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `--background` | `#faf4ed` | Page background |
+| `--foreground` | `#575279` | Primary text |
+| `--card` | `#fffaf3` | Card surfaces |
+| `--primary` | `#907aa9` | Buttons, links, focus rings |
+| `--secondary` | `#f4ede8` | Secondary buttons, muted surfaces |
+| `--muted` | `#f4ede8` | Disabled states, subtle backgrounds |
+| `--muted-foreground` | `#797593` | Secondary text, placeholders |
+| `--accent` | `#f4ede8` | Hover highlights |
+| `--destructive` | `#b4637a` | Error states, delete actions |
+| `--border` | `#dfdad9` | Borders, dividers |
+| `--ring` | `#907aa9` | Focus ring color |
+
+### Lavender Moon (Dark)
+
+A deep, moody palette inspired by Rosé Pine Moon. Dark purple backgrounds with soft lavender foregrounds.
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `--background` | `#232136` | Page background |
+| `--foreground` | `#e0def4` | Primary text |
+| `--card` | `#2a273f` | Card surfaces |
+| `--primary` | `#c4a7e7` | Buttons, links, focus rings |
+| `--secondary` | `#2a283e` | Secondary buttons, muted surfaces |
+| `--muted` | `#2a283e` | Disabled states, subtle backgrounds |
+| `--muted-foreground` | `#908caa` | Secondary text, placeholders |
+| `--accent` | `#2a283e` | Hover highlights |
+| `--destructive` | `#eb6f92` | Error states, delete actions |
+| `--border` | `#44415a` | Borders, dividers |
+| `--ring` | `#c4a7e7` | Focus ring color |
+
+---
+
+## Chart Colors
+
+Both themes include five chart colors that maintain good contrast:
+
+| Token | Dawn | Moon | Suggested Use |
+|-------|------|------|---------------|
+| `--chart-1` | `#907aa9` | `#c4a7e7` | Primary data series |
+| `--chart-2` | `#56949f` | `#9ccfd8` | Secondary data series |
+| `--chart-3` | `#286983` | `#3e8fb0` | Tertiary data series |
+| `--chart-4` | `#ea9d34` | `#f6c177` | Warning / highlight |
+| `--chart-5` | `#d7827e` | `#ea9a97` | Error / negative |
+
+Use them in Recharts as `stroke="var(--chart-1)"` or `fill="var(--chart-2)"`.
+
+---
+
+## How Theme Switching Works
+
+### 1. CSS Class Toggle
+
+The dark theme activates when the `dark` class is present on the document root:
+
+```html
+<!-- Light (Lavender Dawn) -->
+<html>
+
+<!-- Dark (Lavender Moon) -->
+<html class="dark">
+```
+
+Tailwind's `darkMode: ["class"]` configuration enables this pattern.
+
+### 2. ThemeProvider Component
+
+The `ThemeProvider` wraps your app and manages the theme state:
+
+```tsx
+import { ThemeProvider } from "@/components/ui/theme-provider"
+
+function App() {
+  return (
+    <ThemeProvider defaultTheme="light" storageKey="lavender-theme">
+      {/* your app */}
+    </ThemeProvider>
+  )
+}
+```
+
+**Props:**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultTheme` | `"light" \| "dark"` | `"light"` | Initial theme if no saved preference exists |
+| `storageKey` | `string` | `"lavender-theme"` | localStorage key for persisting the user's choice |
+
+**Behavior:**
+1. On mount, reads `localStorage` for a saved theme
+2. Falls back to `prefers-color-scheme` media query
+3. Falls back to `defaultTheme`
+4. Adds/removes the `dark` class on `<html>`
+5. Sets `data-theme="light"` or `data-theme="dark"` on `<html>`
+6. Persists changes to `localStorage`
+
+### 3. ThemeSwitcher Component
+
+A pre-built toggle button:
+
+```tsx
+import { ThemeSwitcher } from "@/components/ui/theme-switcher"
+
+<ThemeSwitcher />
+```
+
+Renders a Sun icon in dark mode, Moon icon in light mode. Must be used inside a `ThemeProvider`.
+
+### 4. useTheme Hook
+
+Access the current theme programmatically:
+
+```tsx
+import { useTheme } from "@/components/ui/theme-provider"
+
+function MyComponent() {
+  const { theme, setTheme } = useTheme()
+
+  return (
+    <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+      Current: {theme}
+    </button>
+  )
+}
+```
+
+---
+
+## Customizing the Palette
+
+To create your own theme variant, override the CSS variables:
+
+```css
+@layer base {
+  :root {
+    /* Your custom light theme */
+    --background: #ffffff;
+    --foreground: #1a1a1a;
+    --primary: #6366f1;
+    /* ... override all tokens */
+  }
+
+  .dark {
+    /* Your custom dark theme */
+    --background: #0f0f23;
+    --foreground: #e2e8f0;
+    --primary: #818cf8;
+    /* ... override all tokens */
+  }
+}
+```
+
+All components will automatically pick up the new colors — no component code changes needed.
+
+---
+
+## Storybook Theme Preview
+
+This Storybook is configured with `@storybook/addon-themes`. Use the **theme switcher in the toolbar** (sun/moon icon at the top) to toggle between Lavender Dawn and Lavender Moon and see every component in both themes.
+
+---
+
+## Token Reference
+
+Here is the complete mapping from CSS variable to Tailwind class:
+
+| CSS Variable | Tailwind Class | Used By |
+|-------------|---------------|---------|
+| `--background` | `bg-background` | Page, Loading, ErrorDisplay |
+| `--foreground` | `text-foreground` | Body text, Accordion triggers |
+| `--card` | `bg-card` | Card, Modal, ErrorDisplay |
+| `--card-foreground` | `text-card-foreground` | Card text, Modal title |
+| `--popover` | `bg-popover` | Tooltip, Select dropdown |
+| `--popover-foreground` | `text-popover-foreground` | Tooltip text, Select options |
+| `--primary` | `bg-primary`, `text-primary` | Button default, StarRating fill, focus rings |
+| `--primary-foreground` | `text-primary-foreground` | Button text, Badge text |
+| `--secondary` | `bg-secondary` | Button secondary, ThemeSwitcher |
+| `--muted` | `bg-muted` | TabsList, disabled backgrounds |
+| `--muted-foreground` | `text-muted-foreground` | Placeholder text, secondary labels |
+| `--accent` | `bg-accent` | Hover states (Accordion, Select options) |
+| `--destructive` | `bg-destructive` | Button destructive, ErrorDisplay icon |
+| `--border` | `border-border` | All borders, dividers |
+| `--input` | `border-input` | Select button border |
+| `--ring` | `ring-ring` | Focus rings on interactive elements |

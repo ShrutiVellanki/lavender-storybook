@@ -13,7 +13,15 @@ import { Button } from "@/components/ui/button"
 const meta: Meta<typeof Card> = {
   title: "Components/Card",
   component: Card,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "Composable container with five sub-components: CardHeader, CardTitle, CardDescription, CardContent, and CardFooter. Uses theme tokens for background, border, and shadow. Forwards refs on all sub-components.",
+      },
+    },
+  },
 }
 
 export default meta

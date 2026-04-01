@@ -1,0 +1,86 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Welcome" />
+
+# Lavender Component Library
+
+A copy-paste component library built with React, Tailwind CSS, and the **Lavender Dawn / Lavender Moon** theme system. Every component is fully accessible, themeable, and ready to drop into your project.
+
+---
+
+## What's Inside
+
+### Core UI
+
+| Component | Description |
+|-----------|-------------|
+| **Button** | Six variants (default, secondary, destructive, outline, ghost, link) with four sizes |
+| **Badge** | Inline status labels with four variants |
+| **Card** | Composable container with Header, Title, Description, Content, and Footer slots |
+| **Loading** | Centered spinner with customizable message, supports full-screen and inline modes |
+| **ErrorDisplay** | Friendly error card with optional retry action |
+
+### Interactive
+
+| Component | Description |
+|-----------|-------------|
+| **Accordion** | Single or multiple collapsible panels with full keyboard navigation |
+| **Tabs** | Horizontal or vertical tab navigation with ARIA roving tabindex |
+| **Modal** | Portal-based dialog with focus trap, backdrop click, and Escape key handling |
+| **Tooltip** | Smart-positioned tooltip that clamps to viewport edges |
+| **Select (Dropdown)** | Custom select with keyboard navigation, custom option rendering, and generic typing |
+
+### Inputs & Forms
+
+| Component | Description |
+|-----------|-------------|
+| **StarRating** | Accessible radio-group star rating with hover preview |
+| **PinCode** | Multi-digit OTP/PIN input with paste support and auto-advance |
+| **Autocomplete** | Async search input with debounce, loading states, and keyboard navigation |
+| **Combobox** | Filterable select dropdown with type-ahead |
+| **CreditCardForm** | Card number, expiry, and CVC with Luhn validation and card type detection |
+| **PassportForm** | Country-aware passport number input with format validation |
+
+### Data Display
+
+| Component | Description |
+|-----------|-------------|
+| **TransactionList** | Sortable, searchable, filterable data table with status badges |
+| **VirtualizedList** | Windowed list rendering for large datasets with configurable overscan |
+| **Chart** | Recharts wrapper with themed tooltips, legends, and automatic color mapping |
+
+### Theming
+
+| Component | Description |
+|-----------|-------------|
+| **ThemeProvider** | Context provider for light/dark mode with localStorage persistence |
+| **ThemeSwitcher** | One-click toggle between Lavender Dawn and Lavender Moon |
+
+---
+
+## Architecture
+
+All components follow these principles:
+
+- **Zero external UI dependencies** — built on native HTML, React, and Tailwind CSS. No Radix, Headless UI, or other UI primitives required at runtime.
+- **Controlled + uncontrolled** — interactive components accept both `value`/`onChange` (controlled) and `defaultValue` (uncontrolled) patterns.
+- **Generic typing** — Select, Autocomplete, Combobox, and VirtualizedList are generic (`<T>`) so they work with any data shape.
+- **ARIA compliant** — roles, states, and keyboard interaction patterns follow WAI-ARIA Authoring Practices.
+- **Theme token based** — all colors reference CSS custom properties, making theme swaps a single class toggle.
+
+---
+
+## Quick Start
+
+```bash
+# Install dependencies
+npm install lucide-react tailwindcss tailwind-merge clsx
+
+# Copy a component
+cp components/ui/button.tsx your-project/components/ui/
+
+# Import and use
+import { Button } from "@/components/ui/button"
+```
+
+Browse the **Getting Started** and **Theming** guides in the sidebar for full setup instructions.

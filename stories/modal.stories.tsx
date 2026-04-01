@@ -7,7 +7,16 @@ import { Button } from "@/components/ui/button"
 const meta: Meta<typeof Modal> = {
   title: "Components/Modal",
   component: Modal,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Portal-based dialog rendered at the document body. Features focus trapping, Escape key dismissal, backdrop click handling, and scroll locking. Accepts a title, optional close button, and configurable dismiss behavior.",
+      },
+    },
+  },
 }
 
 export default meta

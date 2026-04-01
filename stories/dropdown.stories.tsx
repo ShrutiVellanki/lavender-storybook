@@ -8,7 +8,16 @@ const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape
 const meta: Meta<typeof Select> = {
   title: "Components/Dropdown",
   component: Select,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Custom select dropdown with keyboard navigation (ArrowUp/Down, Enter, Space, Escape). Generic typed — works with strings, objects, or any data shape. Supports controlled and uncontrolled modes, custom option rendering, disabled state, and an optional label.",
+      },
+    },
+  },
 }
 
 export default meta

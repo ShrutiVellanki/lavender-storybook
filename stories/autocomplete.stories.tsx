@@ -34,7 +34,16 @@ function mockFetchCountries(query: string): Promise<string[]> {
 const meta: Meta<typeof Autocomplete> = {
   title: "Components/Autocomplete",
   component: Autocomplete,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Async search input with debounced fetching, loading/error states, and keyboard navigation. Generic typed — works with any data shape via fetchSuggestions, getOptionLabel, and onSelect. Supports configurable debounce delay and minimum query length.",
+      },
+    },
+  },
 }
 
 export default meta

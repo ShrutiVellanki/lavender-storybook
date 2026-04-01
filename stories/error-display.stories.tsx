@@ -5,7 +5,15 @@ import { ErrorDisplay } from "@/components/ui/error-display"
 const meta: Meta<typeof ErrorDisplay> = {
   title: "Components/ErrorDisplay",
   component: ErrorDisplay,
-  parameters: { layout: "fullscreen" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      description: {
+        component: "User-friendly error card with icon, title, message, and optional retry button. Supports full-screen and inline layouts. Uses destructive theme color for the error icon.",
+      },
+    },
+  },
   argTypes: {
     message: {
       control: "text",

@@ -6,7 +6,16 @@ import { Tabs, TabsList, TabsTrigger, TabsPanel } from "@/components/ui/tabs"
 const meta: Meta<typeof Tabs> = {
   title: "Components/Tabs",
   component: Tabs,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Accessible tab navigation with ARIA roving tabindex. Supports horizontal and vertical orientations, controlled and uncontrolled modes, and disabled tabs. Composed via Tabs, TabsList, TabsTrigger, and TabsPanel sub-components.",
+      },
+    },
+  },
 }
 
 export default meta

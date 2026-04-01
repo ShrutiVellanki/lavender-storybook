@@ -6,7 +6,16 @@ import PinInput from "@/components/ui/pin-code"
 const meta: Meta<typeof PinInput> = {
   title: "Components/PinCode",
   component: PinInput,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Multi-digit OTP/PIN input with auto-advance between fields. Supports paste handling, Backspace navigation, ArrowLeft/Right movement, masked (password) mode, and controlled/uncontrolled usage. Fires onComplete when all digits are entered.",
+      },
+    },
+  },
 }
 
 export default meta

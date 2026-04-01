@@ -5,7 +5,16 @@ import CreditCardForm from "@/components/ui/credit-card-form"
 const meta: Meta<typeof CreditCardForm> = {
   title: "Components/CreditCardForm",
   component: CreditCardForm,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Complete credit card payment form with real-time validation. Detects card type (Visa, Mastercard, Amex), formats card number with appropriate spacing, validates via Luhn algorithm, and validates expiry and CVC with card-type-aware rules.",
+      },
+    },
+  },
 }
 
 export default meta

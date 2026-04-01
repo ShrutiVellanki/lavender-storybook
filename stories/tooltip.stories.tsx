@@ -6,7 +6,16 @@ import { Button } from "@/components/ui/button"
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
   component: Tooltip,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Hover/focus-triggered tooltip rendered via portal. Supports four placements (top, bottom, left, right) with automatic viewport clamping. Controlled and uncontrolled modes available. Cleans up on Escape, scroll, and resize.",
+      },
+    },
+  },
 }
 
 export default meta

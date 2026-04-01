@@ -25,7 +25,16 @@ const FruitCombobox = Combobox
 const meta: Meta<typeof Combobox> = {
   title: "Components/ComboPopoverBox",
   component: Combobox,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Filterable combobox that combines a text input with a dropdown list. Type to filter options, use keyboard to navigate. Generic typed, supports controlled/uncontrolled modes, custom option rendering, and disabled state.",
+      },
+    },
+  },
 }
 
 export default meta

@@ -5,7 +5,16 @@ import PassportForm from "@/components/ui/passport-form"
 const meta: Meta<typeof PassportForm> = {
   title: "Components/PassportForm",
   component: PassportForm,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Country-aware passport number form with dynamic validation rules. Supports USA (9 digits), Canada (2 letters + 6 digits), and UK (9 alphanumeric) formats. Auto-uppercases input for Canada and UK. Validates on blur and submit.",
+      },
+    },
+  },
 }
 
 export default meta

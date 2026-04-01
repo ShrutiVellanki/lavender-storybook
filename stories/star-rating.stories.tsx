@@ -6,7 +6,16 @@ import { StarRating } from "@/components/ui/star-rating"
 const meta: Meta<typeof StarRating> = {
   title: "Components/StarRating",
   component: StarRating,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Accessible star rating input rendered as a radio group. Supports hover preview, keyboard navigation (Arrow keys, Home, End), read-only and disabled modes. Controlled and uncontrolled. Configurable max stars.",
+      },
+    },
+  },
   argTypes: {
     max: {
       control: { type: "number", min: 1, max: 10 },

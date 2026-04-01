@@ -48,7 +48,16 @@ const sampleTransactions = [
 const meta: Meta<typeof TransactionList> = {
   title: "Components/TransactionList",
   component: TransactionList,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Sortable, searchable, filterable data table for financial transactions. Features column sorting with direction indicators, text search across customer name and ID, status filtering (succeeded/pending/failed), and computed volume totals. Formats currency and dates with Intl formatters.",
+      },
+    },
+  },
 }
 
 export default meta

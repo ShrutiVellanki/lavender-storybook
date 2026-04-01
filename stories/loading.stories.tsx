@@ -5,7 +5,15 @@ import { Loading } from "@/components/ui/loading"
 const meta: Meta<typeof Loading> = {
   title: "Components/Loading",
   component: Loading,
-  parameters: { layout: "fullscreen" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      description: {
+        component: "Centered loading indicator with animated spinner (Lucide Loader2) and customizable message. Supports full-screen (min-h-screen) and inline modes.",
+      },
+    },
+  },
   argTypes: {
     message: {
       control: "text",

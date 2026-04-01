@@ -11,7 +11,16 @@ import {
 const meta: Meta<typeof Accordion> = {
   title: "Components/Accordion",
   component: Accordion,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Collapsible content panels. Supports single-expand and multiple-expand modes, controlled and uncontrolled usage, and full keyboard navigation (ArrowDown, ArrowUp, Home, End). Built with React context for nested composition via Accordion, AccordionItem, AccordionTrigger, and AccordionContent sub-components.",
+      },
+    },
+  },
 }
 
 export default meta

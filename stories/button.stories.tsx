@@ -6,7 +6,15 @@ import { Loader2, Mail, Plus, Trash2 } from "lucide-react"
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "A versatile button with six visual variants (default, secondary, destructive, outline, ghost, link) and four sizes (sm, default, lg, icon). Supports icons, loading states, and disabled styling. Forwards refs and accepts all native button attributes.",
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: "select",

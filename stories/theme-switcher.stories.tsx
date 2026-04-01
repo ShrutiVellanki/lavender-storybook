@@ -6,7 +6,15 @@ import { ThemeProvider } from "@/components/ui/theme-provider"
 const meta: Meta<typeof ThemeSwitcher> = {
   title: "Components/ThemeSwitcher",
   component: ThemeSwitcher,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "One-click toggle between Lavender Dawn (light) and Lavender Moon (dark) themes. Shows a Sun icon in dark mode and Moon icon in light mode. Must be wrapped in a ThemeProvider.",
+      },
+    },
+  },
   decorators: [
     (Story) => (
       <ThemeProvider>

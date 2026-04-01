@@ -41,7 +41,15 @@ const chartConfig: ChartConfig = {
 const meta: Meta<typeof ChartContainer> = {
   title: "Components/Chart",
   component: ChartContainer,
-  parameters: { layout: "padded" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        component: "Themed Recharts wrapper system. ChartContainer provides a responsive container with automatic CSS variable injection for chart colors. ChartTooltipContent renders themed tooltips with configurable value formatters. ChartLegendContent renders themed legend items. Supports Area, Bar, and Line chart types.",
+      },
+    },
+  },
 }
 
 export default meta

@@ -5,7 +5,15 @@ import { Badge } from "@/components/ui/badge"
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "Inline label for status, category, or count. Four variants: default, secondary, destructive, and outline. Renders as a styled div with pill border-radius.",
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: "select",

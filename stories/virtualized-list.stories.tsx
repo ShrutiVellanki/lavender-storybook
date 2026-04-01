@@ -25,7 +25,16 @@ const StringList = VirtualizedList
 const meta: Meta<typeof VirtualizedList> = {
   title: "Components/VirtualizedList",
   component: VirtualizedList,
-  parameters: { layout: "centered" },
+  tags: ['autodocs'],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Windowed list that only renders visible items plus a configurable overscan buffer. Handles thousands of items efficiently by absolutely positioning only the rows in the viewport. Generic typed — accepts any data shape via the renderItem callback.",
+      },
+    },
+  },
 }
 
 export default meta
