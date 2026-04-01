@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
-import { Autocomplete } from "@/components/ui/autocomplete"
+import { Autocomplete } from "@/components/ui/Autocomplete"
 
 const COUNTRIES = [
   "United States",

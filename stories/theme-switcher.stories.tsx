@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { ThemeSwitcher } from "@/components/ui/theme-switcher"
-import { ThemeProvider } from "@/components/ui/theme-provider"
+import { ThemeSwitcher } from "@/components/ui/ThemeSwitcher"
+import { ThemeProvider } from "@/components/ui/ThemeProvider"
 
 const meta: Meta<typeof ThemeSwitcher> = {
   title: "Components/ThemeSwitcher",

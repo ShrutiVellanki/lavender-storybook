@@ -1,6 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { VirtualizedList } from "@/components/ui/virtualized-list"
+import { VirtualizedList } from "@/components/ui/VirtualizedList"
 
 const manyItems = Array.from({ length: 500 }, function (_, i) {
   return "Item " + (i + 1)

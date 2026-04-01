@@ -180,54 +180,102 @@ export default config
 
 ## 5. Copy Components
 
-Components live in `components/ui/`. Copy any file you need:
+Components live in `src/components/ui/`, organized as **one directory per component**:
 
 ```
-components/
-└── ui/
-    ├── accordion.tsx
-    ├── autocomplete.tsx
-    ├── badge.tsx
-    ├── button.tsx
-    ├── card.tsx
-    ├── chart/
-    │   ├── chart-container.tsx
-    │   ├── chart-context.tsx
-    │   ├── chart-legend.tsx
-    │   ├── chart-tooltip.tsx
-    │   ├── config.ts
-    │   └── index.ts
-    ├── combo-popover-box.tsx
-    ├── credit-card-form.tsx
-    ├── dropdown.tsx
-    ├── error-display.tsx
-    ├── loading.tsx
-    ├── modal.tsx
-    ├── passport-form.tsx
-    ├── pin-code.tsx
-    ├── star-rating.tsx
-    ├── tabs.tsx
-    ├── theme-provider.tsx
-    ├── theme-switcher.tsx
-    ├── tooltip.tsx
-    ├── transaction-list.tsx
-    └── virtualized-list.tsx
+src/components/ui/
+├── Accordion/
+│   ├── Accordion.tsx       # Main component
+│   ├── Accordion.types.ts  # Exported interfaces & types
+│   └── index.ts            # Barrel re-export
+├── Badge/
+│   ├── Badge.tsx
+│   ├── Badge.types.ts
+│   ├── Badge.styles.ts     # Variant classes & style maps
+│   └── index.ts
+├── Button/
+│   ├── Button.tsx
+│   ├── Button.types.ts
+│   ├── Button.styles.ts
+│   └── index.ts
+├── Card/
+│   ├── Card.tsx
+│   ├── Card.types.ts
+│   └── index.ts
+├── Combobox/
+├── CreditCardForm/
+├── Dropdown/
+├── ErrorDisplay/
+├── LanguageSwitcher/
+├── Loading/
+├── Modal/
+├── Pagination/
+├── PassportForm/
+├── PinCode/
+├── ProgressBar/
+├── StarRating/
+├── StatCard/
+├── Tabs/
+├── ThemeProvider/
+├── ThemeSwitcher/
+├── Tooltip/
+├── TransactionList/
+├── VirtualizedList/
+└── chart/                  # Chart sub-system (multi-file)
+    ├── chart-container.tsx
+    ├── chart-context.tsx
+    ├── chart-legend.tsx
+    ├── chart-tooltip.tsx
+    ├── config.ts
+    └── index.ts
 ```
 
-Each file is self-contained. The only shared dependencies are:
-
-- `@/lib/utils` — the `cn()` function
-- `lucide-react` — icons
-- `@/components/ui/theme-provider` — only needed by `theme-switcher.tsx`
+Copy the entire directory for the component you need.
 
 ---
 
-## 6. Usage Example
+## 6. File Structure Inside a Component
+
+Each component follows a consistent internal structure:
+
+```
+Button/
+  Button.tsx          # Component implementation
+  Button.types.ts     # Exported TypeScript interfaces
+  Button.styles.ts    # Variant maps, style constants
+  index.ts            # Barrel re-export
+```
+
+| File | Purpose | When to include |
+|------|---------|-----------------|
+| `ComponentName.tsx` | The React component itself | Always |
+| `ComponentName.types.ts` | Exported interfaces, type aliases, enums | Always (even if small) |
+| `ComponentName.styles.ts` | Variant class maps, reusable style constants | Only if the component has variant maps or shared style objects |
+| `index.ts` | Re-exports all public symbols | Always |
+
+**Example `index.ts`:**
+
+```typescript
+export { Button } from "./Button"
+export type { ButtonProps, ButtonVariant, ButtonSize } from "./Button.types"
+```
+
+**Importing cleanly:**
+
+```typescript
+import { Button } from "@/components/ui/Button"
+```
+
+The barrel `index.ts` means you never need to reach into individual files.
+
+---
+
+## 7. Usage Example
 
 ```tsx
-import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/Button"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card"
+import { Badge } from "@/components/ui/Badge"
 
 export default function App() {
   return (
@@ -259,3 +307,9 @@ Some components depend on others or on the theme system:
 | ErrorDisplay | Button (optional, for retry) |
 
 All other components are fully standalone.
+
+The only shared dependencies across all components are:
+
+- `@/lib/utils` — the `cn()` class merging utility
+- `lucide-react` — icons
+- `@/components/ui/ThemeProvider` — only needed by ThemeSwitcher

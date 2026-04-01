@@ -1,6 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import TransactionList from "@/components/ui/transaction-list"
+import TransactionList from "@/components/ui/TransactionList"
 
 const sampleTransactions = [
   {

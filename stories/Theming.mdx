@@ -85,7 +85,7 @@ Tailwind's `darkMode: ["class"]` configuration enables this pattern.
 The `ThemeProvider` wraps your app and manages the theme state:
 
 ```tsx
-import { ThemeProvider } from "@/components/ui/theme-provider"
+import { ThemeProvider } from "@/components/ui/ThemeProvider"
 
 function App() {
   return (
@@ -116,7 +116,7 @@ function App() {
 A pre-built toggle button:
 
 ```tsx
-import { ThemeSwitcher } from "@/components/ui/theme-switcher"
+import { ThemeSwitcher } from "@/components/ui/ThemeSwitcher"
 
 <ThemeSwitcher />
 ```
@@ -128,7 +128,7 @@ Renders a Sun icon in dark mode, Moon icon in light mode. Must be used inside a 
 Access the current theme programmatically:
 
 ```tsx
-import { useTheme } from "@/components/ui/theme-provider"
+import { useTheme } from "@/components/ui/ThemeProvider"
 
 function MyComponent() {
   const { theme, setTheme } = useTheme()

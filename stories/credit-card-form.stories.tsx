@@ -1,6 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { CreditCardForm, CreditCardDisplay } from "@/components/ui/credit-card-form"
+import { CreditCardForm, CreditCardDisplay } from "@/components/ui/CreditCardForm"
 
 const meta: Meta<typeof CreditCardForm> = {
   title: "Components/CreditCardForm",

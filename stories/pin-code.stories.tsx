@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
-import PinInput from "@/components/ui/pin-code"
+import PinInput from "@/components/ui/PinCode"
 
 const meta: Meta<typeof PinInput> = {
   title: "Components/PinCode",

@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
-import { Combobox } from "@/components/ui/combo-popover-box"
+import { Combobox } from "@/components/ui/Combobox"
 
 const FRUITS = [
   "Apple",

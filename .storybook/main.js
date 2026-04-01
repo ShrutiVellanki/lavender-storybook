@@ -3,10 +3,28 @@ const path = require("path")
 module.exports = {
   stories: [
     "../stories/**/*.mdx",
+    "!../stories/Introduction.mdx",
+    "!../stories/GettingStarted.mdx",
+    "!../stories/Theming.mdx",
     "../stories/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
-    "@storybook/addon-essentials",
+    {
+      name: "@storybook/addon-essentials",
+      options: {
+        docs: false,
+      },
+    },
+    {
+      name: "@storybook/addon-docs",
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [require("remark-gfm").default || require("remark-gfm")],
+          },
+        },
+      },
+    },
     "@storybook/addon-themes",
   ],
   framework: "@storybook/react-vite",

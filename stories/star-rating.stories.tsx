@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
-import { StarRating } from "@/components/ui/star-rating"
+import { StarRating } from "@/components/ui/StarRating"
 
 const meta: Meta<typeof StarRating> = {
   title: "Components/StarRating",

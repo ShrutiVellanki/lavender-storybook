@@ -1,6 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import PassportForm from "@/components/ui/passport-form"
+import PassportForm from "@/components/ui/PassportForm"
 
 const meta: Meta<typeof PassportForm> = {
   title: "Components/PassportForm",

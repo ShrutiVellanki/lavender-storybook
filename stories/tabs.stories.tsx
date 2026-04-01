@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
-import { Tabs, TabsList, TabsTrigger, TabsPanel } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger, TabsPanel } from "@/components/ui/Tabs"
 
 const meta: Meta<typeof Tabs> = {
   title: "Components/Tabs",

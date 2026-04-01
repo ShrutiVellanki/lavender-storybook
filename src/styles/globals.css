@@ -113,3 +113,39 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
 }
+
+/* Storybook MDX docs table styles */
+.sbdocs table,
+.docs-story table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.sbdocs th,
+.docs-story th {
+  text-align: left;
+  font-weight: 600;
+  padding: 0.625rem 0.75rem;
+  border-bottom: 2px solid var(--border, #dfdee8);
+  color: var(--foreground, #575279);
+}
+
+.sbdocs td,
+.docs-story td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border, #dfdee8);
+  color: var(--foreground, #575279);
+}
+
+.sbdocs tr:last-child td,
+.docs-story tr:last-child td {
+  border-bottom: none;
+}
+
+.sbdocs tbody tr:hover,
+.docs-story tbody tr:hover {
+  background: var(--accent, #efeef5);
+}
