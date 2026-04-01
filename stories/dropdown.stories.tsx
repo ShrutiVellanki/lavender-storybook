@@ -3,13 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
 import { Select } from "@/components/ui/dropdown"
 
-const FRUITS = ["Apple", "Banana", "Orange", "Mango", "Grape", "Strawberry", "Peach"]
-
-function getOptionLabel(opt: string) {
-  return opt
-}
-
-const FruitSelect = Select
+const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape"]
 
 const meta: Meta<typeof Select> = {
   title: "Components/Dropdown",
@@ -18,80 +12,84 @@ const meta: Meta<typeof Select> = {
 }
 
 export default meta
-
-type Story = StoryObj<typeof Select>
+type Story = StoryObj<typeof Select<string>>
 
 export const Default: Story = {
-  render: function DefaultRender() {
-    const [value, setValue] = useState(undefined as string | undefined)
-    return (
-      <div>
-        <FruitSelect
-          options={FRUITS}
-          value={value}
-          onChange={setValue}
-          getOptionLabel={getOptionLabel}
-          placeholder="Choose a fruit..."
-        />
-        {value ? (
-          <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>
-            Selected: {value}
-          </p>
-        ) : null}
-      </div>
-    )
-  },
+  render: () => (
+    <Select
+      options={fruits}
+      getOptionLabel={(f) => f}
+      placeholder="Pick a fruit"
+      label="Fruit"
+    />
+  ),
 }
 
 export const WithDefaultValue: Story = {
-  render: function WithDefaultValueRender() {
-    return (
-      <FruitSelect
-        options={FRUITS}
-        defaultValue="Orange"
-        onChange={function noop() {}}
-        getOptionLabel={getOptionLabel}
-        placeholder="Choose a fruit..."
-      />
-    )
-  },
+  render: () => (
+    <Select
+      options={fruits}
+      getOptionLabel={(f) => f}
+      defaultValue="Cherry"
+      label="Favorite fruit"
+    />
+  ),
 }
 
 export const Controlled: Story = {
-  render: function ControlledRender() {
-    const [value, setValue] = useState("Banana")
+  render: function ControlledSelect() {
+    const [value, setValue] = useState<string | undefined>(undefined)
     return (
       <div>
-        <FruitSelect
-          options={FRUITS}
+        <Select
+          options={fruits}
+          getOptionLabel={(f) => f}
           value={value}
           onChange={setValue}
-          getOptionLabel={getOptionLabel}
-          placeholder="Choose a fruit..."
+          label="Select fruit"
         />
-        <button
-          type="button"
-          onClick={function onClick() {
-            setValue("Grape")
-          }}
-          style={{ marginTop: 12, padding: "6px 12px" }}
-        >
-          Set to Grape
-        </button>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Selected: {value || "(none)"}
+        </p>
       </div>
     )
   },
 }
 
 export const Disabled: Story = {
-  render: function DisabledRender() {
+  render: () => (
+    <Select
+      options={fruits}
+      getOptionLabel={(f) => f}
+      defaultValue="Banana"
+      disabled
+      label="Disabled select"
+    />
+  ),
+}
+
+export const ObjectOptions: Story = {
+  name: "Object Options",
+  render: () => {
+    const accounts = [
+      { id: "1", name: "Checking", balance: 5000 },
+      { id: "2", name: "Savings", balance: 12000 },
+      { id: "3", name: "Investment", balance: 45000 },
+    ]
     return (
-      <FruitSelect
-        options={FRUITS}
-        defaultValue="Apple"
-        getOptionLabel={getOptionLabel}
-        placeholder="Choose a fruit..."
-        disabled={true}
+      <Select
+        options={accounts}
+        getOptionLabel={(a) => a.name}
+        getOptionKey={(a) => a.id}
+        renderOption={(a, { isSelected }) => (
+          <div className="flex justify-between w-full">
+            <span>{a.name}</span>
+            <span className="text-muted-foreground">
+              ${a.balance.toLocaleString()}
+            </span>
+          </div>
+        )}
+        label="Account"
       />
     )
   },

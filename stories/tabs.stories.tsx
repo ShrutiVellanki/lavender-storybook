@@ -10,85 +10,91 @@ const meta: Meta<typeof Tabs> = {
 }
 
 export default meta
-
 type Story = StoryObj<typeof Tabs>
 
 export const Default: Story = {
-  render: function TabsDefault() {
-    return (
-      <div style={{ width: 400 }}>
-        <Tabs defaultValue="tab1">
-          <TabsList aria-label="Example tabs">
-          <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-          <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-          <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+  render: () => (
+    <div className="w-[400px]">
+      <Tabs defaultValue="account">
+        <TabsList>
+          <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsTrigger value="password">Password</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
-        <TabsPanel value="tab1">Content for tab 1.</TabsPanel>
-        <TabsPanel value="tab2">Content for tab 2.</TabsPanel>
-        <TabsPanel value="tab3">Content for tab 3.</TabsPanel>
-        </Tabs>
-      </div>
-    )
-  },
+        <TabsPanel value="account">
+          <div className="p-4 rounded-lg border border-border mt-2">
+            <h3 className="text-base font-medium text-foreground">Account</h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              Make changes to your account settings here.
+            </p>
+          </div>
+        </TabsPanel>
+        <TabsPanel value="password">
+          <div className="p-4 rounded-lg border border-border mt-2">
+            <h3 className="text-base font-medium text-foreground">Password</h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              Change your password here. After saving, you'll be logged out.
+            </p>
+          </div>
+        </TabsPanel>
+        <TabsPanel value="settings">
+          <div className="p-4 rounded-lg border border-border mt-2">
+            <h3 className="text-base font-medium text-foreground">Settings</h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              Manage your notification preferences and other settings.
+            </p>
+          </div>
+        </TabsPanel>
+      </Tabs>
+    </div>
+  ),
 }
 
-export const Vertical: Story = {
-  render: function TabsVertical() {
-    return (
-      <div style={{ display: "flex", gap: 16 }}>
-        <Tabs defaultValue="a" orientation="vertical">
-          <TabsList aria-label="Vertical tabs">
-          <TabsTrigger value="a">First</TabsTrigger>
-          <TabsTrigger value="b">Second</TabsTrigger>
-          <TabsTrigger value="c">Third</TabsTrigger>
-        </TabsList>
-        <div style={{ flex: 1 }}>
-          <TabsPanel value="a">First panel content.</TabsPanel>
-          <TabsPanel value="b">Second panel content.</TabsPanel>
-          <TabsPanel value="c">Third panel content.</TabsPanel>
-        </div>
-        </Tabs>
-      </div>
-    )
-  },
-}
-
-export const Controlled: Story = {
-  render: function TabsControlled() {
-    const [value, setValue] = useState("one")
-    return (
-      <div style={{ width: 400 }}>
-        <Tabs value={value} onValueChange={setValue}>
-          <TabsList aria-label="Controlled tabs">
-            <TabsTrigger value="one">One</TabsTrigger>
-            <TabsTrigger value="two">Two</TabsTrigger>
-          </TabsList>
-          <TabsPanel value="one">Selected: one</TabsPanel>
-          <TabsPanel value="two">Selected: two</TabsPanel>
-        </Tabs>
-        <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>
-          Current value: {value}
-        </p>
-      </div>
-    )
-  },
-}
-
-export const WithDisabledTab: Story = {
-  render: function TabsWithDisabled() {
-    return (
-      <div style={{ width: 400 }}>
-        <Tabs defaultValue="active">
-          <TabsList aria-label="Tabs with disabled">
+export const WithDisabled: Story = {
+  render: () => (
+    <div className="w-[400px]">
+      <Tabs defaultValue="active">
+        <TabsList>
           <TabsTrigger value="active">Active</TabsTrigger>
           <TabsTrigger value="disabled" disabled>
             Disabled
           </TabsTrigger>
           <TabsTrigger value="other">Other</TabsTrigger>
         </TabsList>
-        <TabsPanel value="active">Active content.</TabsPanel>
-        <TabsPanel value="disabled">Disabled content (cannot select via tab).</TabsPanel>
-        <TabsPanel value="other">Other content.</TabsPanel>
+        <TabsPanel value="active">
+          <p className="text-sm text-foreground mt-4">Active tab content.</p>
+        </TabsPanel>
+        <TabsPanel value="other">
+          <p className="text-sm text-foreground mt-4">Other tab content.</p>
+        </TabsPanel>
+      </Tabs>
+    </div>
+  ),
+}
+
+export const Controlled: Story = {
+  render: function ControlledTabs() {
+    const [value, setValue] = useState("tab1")
+    return (
+      <div className="w-[400px]">
+        <p className="mb-2 text-sm text-muted-foreground">
+          Active: {value}
+        </p>
+        <Tabs value={value} onValueChange={setValue}>
+          <TabsList>
+            <TabsTrigger value="tab1">Overview</TabsTrigger>
+            <TabsTrigger value="tab2">Analytics</TabsTrigger>
+            <TabsTrigger value="tab3">Reports</TabsTrigger>
+          </TabsList>
+          <TabsPanel value="tab1">
+            <p className="text-sm text-foreground mt-4">Overview content.</p>
+          </TabsPanel>
+          <TabsPanel value="tab2">
+            <p className="text-sm text-foreground mt-4">Analytics content.</p>
+          </TabsPanel>
+          <TabsPanel value="tab3">
+            <p className="text-sm text-foreground mt-4">Reports content.</p>
+          </TabsPanel>
         </Tabs>
       </div>
     )

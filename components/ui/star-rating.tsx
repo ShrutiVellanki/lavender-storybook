@@ -1,14 +1,17 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react"
+import { Star } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 type StarRatingProps = {
-  value?: number;
-  defaultValue?: number;
-  onChange?: (value: number) => void;
-  max?: number;
-  readOnly?: boolean;
-  disabled?: boolean;
-  label?: string;
-};
+  value?: number
+  defaultValue?: number
+  onChange?: (value: number) => void
+  max?: number
+  readOnly?: boolean
+  disabled?: boolean
+  label?: string
+  className?: string
+}
 
 export function StarRating({
   value,
@@ -18,72 +21,68 @@ export function StarRating({
   readOnly = false,
   disabled = false,
   label = "Rating",
+  className,
 }: StarRatingProps) {
-  const isControlled = value !== undefined;
-  const [internalValue, setInternalValue] = useState(defaultValue);
-  const [hoverValue, setHoverValue] = useState<number | null>(null);
+  const isControlled = value !== undefined
+  const [internalValue, setInternalValue] = useState(defaultValue)
+  const [hoverValue, setHoverValue] = useState<number | null>(null)
 
-  const selectedValue = isControlled ? value! : internalValue;
-  const displayValue = hoverValue ?? selectedValue;
+  const selectedValue = isControlled ? value! : internalValue
+  const displayValue = hoverValue ?? selectedValue
 
   function updateValue(next: number) {
-    if (readOnly || disabled) return;
+    if (readOnly || disabled) return
     if (!isControlled) {
-      setInternalValue(next);
+      setInternalValue(next)
     }
-    onChange?.(next);
+    onChange?.(next)
   }
 
-  function handleKeyDown(
-    e: React.KeyboardEvent<HTMLDivElement>
-  ) {
-    if (readOnly || disabled) return;
-
-    let nextValue = selectedValue;
-
+  function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (readOnly || disabled) return
+    let nextValue = selectedValue
     switch (e.key) {
       case "ArrowRight":
       case "ArrowUp":
-        e.preventDefault();
-        nextValue = Math.min(max, selectedValue + 1);
-        updateValue(nextValue);
-        break;
+        e.preventDefault()
+        nextValue = Math.min(max, selectedValue + 1)
+        updateValue(nextValue)
+        break
       case "ArrowLeft":
       case "ArrowDown":
-        e.preventDefault();
-        nextValue = Math.max(1, selectedValue - 1);
-        updateValue(nextValue);
-        break;
+        e.preventDefault()
+        nextValue = Math.max(1, selectedValue - 1)
+        updateValue(nextValue)
+        break
       case "Home":
-        e.preventDefault();
-        updateValue(1);
-        break;
+        e.preventDefault()
+        updateValue(1)
+        break
       case "End":
-        e.preventDefault();
-        updateValue(max);
-        break;
+        e.preventDefault()
+        updateValue(max)
+        break
     }
   }
 
   const stars = useMemo(() => {
-    return Array.from({ length: max }, (_, i) => i + 1);
-  }, [max]);
+    return Array.from({ length: max }, (_, i) => i + 1)
+  }, [max])
 
   return (
-    <div>
+    <div className={className}>
       <div
         role="radiogroup"
         aria-label={label}
         onKeyDown={handleKeyDown}
-        style={{
-          display: "inline-flex",
-          gap: 4,
-          opacity: disabled ? 0.5 : 1,
-        }}
+        className={cn(
+          "inline-flex gap-1",
+          disabled && "opacity-50",
+        )}
       >
         {stars.map((starValue) => {
-          const checked = selectedValue === starValue;
-          const filled = starValue <= displayValue;
+          const checked = selectedValue === starValue
+          const filled = starValue <= displayValue
 
           return (
             <button
@@ -94,36 +93,32 @@ export function StarRating({
               aria-label={`${starValue} ${starValue === 1 ? "star" : "stars"}`}
               disabled={disabled}
               onMouseEnter={() => {
-                if (!readOnly && !disabled) setHoverValue(starValue);
+                if (!readOnly && !disabled) setHoverValue(starValue)
               }}
               onMouseLeave={() => {
-                if (!readOnly && !disabled) setHoverValue(null);
+                if (!readOnly && !disabled) setHoverValue(null)
               }}
               onClick={() => updateValue(starValue)}
-              style={{
-                cursor: readOnly || disabled ? "default" : "pointer",
-                background: "transparent",
-                border: "none",
-                padding: 0,
-                lineHeight: 1,
-                fontSize: 28,
-              }}
+              className={cn(
+                "bg-transparent border-none p-0 leading-none transition-colors",
+                readOnly || disabled ? "cursor-default" : "cursor-pointer",
+              )}
             >
-              <span aria-hidden="true">{filled ? "★" : "☆"}</span>
+              <Star
+                className={cn(
+                  "h-7 w-7 transition-colors",
+                  filled
+                    ? "fill-primary text-primary"
+                    : "fill-transparent text-muted-foreground",
+                )}
+              />
             </button>
-          );
+          )
         })}
       </div>
-
-      <div
-        style={{
-          marginTop: 8,
-          fontSize: 14,
-          color: "#4b5563",
-        }}
-      >
+      <div className="mt-2 text-sm text-muted-foreground">
         Selected rating: {selectedValue}
       </div>
     </div>
-  );
+  )
 }
