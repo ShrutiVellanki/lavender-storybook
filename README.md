@@ -1,25 +1,96 @@
-# Lavender Storybook
+# Lavender Design System
 
-**[Live Demo](https://lavender-storybook.vercel.app)**
+**[Live Storybook](https://lavender-storybook.vercel.app)** · **[Lavender Finance (consumer)](https://lavender-finance.vercel.app)**
 
-The design system behind [Lavender Finance](https://github.com/ShrutiVellanki/lavender-finance). Browse, test, and copy themed React components documented with Storybook.
+A themed, accessible React component library with a full design token system, dual-theme support, and comprehensive Storybook documentation. Powers the Lavender Finance dashboard.
 
+## System Architecture
 
+```
+tokens/              CSS custom properties on :root / .dark
+  ├── Semantic       background, foreground, primary, border, ring…
+  ├── Chart          chart-1 through chart-5 (data-viz palette)
+  └── Extended       lavenderDawn.* / lavenderMoon.* (fixed-hex)
+        │
+        ▼
+tailwind.config.ts   Maps tokens → Tailwind utilities
+        │
+        ▼
+primitives/
+  ├── cn()           Class composition (clsx + tailwind-merge)
+  ├── ThemeProvider   React context + localStorage persistence
+  └── ThemeSwitcher   Toggle component
+        │
+        ▼
+components/ui/       24+ production components
+  ├── Inputs         Button, Dropdown, Autocomplete, Combobox, PinCode, StarRating
+  ├── Layout         Card, Modal, Accordion, Tabs, Tooltip
+  ├── Data           TransactionList, VirtualizedList, StatCard, Chart
+  ├── Feedback       Badge, ProgressBar, Loading, ErrorDisplay, Skeleton, Pagination
+  └── Forms          CreditCardForm, PassportForm
+        │
+        ▼
+product/             Lavender Finance dashboard
+```
+
+## Token System
+
+Three layers that allow components to work across themes with zero conditional logic:
+
+| Layer | Example | Purpose |
+|-------|---------|---------|
+| **Semantic** | `--primary`, `--border`, `--muted` | Theme-aware — swaps between Dawn/Moon automatically |
+| **Chart** | `--chart-1` … `--chart-5` | Data-viz colors tuned for contrast in both themes |
+| **Extended** | `lavenderDawn.iris`, `lavenderMoon.foam` | Fixed-hex values for when you need a specific color regardless of theme |
+
+Themes are controlled by the `dark` class on the document root. No JavaScript runtime cost.
+
+## Component Architecture
+
+Each component follows a consistent pattern:
+
+```
+src/components/ui/Button/
+  ├── Button.tsx           # Component implementation
+  ├── Button.types.ts      # TypeScript interfaces
+  ├── Button.styles.ts     # Variant logic (cva-style)
+  └── index.ts             # Public export
+```
+
+- **Variant logic** separated into `*.styles.ts` for maintainability
+- **`cn()` utility** enables safe class overrides without specificity issues
+- **Theme tokens** used for all colors — components adapt to Dawn/Moon automatically
+
+## Accessibility
+
+- Full keyboard navigation on all interactive components
+- ARIA attributes on compound components (Accordion, Tabs, Modal, Tooltip)
+- Focus rings using the `--ring` token for theme consistency
+- Color contrast ratios meet WCAG AA in both themes
+
+## Storybook Documentation
+
+Every component has an autodocs page with:
+- Interactive controls for prop exploration
+- Multiple story variants showing real-world usage
+- Theme switching via the toolbar (Lavender Dawn / Lavender Moon)
+
+The Storybook also includes:
+- **Introduction** — system overview, architecture, design decisions
+- **Tokens / Getting Started** — full setup guide, color palettes, spacing, typography
 
 ## Tech Stack
 
-
-| Tool                  | Role                                            |
-| --------------------- | ----------------------------------------------- |
-| React 18              | Component runtime                               |
-| TypeScript            | Static typing                                   |
-| Storybook 8           | Documentation and visual testing                |
-| Tailwind CSS 3.4      | Utility-first styling via CSS custom properties |
-| Recharts              | Chart primitives                                |
-| Lucide React          | Icons                                           |
-| clsx + tailwind-merge | Classname composition (`cn()`)                  |
-| tailwindcss-animate   | Accordion and spinner animations                |
-
+| Tool | Role |
+|------|------|
+| React 18 | Component runtime |
+| TypeScript | Static typing |
+| Storybook 8 | Documentation and visual testing |
+| Tailwind CSS 3.4 | Utility-first styling via CSS custom properties |
+| Recharts | Chart primitives |
+| Lucide React | Icons |
+| clsx + tailwind-merge | Classname composition (`cn()`) |
+| tailwindcss-animate | Accordion and spinner animations |
 
 ## Getting Started
 
@@ -34,95 +105,38 @@ Build a static site:
 npm run build-storybook  # outputs to storybook-static/
 ```
 
-## Theming
+## Usage
 
-Two built-in themes defined as CSS custom properties in `src/index.css`:
+Copy a component directory into your project along with `src/lib/utils.ts` and the theme tokens from `src/styles/globals.css`.
 
-- **Lavender Dawn** — light
-- **Lavender Moon** — dark
+```bash
+npm install clsx tailwind-merge lucide-react tailwindcss-animate
+npm install recharts  # only if using Chart components
+```
 
-Full setup instructions, color palettes, and token reference are on the **Getting Started** page inside Storybook.
+See the **Tokens / Getting Started** page in Storybook for detailed setup instructions.
 
+## Cross-Component Dependencies
 
+| Component | Depends on |
+|-----------|-----------|
+| TransactionList | Pagination |
+| ThemeSwitcher | ThemeProvider (`useTheme` hook) |
 
 ## Project Structure
 
 ```
 src/
-├── components/ui/          # One directory per component
-│   ├── Accordion/
-│   │   ├── Accordion.tsx
-│   │   ├── Accordion.types.ts
-│   │   └── index.ts
-│   ├── Button/
-│   ├── Card/
-│   ├── Chart/
-│   ├── Combobox/
-│   ├── CreditCardForm/
-│   ├── Dropdown/
-│   ├── Modal/
-│   ├── Pagination/
-│   ├── ...
-│   └── VirtualizedList/
+├── components/ui/          # One directory per component (24+)
 ├── lib/
 │   └── utils.ts            # cn() helper
 └── styles/
-    └── globals.css          # Tailwind base + theme tokens
+    └── globals.css          # Tailwind base + theme tokens (Dawn + Moon)
 stories/
-├── *.stories.tsx            # One story file per component
-└── DesignTokens.mdx         # Getting Started — setup, themes, color palettes
+├── Introduction.mdx         # System overview and architecture
+├── DesignTokens.mdx         # Token reference, palettes, setup guide
+└── *.stories.tsx            # One story file per component
 .storybook/
-├── main.js
-└── preview.ts
+├── main.js                  # Storybook config, Vite alias
+└── preview.js               # Global styles, theme decorator
 ```
-
-## Adding a Component
-
-1. Create `src/components/ui/MyComponent/` with `MyComponent.tsx`, `MyComponent.types.ts`, and `index.ts`.
-2. Use `cn()` for classnames and Lavender theme tokens for styling.
-3. Add `stories/my-component.stories.tsx`:
-
-```tsx
-import type { Meta, StoryObj } from "@storybook/react";
-import { MyComponent } from "../src/components/ui/MyComponent";
-
-const meta: Meta<typeof MyComponent> = {
-  title: "Components/MyComponent",
-  component: MyComponent,
-};
-export default meta;
-type Story = StoryObj<typeof MyComponent>;
-
-export const Default: Story = { args: {} };
-```
-
-1. Verify it renders in both themes.
-
-
-
-## Usage
-
-Copy a component directory into your project along with `src/lib/utils.ts` and the theme tokens from `src/styles/globals.css`.
-
-**Peer dependencies:**
-
-
-| Package                   | Required by                                                                                                                      |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `clsx` + `tailwind-merge` | `cn()` utility — used by almost every component                                                                                  |
-| `lucide-react`            | Accordion, Autocomplete, Combobox, CreditCardForm, Dropdown, ErrorDisplay, Loading, Modal, Pagination, StarRating, ThemeSwitcher |
-| `tailwindcss-animate`     | Tailwind plugin for accordion expand/collapse and spinner animations                                                             |
-| `recharts`                | Chart components only                                                                                                            |
-
-
-**Cross-component dependencies:**
-
-
-| Component       | Depends on                      |
-| --------------- | ------------------------------- |
-| TransactionList | Pagination                      |
-| ThemeSwitcher   | ThemeProvider (`useTheme` hook) |
-
-
-
-
