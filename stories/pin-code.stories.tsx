@@ -1,10 +1,11 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
+import { expect, userEvent, within } from "@storybook/test"
 import PinInput from "@/components/ui/PinCode"
 
 const meta: Meta<typeof PinInput> = {
-  title: "Components/PinCode",
+  title: "Inputs/PinCode",
   component: PinInput,
   tags: ['autodocs'],
   parameters: {
@@ -22,7 +23,7 @@ export default meta
 
 type Story = StoryObj<typeof PinInput>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => {
     const [value, setValue] = useState("")
     return (
@@ -31,6 +32,13 @@ export const Default: Story = {
         {value && <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>Value: {value}</p>}
       </div>
     )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const inputs = canvas.getAllByRole("textbox")
+    await expect(inputs).toHaveLength(6)
+    await userEvent.click(inputs[0])
+    await expect(inputs[0]).toHaveFocus()
   },
 }
 

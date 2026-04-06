@@ -1,10 +1,11 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, userEvent, within, waitFor } from "@storybook/test"
 import { Tooltip } from "@/components/ui/Tooltip"
 import { Button } from "@/components/ui/Button"
 
 const meta: Meta<typeof Tooltip> = {
-  title: "Components/Tooltip",
+  title: "Layout/Tooltip",
   component: Tooltip,
   tags: ['autodocs'],
   parameters: {
@@ -21,12 +22,22 @@ const meta: Meta<typeof Tooltip> = {
 export default meta
 type Story = StoryObj<typeof Tooltip>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => (
     <Tooltip content="This is a tooltip">
       <Button variant="outline">Hover me</Button>
     </Tooltip>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await userEvent.hover(canvas.getByRole("button", { name: "Hover me" }))
+
+    const body = within(document.body)
+    await waitFor(() =>
+      expect(body.getByText("This is a tooltip")).toBeInTheDocument()
+    )
+  },
 }
 
 export const Placements: Story = {

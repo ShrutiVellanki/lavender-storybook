@@ -1,9 +1,10 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, within } from "@storybook/test"
 import { Skeleton } from "@/components/ui/Skeleton"
 
 const meta: Meta<typeof Skeleton> = {
-  title: "Components/Skeleton",
+  title: "Feedback/Skeleton",
   component: Skeleton,
   tags: ["autodocs"],
   parameters: {
@@ -39,10 +40,15 @@ const meta: Meta<typeof Skeleton> = {
 export default meta
 type Story = StoryObj<typeof Skeleton>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     variant: "text",
     height: 16,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const skeletons = canvasElement.querySelectorAll(".animate-pulse")
+    await expect(skeletons.length).toBeGreaterThan(0)
   },
 }
 
@@ -67,7 +73,7 @@ export const Rounded: Story = {
 }
 
 export const CardSkeleton: Story = {
-  name: "Card Layout",
+  name: "Recipe: Card Layout",
   render: () => (
     <div className="w-80 rounded-xl border border-border bg-card p-5 space-y-4">
       <div className="flex items-center gap-3">
@@ -84,7 +90,7 @@ export const CardSkeleton: Story = {
 }
 
 export const StatCardSkeleton: Story = {
-  name: "Stat Card",
+  name: "Recipe: Stat Card",
   render: () => (
     <div className="w-64 rounded-xl border border-border bg-card p-5 space-y-3">
       <div className="flex items-center justify-between">
@@ -98,7 +104,7 @@ export const StatCardSkeleton: Story = {
 }
 
 export const TableSkeleton: Story = {
-  name: "Table Rows",
+  name: "Recipe: Table Rows",
   render: () => (
     <div className="space-y-3 w-full max-w-lg">
       {Array.from({ length: 5 }).map((_, i) => (
@@ -114,7 +120,10 @@ export const TableSkeleton: Story = {
 }
 
 export const DashboardSkeleton: Story = {
-  name: "Full Dashboard",
+  name: "Recipe: Full Dashboard",
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.children.length).toBeGreaterThan(0)
+  },
   render: () => (
     <div className="space-y-6 w-full max-w-3xl">
       {/* Header */}

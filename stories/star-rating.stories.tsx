@@ -1,10 +1,11 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
+import { expect, userEvent, within } from "@storybook/test"
 import { StarRating } from "@/components/ui/StarRating"
 
 const meta: Meta<typeof StarRating> = {
-  title: "Components/StarRating",
+  title: "Inputs/StarRating",
   component: StarRating,
   tags: ['autodocs'],
   parameters: {
@@ -35,7 +36,7 @@ const meta: Meta<typeof StarRating> = {
 export default meta
 type Story = StoryObj<typeof StarRating>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     defaultValue: 3,
   },
@@ -66,6 +67,12 @@ export const Controlled: Story = {
         </p>
       </div>
     )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const stars = canvas.getAllByRole("radio")
+    await userEvent.click(stars[3])
+    await expect(canvas.getByText("You selected: 4 stars")).toBeInTheDocument()
   },
 }
 

@@ -1,5 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, within } from "@storybook/test"
 import { Badge } from "@/components/ui/Badge"
 import {
   ShoppingCart,
@@ -16,7 +17,7 @@ import {
 } from "lucide-react"
 
 const meta: Meta<typeof Badge> = {
-  title: "Components/Badge",
+  title: "Feedback/Badge",
   component: Badge,
   tags: ["autodocs"],
   parameters: {
@@ -40,9 +41,13 @@ const meta: Meta<typeof Badge> = {
 export default meta
 type Story = StoryObj<typeof Badge>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     children: "Badge",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Badge")).toBeVisible()
   },
 }
 
@@ -65,6 +70,12 @@ export const AllVariants: Story = {
       <Badge variant="danger">Danger</Badge>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    for (const label of ["Default", "Secondary", "Destructive", "Outline", "Success", "Warning", "Danger"]) {
+      await expect(canvas.getByText(label)).toBeVisible()
+    }
+  },
 }
 
 export const CategoryBadges: Story = {
@@ -88,6 +99,12 @@ export const StatusBadges: Story = {
       <Badge variant="danger" icon={<XCircle />}>failed</Badge>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("completed")).toBeVisible()
+    await expect(canvas.getByText("pending")).toBeVisible()
+    await expect(canvas.getByText("failed")).toBeVisible()
+  },
 }
 
 export const IconVariants: Story = {

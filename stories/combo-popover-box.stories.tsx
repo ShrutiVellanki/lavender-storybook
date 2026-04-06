@@ -1,6 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
+import { expect, userEvent, within, waitFor } from "@storybook/test"
 import { Combobox } from "@/components/ui/Combobox"
 
 const FRUITS = [
@@ -23,7 +24,7 @@ function getOptionLabel(opt: string) {
 const FruitCombobox = Combobox
 
 const meta: Meta<typeof Combobox> = {
-  title: "Components/ComboPopoverBox",
+  title: "Inputs/Combobox",
   component: Combobox,
   tags: ['autodocs'],
   parameters: {
@@ -41,7 +42,7 @@ export default meta
 
 type Story = StoryObj<typeof Combobox>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: function ComboboxDefault() {
     const [value, setValue] = useState(null as string | null)
     return (
@@ -60,6 +61,15 @@ export const Default: Story = {
         ) : null}
       </div>
     )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText("Search or select...")
+    await userEvent.click(input)
+    await userEvent.type(input, "App")
+    await waitFor(() => expect(canvas.getByText("Apple")).toBeInTheDocument(), {
+      timeout: 3000,
+    })
   },
 }
 

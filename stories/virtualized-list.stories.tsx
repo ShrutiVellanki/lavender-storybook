@@ -1,5 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, within } from "@storybook/test"
 import { VirtualizedList } from "@/components/ui/VirtualizedList"
 
 const manyItems = Array.from({ length: 500 }, function (_, i) {
@@ -23,7 +24,7 @@ function renderRow(item: string, index: number) {
 const StringList = VirtualizedList
 
 const meta: Meta<typeof VirtualizedList> = {
-  title: "Components/VirtualizedList",
+  title: "Data Display/VirtualizedList",
   component: VirtualizedList,
   tags: ['autodocs'],
   parameters: {
@@ -41,7 +42,7 @@ export default meta
 
 type Story = StoryObj<typeof VirtualizedList>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: function VirtualizedDefault() {
     return (
       <div style={{ width: 320 }}>
@@ -54,6 +55,11 @@ export const Default: Story = {
         />
       </div>
     )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Item 1")).toBeVisible()
+    await expect(canvas.queryByText("Item 500")).not.toBeInTheDocument()
   },
 }
 

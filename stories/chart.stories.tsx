@@ -1,5 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, within } from "@storybook/test"
 import { ChartContainer } from "@/components/ui/chart/chart-container"
 import { ChartTooltipContent } from "@/components/ui/chart/chart-tooltip"
 import { ChartLegend, ChartLegendContent } from "@/components/ui/chart/chart-legend"
@@ -39,7 +40,7 @@ const chartConfig: ChartConfig = {
 }
 
 const meta: Meta<typeof ChartContainer> = {
-  title: "Components/Chart",
+  title: "Data Display/Chart",
   component: ChartContainer,
   tags: ['autodocs'],
   parameters: {
@@ -55,7 +56,7 @@ const meta: Meta<typeof ChartContainer> = {
 export default meta
 type Story = StoryObj<typeof ChartContainer>
 
-export const AreaChartExample: Story = {
+export const Playground: Story = {
   name: "Area Chart",
   render: () => (
     <div className="w-full max-w-[600px]">
@@ -89,6 +90,10 @@ export const AreaChartExample: Story = {
       </ChartContainer>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Revenue vs Expenses")).toBeVisible()
+  },
 }
 
 export const BarChartExample: Story = {
@@ -114,6 +119,10 @@ export const BarChartExample: Story = {
       </ChartContainer>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Monthly Comparison")).toBeVisible()
+  },
 }
 
 export const LineChartExample: Story = {

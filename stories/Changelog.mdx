@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Getting Started/Changelog" />
+
+# Changelog
+
+All notable changes to the Lavender Design System.
+
+---
+
+## 0.1.0 — Initial Release
+
+### Components (24)
+
+**Inputs**
+- Button — six variants (default, secondary, destructive, outline, ghost, link), four sizes
+- Dropdown (Select) — generic typed, keyboard navigation, custom option rendering
+- Autocomplete — async search with debounce, loading/error states
+- Combobox — filterable dropdown with controlled/uncontrolled modes
+- PinCode — multi-digit OTP input with paste handling and masked mode
+- StarRating — accessible star input with hover preview and read-only mode
+
+**Layout**
+- Card — composable container with Header, Title, Description, Content, Footer
+- Modal — portal-based dialog with focus trapping and scroll locking
+- Accordion — collapsible panels with single/multiple expand modes
+- Tabs — roving tabindex navigation, horizontal/vertical orientation
+- Tooltip — hover/focus triggered, four placements, viewport clamping
+
+**Data Display**
+- Chart — themed Recharts wrapper (Area, Bar, Line) with ChartTooltip and ChartLegend
+- StatCard — metric display with trend indicators and optional icon
+- TransactionList — sortable, searchable, filterable data table
+- VirtualizedList — windowed rendering for large datasets
+
+**Feedback**
+- Badge — inline label with seven variants and optional icon
+- ProgressBar — themed bar with auto-coloring thresholds and value formatters
+- Loading — centered spinner with customizable message
+- ErrorDisplay — error card with title, message, and retry action
+- Skeleton — animated placeholder (text, circular, rectangular, rounded)
+- Pagination — page navigation with smart ellipsis
+
+**Forms**
+- CreditCardForm — 3D card preview with type detection and formatting
+- PassportForm — country-aware validation (USA, Canada, UK)
+
+**Theme**
+- ThemeProvider — context + localStorage persistence
+- ThemeSwitcher — one-click Dawn/Moon toggle
+
+### Design Tokens
+- Semantic color tokens (background, foreground, primary, border, etc.)
+- Chart color tokens (chart-1 through chart-5)
+- Extended palettes (lavenderDawn.*, lavenderMoon.*)
+- Spacing and radius scale via Tailwind config
+
+### Infrastructure
+- Storybook 8.5 with React Vite framework
+- Dual-theme support via `withThemeByClassName` decorator
+- Autodocs enabled for all components
+- GFM markdown support in MDX pages

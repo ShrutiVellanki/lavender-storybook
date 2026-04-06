@@ -1,5 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, within } from "@storybook/test"
 import {
   Card,
   CardHeader,
@@ -11,7 +12,7 @@ import {
 import { Button } from "@/components/ui/Button"
 
 const meta: Meta<typeof Card> = {
-  title: "Components/Card",
+  title: "Layout/Card",
   component: Card,
   tags: ['autodocs'],
   parameters: {
@@ -27,7 +28,7 @@ const meta: Meta<typeof Card> = {
 export default meta
 type Story = StoryObj<typeof Card>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => (
     <Card className="w-[350px]">
       <CardHeader>
@@ -48,6 +49,14 @@ export const Default: Story = {
       </CardFooter>
     </Card>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await expect(canvas.getByText("Card Title")).toBeVisible()
+    await expect(canvas.getByText(/card description with supporting text/i)).toBeVisible()
+    await expect(canvas.getByRole("button", { name: "Cancel" })).toBeInTheDocument()
+    await expect(canvas.getByRole("button", { name: "Save" })).toBeInTheDocument()
+  },
 }
 
 export const SimpleCard: Story = {
@@ -62,7 +71,7 @@ export const SimpleCard: Story = {
 }
 
 export const AccountCard: Story = {
-  name: "Finance: Account Card",
+  name: "Recipe: Account Card",
   render: () => (
     <Card className="w-[350px]">
       <CardHeader>
@@ -82,6 +91,7 @@ export const AccountCard: Story = {
 }
 
 export const CardGrid: Story = {
+  name: "Recipe: Card Grid",
   render: () => (
     <div className="grid grid-cols-2 gap-4 max-w-[600px]">
       {["Checking", "Savings", "Investment", "Credit"].map((name) => (

@@ -23,6 +23,10 @@ module.exports = {
       },
     },
     "@storybook/addon-themes",
+    "@storybook/addon-a11y",
+    "@storybook/addon-interactions",
+    "@storybook/addon-coverage",
+    "@chromatic-com/storybook",
   ],
   framework: "@storybook/react-vite",
   viteFinal: async (config) => {

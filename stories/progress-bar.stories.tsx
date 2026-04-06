@@ -1,9 +1,10 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, within } from "@storybook/test"
 import { ProgressBar } from "@/components/ui/ProgressBar"
 
 const meta: Meta<typeof ProgressBar> = {
-  title: "Components/ProgressBar",
+  title: "Feedback/ProgressBar",
   component: ProgressBar,
   tags: ["autodocs"],
   parameters: {
@@ -31,9 +32,14 @@ const meta: Meta<typeof ProgressBar> = {
 export default meta
 type Story = StoryObj<typeof ProgressBar>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: { value: 65, label: "Progress" },
   decorators: [(Story) => <div className="w-[320px]"><Story /></div>],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Progress")).toBeVisible()
+    await expect(canvas.getByRole("progressbar")).toBeInTheDocument()
+  },
 }
 
 export const AutoVariant: Story = {
@@ -44,6 +50,12 @@ export const AutoVariant: Story = {
       <ProgressBar value={95} label="Shopping" autoVariant showValue valueFormatter={(v, m) => `$${v} / $${m}`} max={100} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Groceries")).toBeVisible()
+    await expect(canvas.getByText("Dining")).toBeVisible()
+    await expect(canvas.getByText("Shopping")).toBeVisible()
+  },
 }
 
 export const Sizes: Story = {
@@ -68,6 +80,7 @@ export const Variants: Story = {
 }
 
 export const BudgetExample: Story = {
+  name: "Recipe: Budget Tracker",
   render: () => (
     <div className="w-[360px] space-y-4">
       <ProgressBar

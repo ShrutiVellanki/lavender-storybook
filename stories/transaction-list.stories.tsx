@@ -1,5 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, userEvent, within, waitFor } from "@storybook/test"
 import TransactionList from "@/components/ui/TransactionList"
 
 const sampleTransactions = [
@@ -46,7 +47,7 @@ const sampleTransactions = [
 ]
 
 const meta: Meta<typeof TransactionList> = {
-  title: "Components/TransactionList",
+  title: "Data Display/TransactionList",
   component: TransactionList,
   tags: ['autodocs'],
   parameters: {
@@ -64,10 +65,23 @@ export default meta
 
 type Story = StoryObj<typeof TransactionList>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     transactions: sampleTransactions,
     title: "Recent transactions",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Recent transactions")).toBeVisible()
+    await expect(canvas.getByText("Alice Chen")).toBeVisible()
+
+    const searchInput = canvas.getByPlaceholderText("Search customer or ID")
+    await userEvent.type(searchInput, "Bob")
+
+    await waitFor(() => {
+      expect(canvas.getByText("Bob Smith")).toBeVisible()
+      expect(canvas.queryByText("Alice Chen")).not.toBeInTheDocument()
+    })
   },
 }
 
@@ -77,12 +91,21 @@ export const Loading: Story = {
     loading: true,
     title: "Recent transactions",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Recent transactions")).toBeVisible()
+    await expect(canvas.getByText("Loading transactions...")).toBeVisible()
+  },
 }
 
 export const Empty: Story = {
   args: {
     transactions: [],
     title: "Recent transactions",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("No transactions found.")).toBeVisible()
   },
 }
 

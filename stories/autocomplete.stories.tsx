@@ -1,6 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
+import { expect, userEvent, within, waitFor } from "@storybook/test"
 import { Autocomplete } from "@/components/ui/Autocomplete"
 
 const COUNTRIES = [
@@ -32,7 +33,7 @@ function mockFetchCountries(query: string): Promise<string[]> {
 }
 
 const meta: Meta<typeof Autocomplete> = {
-  title: "Components/Autocomplete",
+  title: "Inputs/Autocomplete",
   component: Autocomplete,
   tags: ['autodocs'],
   parameters: {
@@ -50,7 +51,7 @@ export default meta
 
 type Story = StoryObj<typeof Autocomplete>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => {
     const [selected, setSelected] = useState<string | null>(null)
     return (
@@ -68,6 +69,15 @@ export const Default: Story = {
         )}
       </div>
     )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText("Type to search countries...")
+    await userEvent.type(input, "United")
+    await waitFor(() => expect(canvas.getByText("United States")).toBeInTheDocument(), {
+      timeout: 3000,
+    })
+    await expect(canvas.getByText("United Kingdom")).toBeInTheDocument()
   },
 }
 

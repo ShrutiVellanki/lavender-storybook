@@ -1,13 +1,14 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
+import { expect, userEvent, waitFor, within } from "@storybook/test"
 import { Select } from "@/components/ui/Dropdown"
 import { Apple, Cherry, Grape } from "lucide-react"
 
 const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape"]
 
 const meta: Meta<typeof Select> = {
-  title: "Components/Dropdown",
+  title: "Inputs/Dropdown",
   component: Select,
   tags: ['autodocs'],
   parameters: {
@@ -24,7 +25,7 @@ const meta: Meta<typeof Select> = {
 export default meta
 type Story = StoryObj<typeof Select<string>>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => (
     <Select
       options={fruits}
@@ -33,6 +34,14 @@ export const Default: Story = {
       label="Fruit"
     />
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole("combobox")
+    await userEvent.click(trigger)
+    await waitFor(() => expect(canvas.getByText("Cherry")).toBeVisible())
+    await userEvent.click(canvas.getByText("Cherry"))
+    await waitFor(() => expect(trigger).toHaveTextContent("Cherry"))
+  },
 }
 
 export const WithDefaultValue: Story = {

@@ -1,5 +1,6 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, within } from "@storybook/test"
 import { StatCard } from "@/components/ui/StatCard"
 
 const WalletIcon = () => (
@@ -11,7 +12,7 @@ const TrendUpIcon = () => (
 )
 
 const meta: Meta<typeof StatCard> = {
-  title: "Components/StatCard",
+  title: "Data Display/StatCard",
   component: StatCard,
   tags: ["autodocs"],
   parameters: {
@@ -32,13 +33,19 @@ const meta: Meta<typeof StatCard> = {
 export default meta
 type Story = StoryObj<typeof StatCard>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     label: "Net Worth",
     value: "$685,769.89",
     trend: { direction: "up", value: "+2.4% this month" },
   },
   decorators: [(Story) => <div className="w-[260px]"><Story /></div>],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Net Worth")).toBeVisible()
+    await expect(canvas.getByText("$685,769.89")).toBeVisible()
+    await expect(canvas.getByText(/\+2\.4% this month/)).toBeVisible()
+  },
 }
 
 export const WithIcon: Story = {
@@ -58,6 +65,11 @@ export const NegativeTrend: Story = {
     trend: { direction: "down", value: "+18% vs last month" },
   },
   decorators: [(Story) => <div className="w-[260px]"><Story /></div>],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Monthly Spending")).toBeVisible()
+    await expect(canvas.getByText("$4,320.00")).toBeVisible()
+  },
 }
 
 export const NeutralTrend: Story = {
@@ -70,6 +82,7 @@ export const NeutralTrend: Story = {
 }
 
 export const DashboardRow: Story = {
+  name: "Recipe: Dashboard Row",
   render: () => (
     <div className="grid grid-cols-4 gap-4 w-[900px]">
       <StatCard

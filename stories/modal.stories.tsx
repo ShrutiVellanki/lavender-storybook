@@ -1,11 +1,12 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
+import { expect, userEvent, within, waitFor } from "@storybook/test"
 import { Modal } from "@/components/ui/Modal"
 import { Button } from "@/components/ui/Button"
 
 const meta: Meta<typeof Modal> = {
-  title: "Components/Modal",
+  title: "Layout/Modal",
   component: Modal,
   tags: ['autodocs'],
   parameters: {
@@ -22,7 +23,7 @@ const meta: Meta<typeof Modal> = {
 export default meta
 type Story = StoryObj<typeof Modal>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => {
     const [open, setOpen] = useState(true)
     return (
@@ -37,9 +38,18 @@ export const Default: Story = {
       </>
     )
   },
+  play: async ({ canvasElement }) => {
+    const body = within(document.body)
+
+    await waitFor(() =>
+      expect(body.getByText("Modal title")).toBeVisible()
+    )
+    await expect(body.getByText(/this is the modal content/i)).toBeVisible()
+  },
 }
 
 export const WithActions: Story = {
+  name: "Recipe: Confirmation Dialog",
   render: () => {
     const [open, setOpen] = useState(false)
     return (
@@ -62,6 +72,18 @@ export const WithActions: Story = {
         </Modal>
       </>
     )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const body = within(document.body)
+
+    await userEvent.click(canvas.getByRole("button", { name: "Confirm action" }))
+
+    await waitFor(() =>
+      expect(body.getByText("Are you sure you want to continue?", { exact: false })).toBeVisible()
+    )
+
+    await userEvent.click(body.getByRole("button", { name: "Cancel" }))
   },
 }
 
@@ -89,6 +111,7 @@ export const NoTitleNoCloseButton: Story = {
 }
 
 export const DestructiveConfirm: Story = {
+  name: "Recipe: Destructive Confirm",
   render: () => {
     const [open, setOpen] = useState(false)
     return (

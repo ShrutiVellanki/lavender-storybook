@@ -1,9 +1,10 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, userEvent, within } from "@storybook/test"
 import PassportForm from "@/components/ui/PassportForm"
 
 const meta: Meta<typeof PassportForm> = {
-  title: "Components/PassportForm",
+  title: "Forms/PassportForm",
   component: PassportForm,
   tags: ['autodocs'],
   parameters: {
@@ -21,6 +22,17 @@ export default meta
 
 type Story = StoryObj<typeof PassportForm>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => <PassportForm />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const countrySelect = canvas.getByLabelText("Country")
+    await userEvent.selectOptions(countrySelect, "USA")
+
+    const passportInput = canvas.getByLabelText("Government ID Number")
+    await userEvent.type(passportInput, "123456789")
+
+    await expect(passportInput).toHaveValue("123456789")
+  },
 }

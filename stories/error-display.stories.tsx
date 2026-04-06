@@ -1,9 +1,10 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, fn, userEvent, within } from "@storybook/test"
 import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
 
 const meta: Meta<typeof ErrorDisplay> = {
-  title: "Components/ErrorDisplay",
+  title: "Feedback/ErrorDisplay",
   component: ErrorDisplay,
   tags: ['autodocs'],
   parameters: {
@@ -33,10 +34,17 @@ const meta: Meta<typeof ErrorDisplay> = {
 export default meta
 type Story = StoryObj<typeof ErrorDisplay>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     message: "We couldn't load your data. Please check your connection and try again.",
-    onRetry: () => alert("Retrying..."),
+    onRetry: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("We couldn't load your data. Please check your connection and try again.")).toBeVisible()
+    const retryButton = canvas.getByRole("button", { name: /try again/i })
+    await userEvent.click(retryButton)
+    await expect(args.onRetry).toHaveBeenCalled()
   },
 }
 
@@ -53,9 +61,16 @@ export const WithoutRetry: Story = {
     title: "Not Found",
     message: "The resource you're looking for doesn't exist.",
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Not Found")).toBeVisible()
+    await expect(canvas.getByText("The resource you're looking for doesn't exist.")).toBeVisible()
+    await expect(canvas.queryByRole("button")).toBeNull()
+  },
 }
 
 export const Inline: Story = {
+  name: "Recipe: Inline in Dashboard",
   render: () => (
     <div className="p-8 bg-background">
       <h2 className="text-lg font-semibold text-foreground mb-4">Dashboard</h2>

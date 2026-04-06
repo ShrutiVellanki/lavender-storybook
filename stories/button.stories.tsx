@@ -1,10 +1,11 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, userEvent, within, fn } from "@storybook/test"
 import { Button } from "@/components/ui/Button"
 import { Loader2, Mail, Plus, Trash2 } from "lucide-react"
 
 const meta: Meta<typeof Button> = {
-  title: "Components/Button",
+  title: "Inputs/Button",
   component: Button,
   tags: ['autodocs'],
   parameters: {
@@ -36,10 +37,17 @@ const meta: Meta<typeof Button> = {
 export default meta
 type Story = StoryObj<typeof Button>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     children: "Button",
     variant: "default",
+    onClick: fn(),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole("button", { name: "Button" })
+    await userEvent.click(button)
+    await expect(button).toBeInTheDocument()
   },
 }
 
@@ -94,5 +102,10 @@ export const Disabled: Story = {
   args: {
     children: "Disabled",
     disabled: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole("button", { name: "Disabled" })
+    await expect(button).toHaveAttribute("disabled")
   },
 }

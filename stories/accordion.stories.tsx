@@ -1,6 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
+import { expect, userEvent, within } from "@storybook/test"
 import {
   Accordion,
   AccordionItem,
@@ -9,7 +10,7 @@ import {
 } from "@/components/ui/Accordion"
 
 const meta: Meta<typeof Accordion> = {
-  title: "Components/Accordion",
+  title: "Layout/Accordion",
   component: Accordion,
   tags: ['autodocs'],
   parameters: {
@@ -26,7 +27,7 @@ const meta: Meta<typeof Accordion> = {
 export default meta
 type Story = StoryObj<typeof Accordion>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => (
     <div className="w-[360px]">
       <Accordion type="single" defaultValue="one">
@@ -55,6 +56,15 @@ export const Default: Story = {
       </Accordion>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await expect(canvas.getByText(/keyboard/i)).toBeVisible()
+
+    const triggers = canvas.getAllByRole("button")
+    await userEvent.click(triggers[1])
+    await expect(canvas.getByText(/type="multiple"/)).toBeVisible()
+  },
 }
 
 export const Multiple: Story = {
@@ -82,6 +92,15 @@ export const Multiple: Story = {
       </Accordion>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await userEvent.click(canvas.getByText("Returns policy"))
+    await userEvent.click(canvas.getByText("Contact support"))
+
+    await expect(canvas.getByText(/30-day returns/i)).toBeVisible()
+    await expect(canvas.getByText(/support@example\.com/i)).toBeVisible()
+  },
 }
 
 export const Controlled: Story = {

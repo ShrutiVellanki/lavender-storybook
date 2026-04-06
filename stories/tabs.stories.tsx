@@ -1,10 +1,11 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
+import { expect, userEvent, within } from "@storybook/test"
 import { Tabs, TabsList, TabsTrigger, TabsPanel } from "@/components/ui/Tabs"
 
 const meta: Meta<typeof Tabs> = {
-  title: "Components/Tabs",
+  title: "Layout/Tabs",
   component: Tabs,
   tags: ['autodocs'],
   parameters: {
@@ -21,7 +22,7 @@ const meta: Meta<typeof Tabs> = {
 export default meta
 type Story = StoryObj<typeof Tabs>
 
-export const Default: Story = {
+export const Playground: Story = {
   render: () => (
     <div className="w-[400px]">
       <Tabs defaultValue="account">
@@ -57,6 +58,14 @@ export const Default: Story = {
       </Tabs>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    await expect(canvas.getByText(/make changes to your account settings/i)).toBeVisible()
+
+    await userEvent.click(canvas.getByRole("tab", { name: "Password" }))
+    await expect(canvas.getByText(/change your password here/i)).toBeVisible()
+  },
 }
 
 export const WithDisabled: Story = {

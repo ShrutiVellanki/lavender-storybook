@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react"
+import { expect, userEvent, within } from "@storybook/test"
 import { Pagination } from "@/components/ui/Pagination"
 
 const meta: Meta<typeof Pagination> = {
-  title: "Components/Pagination",
+  title: "Feedback/Pagination",
   component: Pagination,
   tags: ["autodocs"],
   parameters: {
@@ -25,7 +26,7 @@ const meta: Meta<typeof Pagination> = {
 export default meta
 type Story = StoryObj<typeof Pagination>
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     currentPage: 1,
     totalPages: 10,
@@ -64,6 +65,13 @@ export const Interactive: Story = {
       </div>
     )
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText("Page 1 of 20")).toBeVisible()
+    const nextButton = canvas.getByRole("button", { name: /next page/i })
+    await userEvent.click(nextButton)
+    await expect(canvas.getByText("Page 2 of 20")).toBeVisible()
+  },
 }
 
 export const SinglePage: Story = {
@@ -77,5 +85,9 @@ export const SinglePage: Story = {
         story: "When there's only one page, the component renders nothing.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.queryByRole("button")).toBeNull()
   },
 }
