@@ -9,6 +9,7 @@
     "test-storybook": "test-storybook",
     "test-storybook:ci": "test-storybook --ci",
     "test-storybook:coverage": "test-storybook --coverage",
+    "deploy-storybook": "storybook build && npx gh-pages -d storybook-static",
     "lint": "eslint ."
   },
   "dependencies": {
