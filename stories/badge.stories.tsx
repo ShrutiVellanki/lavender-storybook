@@ -17,7 +17,7 @@ import {
 } from "lucide-react"
 
 const meta: Meta<typeof Badge> = {
-  title: "Feedback/Badge",
+  title: "Information/Badge",
   component: Badge,
   tags: ["autodocs"],
   parameters: {

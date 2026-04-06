@@ -4,7 +4,7 @@ import { expect, within } from "@storybook/test"
 import { Skeleton } from "@/components/ui/Skeleton"
 
 const meta: Meta<typeof Skeleton> = {
-  title: "Feedback/Skeleton",
+  title: "Information/Skeleton",
   component: Skeleton,
   tags: ["autodocs"],
   parameters: {

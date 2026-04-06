@@ -146,15 +146,18 @@ export function Tooltip({
     }
   }, [isOpen])
 
-  const childProps = (children as ReactElement<Record<string, unknown>>).props as Record<string, any>
-  const child = cloneElement(children as ReactElement<Record<string, unknown>>, {
+  type ChildProps = React.HTMLAttributes<Element> & { ref?: React.Ref<HTMLElement> }
+
+  const childElement = children as ReactElement<ChildProps>
+  const childProps = childElement.props
+  const child = cloneElement(childElement, {
     ref: (node: HTMLElement) => {
       triggerRef.current = node
-      const originalRef = (children as any).ref
+      const originalRef = childProps.ref
       if (typeof originalRef === "function") {
         originalRef(node)
       } else if (originalRef && typeof originalRef === "object") {
-        originalRef.current = node
+        (originalRef as React.MutableRefObject<HTMLElement | null>).current = node
       }
     },
     "aria-describedby": isOpen ? tooltipId : undefined,

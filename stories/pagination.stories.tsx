@@ -4,7 +4,7 @@ import { expect, userEvent, within } from "@storybook/test"
 import { Pagination } from "@/components/ui/Pagination"
 
 const meta: Meta<typeof Pagination> = {
-  title: "Feedback/Pagination",
+  title: "Information/Pagination",
   component: Pagination,
   tags: ["autodocs"],
   parameters: {

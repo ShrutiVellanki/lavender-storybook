@@ -1,0 +1,409 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Getting Started" />
+
+# Getting Started
+
+Everything you need to set up a development environment and work in the Lavender Design System codebase.
+
+---
+
+## Environment Setup
+
+```bash
+git clone <repo-url>
+cd lavender-storybook
+npm install
+npm run storybook
+```
+
+Storybook launches at [http://localhost:6006](http://localhost:6006). Changes to components and stories hot-reload automatically.
+
+---
+
+## Project Structure
+
+```
+lavender-storybook/
+├── .storybook/           # Storybook config (main.js, preview.js)
+├── src/
+│   ├── components/ui/    # Component source code
+│   │   └── Button/
+│   │       ├── Button.tsx
+│   │       ├── Button.types.ts
+│   │       ├── Button.styles.ts   (optional)
+│   │       └── index.ts
+│   ├── lib/utils.ts      # cn() utility
+│   └── styles/globals.css # Design tokens
+└── stories/              # Storybook stories & docs
+    ├── Welcome.mdx
+    ├── DesignTokens.mdx
+    └── button.stories.tsx
+```
+
+---
+
+## Dependencies
+
+```bash
+npm install clsx tailwind-merge lucide-react tailwindcss-animate
+npm install recharts  # only if using Chart components
+```
+
+| Package | Purpose |
+|---------|---------|
+| `clsx` + `tailwind-merge` | The `cn()` class-merging utility used by every component |
+| `lucide-react` | Icons (chevrons, close, search, spinner, etc.) |
+| `tailwindcss-animate` | Accordion expand/collapse and spinner animations |
+| `recharts` | Only needed for Chart components |
+
+---
+
+## The `cn()` Utility
+
+Create `lib/utils.ts`:
+
+```ts
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+Every component uses `cn()` for class merging. It combines `clsx` (conditional classes) with `tailwind-merge` (deduplicates conflicting Tailwind utilities).
+
+---
+
+## Theme Tokens
+
+Add the following tokens to your stylesheet (e.g. `globals.css`). These CSS custom properties power the entire color system — components reference them directly, so theming requires zero conditional logic.
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #fafafc;
+    --foreground: #575279;
+    --card: #ffffff;
+    --card-foreground: #575279;
+    --popover: #f3f2f7;
+    --popover-foreground: #575279;
+    --primary: #907aa9;
+    --primary-foreground: #ffffff;
+    --secondary: #efeef5;
+    --secondary-foreground: #575279;
+    --muted: #efeef5;
+    --muted-foreground: #9893a5;
+    --accent: #efeef5;
+    --accent-foreground: #575279;
+    --destructive: #b4637a;
+    --destructive-foreground: #ffffff;
+    --border: #dfdee8;
+    --input: #dfdee8;
+    --ring: #907aa9;
+    --chart-1: #907aa9;
+    --chart-2: #56949f;
+    --chart-3: #286983;
+    --chart-4: #ea9d34;
+    --chart-5: #d7827e;
+    --radius: 0.625rem;
+    --sidebar-background: #fafafc;
+    --sidebar-foreground: #575279;
+    --sidebar-primary: #907aa9;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #efeef5;
+    --sidebar-accent-foreground: #575279;
+    --sidebar-border: #dfdee8;
+    --sidebar-ring: #907aa9;
+  }
+
+  .dark {
+    --background: #1e1e2e;
+    --foreground: #cdcce0;
+    --card: #262639;
+    --card-foreground: #cdcce0;
+    --popover: #2f2f44;
+    --popover-foreground: #cdcce0;
+    --primary: #af9ad2;
+    --primary-foreground: #1e1e2e;
+    --secondary: #282842;
+    --secondary-foreground: #cdcce0;
+    --muted: #282842;
+    --muted-foreground: #6e6c88;
+    --accent: #282842;
+    --accent-foreground: #cdcce0;
+    --destructive: #d4708a;
+    --destructive-foreground: #cdcce0;
+    --border: #3a3a54;
+    --input: #3a3a54;
+    --ring: #af9ad2;
+    --chart-1: #af9ad2;
+    --chart-2: #89bcc6;
+    --chart-3: #3a84a4;
+    --chart-4: #d9ae6e;
+    --chart-5: #d29290;
+    --sidebar-background: #1e1e2e;
+    --sidebar-foreground: #cdcce0;
+    --sidebar-primary: #af9ad2;
+    --sidebar-primary-foreground: #1e1e2e;
+    --sidebar-accent: #282842;
+    --sidebar-accent-foreground: #cdcce0;
+    --sidebar-border: #3a3a54;
+    --sidebar-ring: #af9ad2;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+}
+```
+
+→ See **Design Tokens** for the full color palette reference with visual swatches.
+
+---
+
+## Tailwind Config
+
+Map the CSS variables to Tailwind utilities in your `tailwind.config.ts`:
+
+```ts
+import type { Config } from "tailwindcss"
+
+const config: Config = {
+  darkMode: ["class"],
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./stories/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        card: { DEFAULT: "var(--card)", foreground: "var(--card-foreground)" },
+        popover: { DEFAULT: "var(--popover)", foreground: "var(--popover-foreground)" },
+        primary: { DEFAULT: "var(--primary)", foreground: "var(--primary-foreground)" },
+        secondary: { DEFAULT: "var(--secondary)", foreground: "var(--secondary-foreground)" },
+        muted: { DEFAULT: "var(--muted)", foreground: "var(--muted-foreground)" },
+        accent: { DEFAULT: "var(--accent)", foreground: "var(--accent-foreground)" },
+        destructive: { DEFAULT: "var(--destructive)", foreground: "var(--destructive-foreground)" },
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        chart: {
+          "1": "var(--chart-1)", "2": "var(--chart-2)", "3": "var(--chart-3)",
+          "4": "var(--chart-4)", "5": "var(--chart-5)",
+        },
+        sidebar: {
+          DEFAULT: "var(--sidebar-background)",
+          foreground: "var(--sidebar-foreground)",
+          primary: "var(--sidebar-primary)",
+          "primary-foreground": "var(--sidebar-primary-foreground)",
+          accent: "var(--sidebar-accent)",
+          "accent-foreground": "var(--sidebar-accent-foreground)",
+          border: "var(--sidebar-border)",
+          ring: "var(--sidebar-ring)",
+        },
+        lavenderDawn: {
+          base: "#fafafc", surface: "#ffffff", overlay: "#f3f2f7",
+          muted: "#9893a5", subtle: "#797593", text: "#575279",
+          love: "#b4637a", gold: "#ea9d34", rose: "#d7827e",
+          pine: "#286983", foam: "#56949f", iris: "#907aa9",
+          highlightLow: "#efeef5", highlightMed: "#dfdee8", highlightHigh: "#d0cfd9",
+        },
+        lavenderMoon: {
+          base: "#1e1e2e", surface: "#262639", overlay: "#2f2f44",
+          muted: "#6e6c88", subtle: "#8e8ca6", text: "#cdcce0",
+          love: "#d4708a", gold: "#d9ae6e", rose: "#d29290",
+          pine: "#3a84a4", foam: "#89bcc6", iris: "#af9ad2",
+          highlightLow: "#282842", highlightMed: "#3a3a54", highlightHigh: "#4c4c65",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
+        "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
+        "spin-slow": { from: { transform: "rotate(0deg)" }, to: { transform: "rotate(360deg)" } },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "spin-slow": "spin-slow 1s linear infinite",
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate")],
+}
+export default config
+```
+
+---
+
+## ThemeProvider
+
+Wrap your app to enable theme switching with localStorage persistence:
+
+```tsx
+import { ThemeProvider } from "@/components/ui/ThemeProvider"
+
+function App() {
+  return (
+    <ThemeProvider defaultTheme="light" storageKey="lavender-theme">
+      {/* your app */}
+    </ThemeProvider>
+  )
+}
+```
+
+Toggle programmatically with the `useTheme` hook:
+
+```tsx
+import { useTheme } from "@/components/ui/ThemeProvider"
+
+const { theme, setTheme } = useTheme()
+setTheme(theme === "light" ? "dark" : "light")
+```
+
+Switching is controlled by the `dark` class on the document root:
+
+```html
+<html>              <!-- Lavender Dawn -->
+<html class="dark"> <!-- Lavender Moon -->
+```
+
+---
+
+## TypeScript Conventions
+
+Every component is strictly typed. No `any` usage is permitted.
+
+### File layout
+
+Each component has a dedicated types file:
+
+```
+src/components/ui/Button/
+├── Button.tsx           # Implementation
+├── Button.types.ts      # Props interfaces and type aliases
+├── Button.styles.ts     # Variant/size class maps (optional)
+└── index.ts             # Barrel exports (components + types)
+```
+
+### Prop typing
+
+Components that wrap a single DOM element extend the corresponding HTML attributes:
+
+```tsx
+// Button.types.ts
+export type ButtonVariant = "default" | "secondary" | "destructive" | "outline" | "ghost" | "link"
+export type ButtonSize = "sm" | "default" | "lg" | "icon"
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant
+  size?: ButtonSize
+}
+```
+
+Data-driven components use generics:
+
+```tsx
+// Autocomplete.types.ts
+export type AutocompleteProps<T> = {
+  fetchSuggestions: (query: string) => Promise<T[]>
+  getOptionLabel: (option: T) => string
+  onSelect: (option: T) => void
+  placeholder?: string
+  className?: string
+}
+```
+
+### Ref forwarding
+
+All DOM-wrapping components use `React.forwardRef` with explicit generics:
+
+```tsx
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant = "default", size = "default", ...props }, ref) => {
+    return <button ref={ref} className={cn(/* ... */)} {...props} />
+  },
+)
+Button.displayName = "Button"
+```
+
+### Barrel exports
+
+Every `index.ts` exports both components and types:
+
+```tsx
+export { Button } from "./Button"
+export type { ButtonVariant, ButtonSize, ButtonProps } from "./Button.types"
+```
+
+### Strict rules
+
+| Rule | Rationale |
+|------|-----------|
+| No `any` | Use `unknown` + type guards, or use specific library types |
+| No implicit `any` | Strict mode is on — all parameters must be typed |
+| No `@ts-ignore` | Use `@ts-expect-error` with a comment if needed |
+| `import type` for type-only imports | Prevents runtime import of type-only modules |
+| String literal unions over enums | Lighter, better Storybook controls integration |
+
+---
+
+## Testing
+
+The project uses **Storybook interaction tests** — `play` functions that run in a real browser via Playwright.
+
+### Setup
+
+Install Playwright browsers (one-time):
+
+```bash
+npx playwright install chromium
+```
+
+### Commands
+
+Storybook must be running before executing tests.
+
+| Script | Description |
+|--------|-------------|
+| `npm run test-storybook` | Run all interaction tests against `http://localhost:6006` |
+| `npm run test-storybook:ci` | CI mode — exits after a single run |
+| `npm run test-storybook:coverage` | Run tests with code coverage |
+
+Filter by file:
+
+```bash
+npm run test-storybook -- --testPathPattern="button"
+```
+
+### Viewing in the browser
+
+1. Navigate to any story in **Canvas** view (not Docs)
+2. Open the **Interactions** panel at the bottom
+3. Each `play` function step is listed with pass/fail status
+
+### Accessibility checks
+
+The `@storybook/addon-a11y` addon runs axe-core on every story. Open the **Accessibility** panel to see results. Enforced rules: `color-contrast`, `label`, `button-name`, `aria-roles`, `aria-valid-attr-value`.
+
+---
+
+## Building for Production
+
+```bash
+npm run build-storybook   # outputs to storybook-static/
+npm run deploy-storybook  # builds and deploys to GitHub Pages
+```

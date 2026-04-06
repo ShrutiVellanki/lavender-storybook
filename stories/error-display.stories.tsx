@@ -4,7 +4,7 @@ import { expect, fn, userEvent, within } from "@storybook/test"
 import { ErrorDisplay } from "@/components/ui/ErrorDisplay"
 
 const meta: Meta<typeof ErrorDisplay> = {
-  title: "Feedback/ErrorDisplay",
+  title: "Information/ErrorDisplay",
   component: ErrorDisplay,
   tags: ['autodocs'],
   parameters: {

@@ -2,6 +2,7 @@ import React from "react"
 import { useChart } from "./chart-context"
 import { getPayloadConfigFromPayload } from "./config"
 import * as RechartsPrimitive from "recharts"
+import type { Payload, NameType, ValueType } from "recharts/types/component/DefaultTooltipContent"
 import { cn } from "@/lib/utils"
 
 export const ChartTooltipContent = React.forwardRef<
@@ -81,7 +82,7 @@ export const ChartTooltipContent = React.forwardRef<
       >
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
-          {payload.map((item: any, index: any) => {
+          {payload.map((item: Payload<ValueType, NameType>, index: number) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
             const indicatorColor = color || item.payload.fill || item.color
@@ -133,7 +134,7 @@ export const ChartTooltipContent = React.forwardRef<
                         </span>
                       </div>
                       <span className="font-mono font-medium tabular-nums text-foreground">
-                        {valueFormatter
+                        {valueFormatter && typeof item.value === "number"
                           ? valueFormatter(item.value)
                           : item.value?.toLocaleString()}
                       </span>

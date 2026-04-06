@@ -4,7 +4,7 @@ import { expect, within } from "@storybook/test"
 import { Loading } from "@/components/ui/Loading"
 
 const meta: Meta<typeof Loading> = {
-  title: "Feedback/Loading",
+  title: "Information/Loading",
   component: Loading,
   tags: ['autodocs'],
   parameters: {

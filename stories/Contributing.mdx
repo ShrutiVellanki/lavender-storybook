@@ -1,45 +1,10 @@
 import { Meta } from '@storybook/blocks'
 
-<Meta title="Getting Started/Contributing" />
+<Meta title="Contributing" />
 
 # Contributing
 
 How to add or modify components in the Lavender Design System.
-
----
-
-## Environment Setup
-
-```bash
-git clone <repo-url>
-cd lavender-storybook
-npm install
-npm run storybook
-```
-
-Storybook launches at [http://localhost:6006](http://localhost:6006). Changes to components and stories hot-reload automatically.
-
----
-
-## Project Structure
-
-```
-lavender-storybook/
-├── .storybook/           # Storybook config (main.js, preview.js)
-├── src/
-│   ├── components/ui/    # Component source code
-│   │   └── Button/
-│   │       ├── Button.tsx
-│   │       ├── Button.types.ts
-│   │       ├── Button.styles.ts   (optional)
-│   │       └── index.ts
-│   ├── lib/utils.ts      # cn() utility
-│   └── styles/globals.css # Design tokens
-└── stories/              # Storybook stories & docs
-    ├── Introduction.mdx
-    ├── DesignTokens.mdx
-    └── button.stories.tsx
-```
 
 ---
 
@@ -61,6 +26,7 @@ src/components/ui/MyComponent/
 - Source colors from CSS custom properties (`var(--primary)`, etc.) — never hardcode hex values
 - Forward refs with `React.forwardRef` on all DOM-wrapping components
 - Export types alongside the component from `index.ts`
+- Props live in `ComponentName.types.ts`, never inline in the `.tsx` file
 
 ### 3. Write stories
 
@@ -77,7 +43,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { MyComponent } from "@/components/ui/MyComponent"
 
 const meta: Meta<typeof MyComponent> = {
-  title: "Category/MyComponent",    // Use a functional group
+  title: "Category/MyComponent",
   component: MyComponent,
   tags: ["autodocs"],
   parameters: { layout: "centered" },
@@ -97,9 +63,75 @@ export const Playground: Story = {
 | `Inputs/` | Buttons, selects, text fields, toggles — anything that captures user input |
 | `Layout/` | Containers, modals, accordions, tabs — structural components |
 | `Data Display/` | Tables, lists, charts, stat cards — components that render data |
-| `Feedback/` | Badges, progress bars, loaders, skeletons, error states |
+| `Information/` | Badges, progress bars, loaders, skeletons, error states |
 | `Forms/` | Multi-field composite forms |
 | `Theme/` | Theme providers, switchers, and utilities |
+
+### 5. Add interaction tests
+
+Every Playground story should include a `play` function:
+
+```tsx
+import { expect, userEvent, within } from "@storybook/test"
+
+export const Playground: Story = {
+  args: { children: "Click me" },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole("button", { name: "Click me" })
+    await userEvent.click(button)
+    await expect(button).toBeInTheDocument()
+  },
+}
+```
+
+**Querying elements** — use queries scoped via `within(canvasElement)`:
+
+| Query | When to use |
+|-------|-------------|
+| `getByRole("button", { name: "..." })` | Interactive elements — **preferred** |
+| `getByText(/pattern/i)` | Visible text content |
+| `getByPlaceholderText("...")` | Inputs without `htmlFor` labels |
+| `getByLabelText("...")` | Inputs with associated labels |
+| `findByText("...")` | Text that appears asynchronously |
+
+**Simulating user actions:**
+
+```tsx
+await userEvent.click(element)
+await userEvent.type(input, "hello")
+await userEvent.keyboard("{Enter}")
+```
+
+**Asserting state:**
+
+```tsx
+await expect(element).toBeVisible()
+await expect(element).toHaveTextContent("Expected text")
+await expect(element).toHaveAttribute("disabled")
+```
+
+**Waiting for async changes:**
+
+```tsx
+import { waitFor } from "@storybook/test"
+await waitFor(() => expect(canvas.getByText("Updated")).toBeVisible())
+```
+
+**Testing callbacks with `fn()`:**
+
+```tsx
+import { fn } from "@storybook/test"
+
+export const Playground: Story = {
+  args: { onClick: fn() },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(canvas.getByRole("button"))
+    await expect(args.onClick).toHaveBeenCalledOnce()
+  },
+}
+```
 
 ---
 
@@ -109,85 +141,24 @@ export const Playground: Story = {
 2. Update types in `ComponentName.types.ts` if the API changed
 3. Add or update stories to cover any new props or states
 4. Check both **Lavender Dawn** and **Lavender Moon** themes in Storybook
+5. Run `npm run test-storybook` to verify all interaction tests pass
 
 ---
 
 ## Code Style
 
-- **TypeScript** — strict mode, no `any` unless unavoidable
+- **TypeScript** — strict mode, no `any`, explicit prop types in `*.types.ts` files
 - **Tailwind CSS** — use utility classes via `cn()`, never inline `style` objects for themeable properties
 - **Naming** — PascalCase for components and directories, camelCase for utilities
 - **Accessibility** — ARIA attributes on interactive components, keyboard navigation, focus management
 
 ---
 
-## Testing
-
-The project uses [Storybook Test Runner](https://storybook.js.org/docs/writing-tests/test-runner) to run all interaction tests (`play` functions) headlessly via Playwright. This catches broken stories, failed assertions, and accessibility regressions in CI.
-
-### Prerequisites
-
-Install Playwright's Chromium browser (one-time setup):
+## CI Integration
 
 ```bash
-npx playwright install chromium
+npx storybook build
+npx http-server storybook-static --port 6006 --silent &
+npx wait-on http://localhost:6006
+npm run test-storybook:ci
 ```
-
-### Running Tests
-
-Storybook must be running before you execute the test runner.
-
-| Command | Description |
-|---------|-------------|
-| `npm run test-storybook` | Run all interaction tests against `http://localhost:6006` |
-| `npm run test-storybook:ci` | Same as above but exits after a single run (for CI pipelines) |
-| `npm run test-storybook:coverage` | Run tests and collect code coverage |
-
-```bash
-# Terminal 1 — start Storybook
-npm run storybook
-
-# Terminal 2 — run tests
-npm run test-storybook
-```
-
-You can target a specific story file by appending `-- --testPathPattern`:
-
-```bash
-npm run test-storybook -- --testPathPattern="button"
-```
-
-### Writing Interaction Tests
-
-Every Playground story should include a `play` function that exercises the component:
-
-```tsx
-import { expect, userEvent, within } from "@storybook/test"
-
-export const Playground: Story = {
-  args: { /* ... */ },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const button = canvas.getByRole("button", { name: "Submit" })
-    await userEvent.click(button)
-    await expect(button).toBeInTheDocument()
-  },
-}
-```
-
-Tips:
-- Use `within(canvasElement)` to scope queries to the story's rendered output
-- Use `getByRole`, `getByText`, `getByPlaceholderText` over fragile selectors
-- Use `waitFor` from `@storybook/test` for assertions on async state changes
-- Feature stories that showcase important states should also have `play` functions
-- The Interactions panel in Storybook (Canvas view → Interactions tab) shows step-by-step execution of each play function
-
----
-
-## Building for Production
-
-```bash
-npm run build-storybook
-```
-
-Output goes to `storybook-static/`. This is what gets deployed.

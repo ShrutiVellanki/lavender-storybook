@@ -1,2 +1,2 @@
 export { CreditCardForm, CreditCardDisplay } from "./CreditCardForm"
-export type { CreditCardData, CreditCardFormProps } from "./CreditCardForm.types"
+export type { CreditCardData, CreditCardFormProps, CreditCardDisplayProps, CardInputProps } from "./CreditCardForm.types"

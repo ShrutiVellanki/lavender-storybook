@@ -7,12 +7,15 @@ const preview = {
     options: {
       storySort: {
         order: [
+          "Welcome",
           "Getting Started",
-          ["Introduction", "Design Tokens", "Contributing", "Changelog"],
+          "Contributing",
+          "Changelog",
+          "Design Tokens",
           "Inputs",
           "Layout",
           "Data Display",
-          "Feedback",
+          "Information",
           "Forms",
           "Theme",
         ],

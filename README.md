@@ -1,8 +1,8 @@
 # Lavender Design System
 
-**[Live Storybook](https://lavender-storybook.vercel.app)** · **[Lavender Finance (consumer)](https://lavender-finance.vercel.app)**
+**[Live Storybook](https://shrutivellanki.github.io/lavender-storybook/)**
 
-A themed, accessible React component library with a full design token system, dual-theme support, and comprehensive Storybook documentation. Powers the Lavender Finance dashboard.
+A themed, accessible React component library with a full design token system, dual-theme support, and comprehensive Storybook documentation.
 
 ## System Architecture
 
@@ -10,6 +10,7 @@ A themed, accessible React component library with a full design token system, du
 tokens/              CSS custom properties on :root / .dark
   ├── Semantic       background, foreground, primary, border, ring…
   ├── Chart          chart-1 through chart-5 (data-viz palette)
+  ├── Sidebar        sidebar-background, sidebar-primary, sidebar-border…
   └── Extended       lavenderDawn.* / lavenderMoon.* (fixed-hex)
         │
         ▼
@@ -22,15 +23,12 @@ primitives/
   └── ThemeSwitcher   Toggle component
         │
         ▼
-components/ui/       24+ production components
+components/ui/       25 production components
   ├── Inputs         Button, Dropdown, Autocomplete, Combobox, PinCode, StarRating
   ├── Layout         Card, Modal, Accordion, Tabs, Tooltip
-  ├── Data           TransactionList, VirtualizedList, StatCard, Chart
-  ├── Feedback       Badge, ProgressBar, Loading, ErrorDisplay, Skeleton, Pagination
+  ├── Data Display   TransactionList, VirtualizedList, StatCard, Chart, ProgressBar
+  ├── Information    Badge, Loading, ErrorDisplay, Skeleton, Pagination
   └── Forms          CreditCardForm, PassportForm
-        │
-        ▼
-product/             Lavender Finance dashboard
 ```
 
 ## Token System
@@ -73,19 +71,22 @@ src/components/ui/Button/
 Every component has an autodocs page with:
 - Interactive controls for prop exploration
 - Multiple story variants showing real-world usage
+- Interaction tests (`play` functions) that run headlessly in CI
 - Theme switching via the toolbar (Lavender Dawn / Lavender Moon)
 
 The Storybook also includes:
-- **Introduction** — system overview, architecture, design decisions
-- **Tokens / Getting Started** — full setup guide, color palettes, spacing, typography
+- **Welcome** — problem statement and design system overview
+- **Getting Started** — environment setup, tokens, Tailwind config, TypeScript conventions, testing
+- **Contributing** — how to add components, write stories, and write interaction tests
+- **Design Tokens** — full color palette reference with visual swatches
 
 ## Tech Stack
 
 | Tool | Role |
 |------|------|
 | React 18 | Component runtime |
-| TypeScript | Static typing |
-| Storybook 8 | Documentation and visual testing |
+| TypeScript | Static typing (strict, no `any`) |
+| Storybook 8.6 | Documentation, visual testing, interaction tests |
 | Tailwind CSS 3.4 | Utility-first styling via CSS custom properties |
 | Recharts | Chart primitives |
 | Lucide React | Icons |
@@ -99,22 +100,19 @@ npm install
 npm run storybook        # http://localhost:6006
 ```
 
-Build a static site:
+Build and deploy:
 
 ```bash
-npm run build-storybook  # outputs to storybook-static/
+npm run build-storybook   # outputs to storybook-static/
+npm run deploy-storybook  # builds and deploys to GitHub Pages
 ```
 
-## Usage
-
-Copy a component directory into your project along with `src/lib/utils.ts` and the theme tokens from `src/styles/globals.css`.
+Run interaction tests:
 
 ```bash
-npm install clsx tailwind-merge lucide-react tailwindcss-animate
-npm install recharts  # only if using Chart components
+npx playwright install chromium  # one-time setup
+npm run test-storybook           # requires Storybook running
 ```
-
-See the **Tokens / Getting Started** page in Storybook for detailed setup instructions.
 
 ## Cross-Component Dependencies
 
@@ -127,16 +125,19 @@ See the **Tokens / Getting Started** page in Storybook for detailed setup instru
 
 ```
 src/
-├── components/ui/          # One directory per component (24+)
+├── components/ui/          # One directory per component (25)
 ├── lib/
 │   └── utils.ts            # cn() helper
 └── styles/
     └── globals.css          # Tailwind base + theme tokens (Dawn + Moon)
 stories/
-├── Introduction.mdx         # System overview and architecture
-├── DesignTokens.mdx         # Token reference, palettes, setup guide
+├── Welcome.mdx              # Problem statement and overview
+├── GettingStarted.mdx       # Setup, TypeScript, testing
+├── Contributing.mdx         # How to add/modify components
+├── Changelog.mdx            # Version history
+├── DesignTokens.mdx         # Color palette reference
 └── *.stories.tsx            # One story file per component
 .storybook/
-├── main.js                  # Storybook config, Vite alias
-└── preview.js               # Global styles, theme decorator
+├── main.js                  # Storybook config, Vite alias, addons
+└── preview.js               # Global styles, theme decorator, a11y rules
 ```

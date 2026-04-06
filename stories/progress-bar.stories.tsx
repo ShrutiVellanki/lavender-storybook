@@ -4,7 +4,7 @@ import { expect, within } from "@storybook/test"
 import { ProgressBar } from "@/components/ui/ProgressBar"
 
 const meta: Meta<typeof ProgressBar> = {
-  title: "Feedback/ProgressBar",
+  title: "Data Display/ProgressBar",
   component: ProgressBar,
   tags: ["autodocs"],
   parameters: {
