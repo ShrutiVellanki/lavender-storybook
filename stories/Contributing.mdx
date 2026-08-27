@@ -2,163 +2,56 @@ import { Meta } from '@storybook/blocks'
 
 <Meta title="Contributing" />
 
-# Contributing
+# Development and Contribution Guidelines
 
-How to add or modify components in the Lavender Design System.
+This library is a **shared repo with a federated contribution model**. Product engineers add and change components. There is no separate team that implements every request. The contract is tokens, file layout, stories, and tests — not a ticket queue.
 
 ---
 
-## Adding a New Component
+## How engineers contribute (federated)
 
-### 1. Create the component directory
+Product work stays in the product until it is clearly shared. Then it is extracted here, in the same PR or immediately after, so Finance and Portfolio do not keep a private fork.
+
+**When it belongs here.** It appears in two products, or it is a primitive (Button, Badge) that a product would otherwise reimplement. One-off dashboard chrome stays in the product.
+
+**When it does not.** A single-use layout, a one-off hex, or a variant that exists to dodge the token file.
+
+**What a contribution looks like.**
 
 ```
 src/components/ui/MyComponent/
-├── MyComponent.tsx        # Component implementation
-├── MyComponent.types.ts   # TypeScript interfaces
-├── MyComponent.styles.ts  # Variant styles (if using cva pattern)
-└── index.ts               # Public exports
+├── MyComponent.tsx
+├── MyComponent.types.ts
+├── MyComponent.styles.ts   # optional
+└── index.ts
+
+stories/my-component.stories.tsx
 ```
 
-### 2. Follow existing conventions
+| Step | Owner | Done when |
+| --- | --- | --- |
+| 1. Token | Anyone, reviewed as API | Colour / radius / type uses a semantic name, or a new token is added to `globals.css` for both Dawn and Moon |
+| 2. Component | The product engineer who hit the need | Types in `*.types.ts`, no `any`, refs forwarded, `cn()` for classes |
+| 3. Stories | Same PR | Playground with controls, one story per state, both themes checked |
+| 4. Tests | Same PR | `play` function on Playground; portal cases assert against `document.body` |
+| 5. Sidebar group | Same PR | Inputs / Layout / Data Display / Information / Forms / Theme — by job, not by size |
 
-- Use `cn()` from `@/lib/utils` for class merging
-- Source colors from CSS custom properties (`var(--primary)`, etc.) — never hardcode hex values
-- Forward refs with `React.forwardRef` on all DOM-wrapping components
-- Export types alongside the component from `index.ts`
-- Props live in `ComponentName.types.ts`, never inline in the `.tsx` file
+Token changes are shared API. A new `--chart-6` or a radius change is reviewed like a component prop, because every product inherits it.
 
-### 3. Write stories
-
-Create `stories/my-component.stories.tsx` with at minimum:
-
-| Story | Purpose |
-|-------|---------|
-| **Playground** | All props wired to Storybook controls via `args` |
-| **Feature stories** | One story per visual variant, state, or behavior |
-| **Recipe** (optional) | Combine with other components in a real-world layout |
-
-```tsx
-import type { Meta, StoryObj } from "@storybook/react"
-import { MyComponent } from "@/components/ui/MyComponent"
-
-const meta: Meta<typeof MyComponent> = {
-  title: "Category/MyComponent",
-  component: MyComponent,
-  tags: ["autodocs"],
-  parameters: { layout: "centered" },
-}
-export default meta
-type Story = StoryObj<typeof MyComponent>
-
-export const Playground: Story = {
-  args: { /* default prop values */ },
-}
-```
-
-### 4. Choose the right sidebar group
-
-| Group | When to use |
-|-------|------------|
-| `Inputs/` | Buttons, selects, text fields, toggles — anything that captures user input |
-| `Layout/` | Containers, modals, accordions, tabs — structural components |
-| `Data Display/` | Tables, lists, charts, stat cards — components that render data |
-| `Information/` | Badges, progress bars, loaders, skeletons, error states |
-| `Forms/` | Multi-field composite forms |
-| `Theme/` | Theme providers, switchers, and utilities |
-
-### 5. Add interaction tests
-
-Every Playground story should include a `play` function:
-
-```tsx
-import { expect, userEvent, within } from "@storybook/test"
-
-export const Playground: Story = {
-  args: { children: "Click me" },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const button = canvas.getByRole("button", { name: "Click me" })
-    await userEvent.click(button)
-    await expect(button).toBeInTheDocument()
-  },
-}
-```
-
-**Querying elements** — use queries scoped via `within(canvasElement)`:
-
-| Query | When to use |
-|-------|-------------|
-| `getByRole("button", { name: "..." })` | Interactive elements — **preferred** |
-| `getByText(/pattern/i)` | Visible text content |
-| `getByPlaceholderText("...")` | Inputs without `htmlFor` labels |
-| `getByLabelText("...")` | Inputs with associated labels |
-| `findByText("...")` | Text that appears asynchronously |
-
-**Simulating user actions:**
-
-```tsx
-await userEvent.click(element)
-await userEvent.type(input, "hello")
-await userEvent.keyboard("{Enter}")
-```
-
-**Asserting state:**
-
-```tsx
-await expect(element).toBeVisible()
-await expect(element).toHaveTextContent("Expected text")
-await expect(element).toHaveAttribute("disabled")
-```
-
-**Waiting for async changes:**
-
-```tsx
-import { waitFor } from "@storybook/test"
-await waitFor(() => expect(canvas.getByText("Updated")).toBeVisible())
-```
-
-**Testing callbacks with `fn()`:**
-
-```tsx
-import { fn } from "@storybook/test"
-
-export const Playground: Story = {
-  args: { onClick: fn() },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement)
-    await userEvent.click(canvas.getByRole("button"))
-    await expect(args.onClick).toHaveBeenCalledOnce()
-  },
-}
-```
+Forks that never return are the failure mode. Copying a folder into Finance and diverging it is not federated contribution — it is the duplicated implementation this repo exists to stop.
 
 ---
 
-## Modifying an Existing Component
+## How design + engineering work together
 
-1. Edit the component in `src/components/ui/ComponentName/`
-2. Update types in `ComponentName.types.ts` if the API changed
-3. Add or update stories to cover any new props or states
-4. Check both **Lavender Dawn** and **Lavender Moon** themes in Storybook
-5. Run `npm run test-storybook` to verify all interaction tests pass
+Storybook is the working file. There is no second spec in Figma that code is allowed to drift from. Designers review Playground, Dawn/Moon in the toolbar, and the token pages. Engineers ship the folder + stories.
 
----
+| Decision | Who | How |
+| --- | --- | --- |
+| Visual language | Design, encoded as tokens | Primitive vs semantic on **Design Tokens / Overview**. A hex that is not in the file does not ship. |
+| Reusable vs custom | Both, using the two-product rule | Two surfaces → extract. One surface → stay in the product. |
+| Component API | Engineering | Props in `*.types.ts`. Controlled where the product owns state (Modal `open`). |
+| Disagreement | Tokens win | Product wants a one-off chart hex. System wants `--chart-4`. Chart-4 wins, or the extended palette grows. Hardcoding in a component is the old problem. |
+| A11y | Engineering, gated in CI | Keyboard and ARIA in the component. `addon-a11y` on every story (`color-contrast`, `label`, `button-name`, ARIA). |
 
-## Code Style
-
-- **TypeScript** — strict mode, no `any`, explicit prop types in `*.types.ts` files
-- **Tailwind CSS** — use utility classes via `cn()`, never inline `style` objects for themeable properties
-- **Naming** — PascalCase for components and directories, camelCase for utilities
-- **Accessibility** — ARIA attributes on interactive components, keyboard navigation, focus management
-
----
-
-## CI Integration
-
-```bash
-npx storybook build
-npx http-server storybook-static --port 6006 --silent &
-npx wait-on http://localhost:6006
-npm run test-storybook:ci
-```
+Design does not throw a mock over the wall. Engineering does not invent a fourth button height in a product PR. The shared repo is where those decisions are recorded.

@@ -8,10 +8,10 @@ const preview = {
       storySort: {
         order: [
           "Welcome",
-          "Getting Started",
-          "Contributing",
-          "Changelog",
           "Design Tokens",
+          ["Overview", "Colour", "Typography", "Size", "Shape", "Elevation", "Theming"],
+          "Contributing",
+          "Adoption and Impact",
           "Inputs",
           "Layout",
           "Data Display",

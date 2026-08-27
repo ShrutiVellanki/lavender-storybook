@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/blocks'
+import { Button } from '@/components/ui/Button'
+
+<Meta title="Design Tokens/Size" />
+
+# Size
+
+List of size tokens. Control height and spacing.
+
+| Token | Height | Padding | Type | Usage |
+| --- | --- | --- | --- | --- |
+| `sm` | 32px (`h-8`) | `px-3` | 12px | Compact toolbars, table actions |
+| `default` | 36px (`h-9`) | `px-4` | 13px | Primary density |
+| `lg` | 40px (`h-10`) | `px-5` | 13px | Standalone CTAs |
+| `icon` | 32×32 (`h-8 w-8`) | — | — | Icon-only |
+
+<div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: 12, margin: '20px 0' }}>
+  <Button size="sm">Small</Button>
+  <Button size="default">Default</Button>
+  <Button size="lg">Large</Button>
+  <Button size="icon" aria-label="Icon">+</Button>
+</div>
+
+| Token | Value | Usage |
+| --- | --- | --- |
+| `gap-2` / `p-2` | 8px | Icon gaps, tight stacks |
+| `gap-3` / `p-3` | 12px | Button groups |
+| `gap-4` / `p-4` | 16px | Card internals, modal body |
+| `p-5` | 20px | TransactionList, StatCard |
+| `p-6` | 24px | Modal panel |
