@@ -32,25 +32,25 @@ export const Playground: Story = {
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
         <TabsPanel value="account">
-          <div className="p-4 rounded-lg border border-border mt-2">
-            <h3 className="text-base font-medium text-foreground">Account</h3>
-            <p className="text-sm text-muted-foreground mt-1">
+          <div className="p-4 rounded-card border border-border mt-2">
+            <h3 className="text-heading text-foreground">Account</h3>
+            <p className="text-body text-muted-foreground mt-1">
               Make changes to your account settings here.
             </p>
           </div>
         </TabsPanel>
         <TabsPanel value="password">
-          <div className="p-4 rounded-lg border border-border mt-2">
-            <h3 className="text-base font-medium text-foreground">Password</h3>
-            <p className="text-sm text-muted-foreground mt-1">
+          <div className="p-4 rounded-card border border-border mt-2">
+            <h3 className="text-heading text-foreground">Password</h3>
+            <p className="text-body text-muted-foreground mt-1">
               Change your password here. After saving, you'll be logged out.
             </p>
           </div>
         </TabsPanel>
         <TabsPanel value="settings">
-          <div className="p-4 rounded-lg border border-border mt-2">
-            <h3 className="text-base font-medium text-foreground">Settings</h3>
-            <p className="text-sm text-muted-foreground mt-1">
+          <div className="p-4 rounded-card border border-border mt-2">
+            <h3 className="text-heading text-foreground">Settings</h3>
+            <p className="text-body text-muted-foreground mt-1">
               Manage your notification preferences and other settings.
             </p>
           </div>
@@ -80,10 +80,10 @@ export const WithDisabled: Story = {
           <TabsTrigger value="other">Other</TabsTrigger>
         </TabsList>
         <TabsPanel value="active">
-          <p className="text-sm text-foreground mt-4">Active tab content.</p>
+          <p className="text-body text-foreground mt-4">Active tab content.</p>
         </TabsPanel>
         <TabsPanel value="other">
-          <p className="text-sm text-foreground mt-4">Other tab content.</p>
+          <p className="text-body text-foreground mt-4">Other tab content.</p>
         </TabsPanel>
       </Tabs>
     </div>
@@ -95,7 +95,7 @@ export const Controlled: Story = {
     const [value, setValue] = useState("tab1")
     return (
       <div className="w-[400px]">
-        <p className="mb-2 text-sm text-muted-foreground">
+        <p className="mb-2 text-body text-muted-foreground">
           Active: {value}
         </p>
         <Tabs value={value} onValueChange={setValue}>
@@ -105,13 +105,13 @@ export const Controlled: Story = {
             <TabsTrigger value="tab3">Reports</TabsTrigger>
           </TabsList>
           <TabsPanel value="tab1">
-            <p className="text-sm text-foreground mt-4">Overview content.</p>
+            <p className="text-body text-foreground mt-4">Overview content.</p>
           </TabsPanel>
           <TabsPanel value="tab2">
-            <p className="text-sm text-foreground mt-4">Analytics content.</p>
+            <p className="text-body text-foreground mt-4">Analytics content.</p>
           </TabsPanel>
           <TabsPanel value="tab3">
-            <p className="text-sm text-foreground mt-4">Reports content.</p>
+            <p className="text-body text-foreground mt-4">Reports content.</p>
           </TabsPanel>
         </Tabs>
       </div>

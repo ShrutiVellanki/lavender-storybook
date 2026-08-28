@@ -73,11 +73,11 @@ export default function TransactionList({
   const sortIndicator = (col: SortKey) => (sortKey !== col ? "↕" : sortDirection === "asc" ? "↑" : "↓")
 
   return (
-    <section aria-labelledby="tx-heading" className="rounded-xl border border-border bg-card p-5 max-w-[900px]">
+    <section aria-labelledby="tx-heading" className="rounded-card border border-border bg-card p-5 max-w-[900px]">
       <div className="flex items-start justify-between gap-4 mb-5 flex-wrap">
         <div>
-          <h2 id="tx-heading" className="text-[15px] font-semibold tracking-[-0.01em] text-foreground">{title}</h2>
-          <p className="mt-1 text-[12px] text-muted-foreground">
+          <h2 id="tx-heading" className="text-heading text-foreground">{title}</h2>
+          <p className="mt-1 text-label text-muted-foreground">
             {rows.length} transactions &middot; Volume {formatCurrency(totalVolume, "USD")}
           </p>
         </div>
@@ -87,12 +87,12 @@ export default function TransactionList({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search customer or ID"
-            className="h-8 px-3 text-[12px] rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background min-w-[200px]"
+            className="h-[var(--size-sm)] px-3 text-label rounded-control border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background min-w-[200px]"
           />
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as "all" | "succeeded" | "pending" | "failed")}
-            className="h-8 px-2 text-[12px] rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background"
+            className="h-[var(--size-sm)] px-2 text-label rounded-control border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background"
           >
             <option value="all">All</option>
             <option value="succeeded">Succeeded</option>
@@ -103,9 +103,9 @@ export default function TransactionList({
       </div>
 
       {loading ? (
-        <div aria-live="polite" className="py-8 text-center text-[13px] text-muted-foreground">Loading transactions...</div>
+        <div aria-live="polite" className="py-8 text-center text-body text-muted-foreground">Loading transactions...</div>
       ) : rows.length === 0 ? (
-        <div aria-live="polite" className="py-8 text-center text-[13px] text-muted-foreground">No transactions found.</div>
+        <div aria-live="polite" className="py-8 text-center text-body text-muted-foreground">No transactions found.</div>
       ) : (
         <div className="overflow-x-auto -mx-5 px-5">
           <table className="w-full border-collapse">
@@ -116,30 +116,30 @@ export default function TransactionList({
                     <button
                       type="button"
                       onClick={() => handleSort(col)}
-                      className="text-[11px] font-medium uppercase tracking-[0.05em] text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-label uppercase tracking-[0.05em] text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {col === "customerName" ? "Customer" : col === "amountCents" ? "Amount" : col === "createdAt" ? "Date" : "Status"}{" "}
                       <span className="opacity-50">{sortIndicator(col)}</span>
                     </button>
                   </th>
                 ))}
-                <th scope="col" className="py-2.5 px-3 text-[11px] font-medium uppercase tracking-[0.05em] text-muted-foreground">ID</th>
+                <th scope="col" className="py-2.5 px-3 text-label uppercase tracking-[0.05em] text-muted-foreground">ID</th>
               </tr>
             </thead>
             <tbody>
               {paginatedRows.map((t) => (
                 <tr key={t.id} className="border-b border-border/50 hover:bg-accent/30 transition-colors">
-                  <td className="py-3 px-3 first:pl-0 text-[13px] font-medium text-foreground">{t.customerName}</td>
-                  <td className="py-3 px-3 text-[13px] text-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>
+                  <td className="py-3 px-3 first:pl-0 text-body text-foreground">{t.customerName}</td>
+                  <td className="py-3 px-3 text-number text-foreground">
                     {formatCurrency(t.amountCents, t.currency)}
                   </td>
                   <td className="py-3 px-3">
-                    <span className={cn("inline-block px-2 py-0.5 rounded-md text-[11px] font-medium", statusVariant[t.status])}>
+                    <span className={cn("inline-block px-2 py-0.5 rounded-md text-label", statusVariant[t.status])}>
                       {t.status}
                     </span>
                   </td>
-                  <td className="py-3 px-3 text-[13px] text-muted-foreground">{formatDate(t.createdAt)}</td>
-                  <td className="py-3 px-3 text-[11px] font-mono text-muted-foreground">{t.id}</td>
+                  <td className="py-3 px-3 text-body text-muted-foreground">{formatDate(t.createdAt)}</td>
+                  <td className="py-3 px-3 text-label font-mono text-muted-foreground">{t.id}</td>
                 </tr>
               ))}
             </tbody>

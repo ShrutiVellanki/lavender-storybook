@@ -2,35 +2,34 @@ import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { expect, userEvent, within, fn } from "@storybook/test"
 import { Button } from "@/components/ui/Button"
-import { Loader2, Mail, Plus, Trash2 } from "lucide-react"
+import { Mail, Plus, Trash2 } from "lucide-react"
 
 const meta: Meta<typeof Button> = {
   title: "Inputs/Button",
   component: Button,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
     docs: {
       description: {
-        component: "A versatile button with six visual variants (default, secondary, destructive, outline, ghost, link) and four sizes (sm, default, lg, icon). Supports icons, loading states, and disabled styling. Forwards refs and accepts all native button attributes.",
+        component:
+          "Primary action control. Variants describe intent (primary, secondary, danger). Sizes are small, medium, and large. Loading and icon slots stay on the component so consumers do not pass visual styles.",
       },
     },
   },
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "secondary", "destructive", "outline", "ghost", "link"],
-      description: "The visual style of the button.",
+      options: ["primary", "secondary", "danger"],
     },
     size: {
       control: "select",
-      options: ["sm", "default", "lg", "icon"],
-      description: "The size of the button.",
+      options: ["small", "medium", "large"],
     },
-    disabled: {
-      control: "boolean",
-      description: "Whether the button is disabled.",
-    },
+    loading: { control: "boolean" },
+    disabled: { control: "boolean" },
+    leadingIcon: { control: false },
+    trailingIcon: { control: false },
   },
 }
 
@@ -39,13 +38,16 @@ type Story = StoryObj<typeof Button>
 
 export const Playground: Story = {
   args: {
-    children: "Button",
-    variant: "default",
+    children: "Add account",
+    variant: "primary",
+    size: "medium",
+    loading: false,
+    leadingIcon: <Plus />,
     onClick: fn(),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const button = canvas.getByRole("button", { name: "Button" })
+    const button = canvas.getByRole("button", { name: "Add account" })
     await userEvent.click(button)
     await expect(button).toBeInTheDocument()
   },
@@ -54,12 +56,9 @@ export const Playground: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button variant="default">Default</Button>
+      <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="link">Link</Button>
+      <Button variant="danger">Danger</Button>
     </div>
   ),
 }
@@ -67,12 +66,9 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button size="sm">Small</Button>
-      <Button size="default">Default</Button>
-      <Button size="lg">Large</Button>
-      <Button size="icon">
-        <Plus className="h-4 w-4" />
-      </Button>
+      <Button size="small">Small</Button>
+      <Button size="medium">Medium</Button>
+      <Button size="large">Large</Button>
     </div>
   ),
 }
@@ -80,22 +76,18 @@ export const AllSizes: Story = {
 export const WithIcon: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button>
-        <Mail className="mr-2 h-4 w-4" /> Login with Email
-      </Button>
-      <Button variant="destructive">
-        <Trash2 className="mr-2 h-4 w-4" /> Delete
-      </Button>
+      <Button leadingIcon={<Mail />}>Login with Email</Button>
+      <Button variant="danger" leadingIcon={<Trash2 />}>Delete</Button>
+      <Button size="small" leadingIcon={<Plus />} aria-label="Add" />
     </div>
   ),
 }
 
 export const Loading: Story = {
-  render: () => (
-    <Button disabled>
-      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
-    </Button>
-  ),
+  args: {
+    children: "Please wait",
+    loading: true,
+  },
 }
 
 export const Disabled: Story = {

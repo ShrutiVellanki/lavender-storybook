@@ -25,7 +25,7 @@ type Story = StoryObj<typeof Tooltip>
 export const Playground: Story = {
   render: () => (
     <Tooltip content="This is a tooltip">
-      <Button variant="outline">Hover me</Button>
+      <Button variant="secondary">Hover me</Button>
     </Tooltip>
   ),
   play: async ({ canvasElement }) => {
@@ -44,16 +44,16 @@ export const Placements: Story = {
   render: () => (
     <div className="flex items-center gap-4 p-16">
       <Tooltip content="Top tooltip" placement="top">
-        <Button variant="outline" size="sm">Top</Button>
+        <Button variant="secondary" size="small">Top</Button>
       </Tooltip>
       <Tooltip content="Bottom tooltip" placement="bottom">
-        <Button variant="outline" size="sm">Bottom</Button>
+        <Button variant="secondary" size="small">Bottom</Button>
       </Tooltip>
       <Tooltip content="Left tooltip" placement="left">
-        <Button variant="outline" size="sm">Left</Button>
+        <Button variant="secondary" size="small">Left</Button>
       </Tooltip>
       <Tooltip content="Right tooltip" placement="right">
-        <Button variant="outline" size="sm">Right</Button>
+        <Button variant="secondary" size="small">Right</Button>
       </Tooltip>
     </div>
   ),
@@ -62,7 +62,7 @@ export const Placements: Story = {
 export const Disabled: Story = {
   render: () => (
     <Tooltip content="You won't see this" disabled>
-      <Button variant="outline">Tooltip disabled</Button>
+      <Button variant="secondary">Tooltip disabled</Button>
     </Tooltip>
   ),
 }

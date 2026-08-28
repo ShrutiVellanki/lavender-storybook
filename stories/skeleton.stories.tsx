@@ -75,7 +75,7 @@ export const Rounded: Story = {
 export const CardSkeleton: Story = {
   name: "Recipe: Card Layout",
   render: () => (
-    <div className="w-80 rounded-xl border border-border bg-card p-5 space-y-4">
+    <div className="w-80 rounded-card border border-border bg-card p-5 space-y-4">
       <div className="flex items-center gap-3">
         <Skeleton variant="circular" width={40} height={40} />
         <div className="flex-1 space-y-2">
@@ -92,7 +92,7 @@ export const CardSkeleton: Story = {
 export const StatCardSkeleton: Story = {
   name: "Recipe: Stat Card",
   render: () => (
-    <div className="w-64 rounded-xl border border-border bg-card p-5 space-y-3">
+    <div className="w-64 rounded-card border border-border bg-card p-5 space-y-3">
       <div className="flex items-center justify-between">
         <Skeleton variant="text" height={10} width="40%" />
         <Skeleton variant="rounded" width={32} height={32} />
@@ -132,14 +132,14 @@ export const DashboardSkeleton: Story = {
         <Skeleton variant="text" height={12} width="50%" />
       </div>
       {/* Chart */}
-      <div className="rounded-xl border border-border bg-card p-6">
+      <div className="rounded-card border border-border bg-card p-6">
         <Skeleton variant="text" height={14} width="25%" className="mb-4" />
         <Skeleton variant="rounded" height={200} />
       </div>
       {/* Stat cards */}
       <div className="grid grid-cols-3 gap-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="rounded-xl border border-border bg-card p-5 space-y-3">
+          <div key={i} className="rounded-card border border-border bg-card p-5 space-y-3">
             <div className="flex items-center justify-between">
               <Skeleton variant="text" height={10} width="40%" />
               <Skeleton variant="rounded" width={32} height={32} />

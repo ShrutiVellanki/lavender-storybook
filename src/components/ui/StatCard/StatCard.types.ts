@@ -6,6 +6,6 @@ export interface StatCardProps {
   label: string
   value: string
   trend?: { direction: TrendDirection; value: string }
-  icon?: React.ReactNode
+  leadingIcon?: React.ReactNode
   className?: string
 }

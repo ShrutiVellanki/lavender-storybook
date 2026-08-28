@@ -42,8 +42,8 @@ export const Playground: Story = {
 export const InContext: Story = {
   name: "Recipe: In Settings Bar",
   render: () => (
-    <div className="flex items-center gap-4 p-4 rounded-lg border border-border bg-card">
-      <span className="text-sm text-card-foreground font-medium">Theme:</span>
+    <div className="flex items-center gap-4 p-4 rounded-card border border-border bg-card">
+      <span className="text-label text-card-foreground">Theme:</span>
       <ThemeSwitcher />
     </div>
   ),

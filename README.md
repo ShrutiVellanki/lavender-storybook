@@ -75,10 +75,8 @@ Every component has an autodocs page with:
 - Theme switching via the toolbar (Lavender Dawn / Lavender Moon)
 
 The Storybook also includes:
-- **Welcome** — problem, finance stakes, library organization
-- **Design Tokens** — Overview, Colour, Typography, Size, Shape, Elevation, Theming
-- **Contributing** — federated contribution, design + engineering
-- **Adoption and Impact** — what products took, what changed
+- **Welcome** — foundation, problems, why it matters for finance
+- **Design Tokens** — Colour and Theming, Typography, Size, Space, Shape, Defining Component Inputs
 
 ## Tech Stack
 
@@ -131,10 +129,9 @@ src/
 └── styles/
     └── globals.css          # Tailwind base + theme tokens (Dawn + Moon)
 stories/
-├── Welcome.mdx              # Problem, finance stakes, organization
-├── Contributing.mdx         # Federated contribution, design + engineering
-├── Adoption.mdx             # Adoption and impact
-├── tokens/                  # Overview, Colour, Typography, Size, Shape, Elevation, Theming
+├── Welcome.mdx              # Foundation, problems, why it matters for finance
+├── tokens/                  # Colour and Theming, Typography, Size, Space, Shape
+├── DefiningComponentInputs.mdx
 └── *.stories.tsx            # One story file per component
 .storybook/
 ├── main.js                  # Storybook config, Vite alias, addons

@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="How AI was used" tags={['!dev']} />
+
+# How AI was used
+
+I used AI to accelerate the first pass of the system rather than to make the final design decisions.
+
+AI was useful for a one shot generation of most components.
+
+However, several outputs required (and still require) correction.
+
+## Example corrections
+
+1. **Token architecture:** Which tokens are part of the primitive layer, the semantic layer?
+2. **Interaction states:** Generated components frequently covered default and hover states but missed combinations such as invalid-and-disabled, loading, keyboard focus, or read-only.
+3. **Accessibility**
+4. **Responsive behaviour**
+5. **Component API:** AI introduced complex component APIs that could be further simplified

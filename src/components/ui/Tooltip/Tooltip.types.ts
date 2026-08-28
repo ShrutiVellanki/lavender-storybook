@@ -6,7 +6,6 @@ export type TooltipProps = {
   content: ReactNode
   children: ReactElement
   placement?: Placement
-  offset?: number
   open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void

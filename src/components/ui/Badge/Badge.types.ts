@@ -1,8 +1,8 @@
 import React from "react"
 
-export type BadgeVariant = "default" | "secondary" | "destructive" | "outline" | "success" | "warning" | "danger"
+export type BadgeVariant = "primary" | "secondary" | "danger" | "success" | "warning"
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: BadgeVariant
-  icon?: React.ReactNode
+  leadingIcon?: React.ReactNode
 }

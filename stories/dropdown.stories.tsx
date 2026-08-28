@@ -67,7 +67,7 @@ export const Controlled: Story = {
           onChange={setValue}
           label="Select fruit"
         />
-        <p className="mt-3 text-sm text-muted-foreground">
+        <p className="mt-3 text-body text-muted-foreground">
           Selected: {value || "(none)"}
         </p>
       </div>

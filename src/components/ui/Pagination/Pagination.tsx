@@ -53,7 +53,7 @@ export function Pagination({
         aria-label="Previous page"
         className={cn(
           btnBase,
-          "w-8 h-8 text-muted-foreground hover:text-foreground hover:bg-accent",
+          "w-[var(--size-sm)] h-[var(--size-sm)] text-muted-foreground hover:text-foreground hover:bg-accent",
           "disabled:opacity-30 disabled:pointer-events-none",
         )}
       >
@@ -62,7 +62,7 @@ export function Pagination({
 
       {pages.map((page, i) =>
         page === "ellipsis" ? (
-          <span key={`e${i}`} className="w-8 h-8 inline-flex items-center justify-center text-muted-foreground text-[13px] select-none">
+          <span key={`e${i}`} className="w-[var(--size-sm)] h-[var(--size-sm)] inline-flex items-center justify-center text-muted-foreground text-label select-none">
             ...
           </span>
         ) : (
@@ -73,9 +73,9 @@ export function Pagination({
             aria-current={page === currentPage ? "page" : undefined}
             className={cn(
               btnBase,
-              "min-w-[32px] h-8 px-2",
+              "min-w-[var(--size-sm)] h-[var(--size-sm)] px-2",
               page === currentPage
-                ? "bg-primary/10 text-primary font-semibold"
+                ? "bg-primary/10 text-primary"
                 : "text-muted-foreground hover:text-foreground hover:bg-accent",
             )}
           >
@@ -91,7 +91,7 @@ export function Pagination({
         aria-label="Next page"
         className={cn(
           btnBase,
-          "w-8 h-8 text-muted-foreground hover:text-foreground hover:bg-accent",
+          "w-[var(--size-sm)] h-[var(--size-sm)] text-muted-foreground hover:text-foreground hover:bg-accent",
           "disabled:opacity-30 disabled:pointer-events-none",
         )}
       >

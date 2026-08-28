@@ -83,7 +83,7 @@ export default function PinInput({
 
   return (
     <fieldset className={cn("border-none p-0 m-0", className)} disabled={disabled}>
-      <legend className="mb-2 text-[13px] font-medium text-foreground">{label}</legend>
+      <legend className="mb-2 text-label text-foreground">{label}</legend>
       <div role="group" aria-label={`${length}-digit verification code`} className="flex gap-2">
         {digits.map((digit, i) => (
           <input
@@ -101,7 +101,7 @@ export default function PinInput({
             onPaste={(e) => handlePaste(i, e)}
             onFocus={(e) => e.target.select()}
             aria-label={`Digit ${i + 1} of ${length}`}
-            className="w-11 h-12 text-center text-lg rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background transition-colors disabled:opacity-50"
+            className="w-11 h-12 text-center text-heading rounded-control border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background transition-colors disabled:opacity-50"
           />
         ))}
       </div>

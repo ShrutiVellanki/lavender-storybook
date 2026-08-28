@@ -1,34 +1,101 @@
-import { Meta, Typeset } from '@storybook/blocks'
+import { Meta } from '@storybook/blocks'
 
 <Meta title="Design Tokens/Typography" />
 
 # Typography
 
-List of typography tokens. Family, tracking, and line height are global. Size and weight are what components choose.
+Styles alias primitives. `100` is 16px. `body` is set on the document.
+
+---
+
+## Primitive typography
+
+Primitive tokens include font family, font size, font weight, line height, and letter spacing.
+
+### Font family
 
 | Token | Value |
 | --- | --- |
-| Family | Inter |
-| Tracking (body) | `-0.011em` |
-| Line height | `1.6` |
-| Features | `cv02`, `cv03`, `cv04`, `cv11` |
+| `--font-sans` | Inter, ui-sans-serif, system-ui, sans-serif |
 
-<Typeset
-  fontSizes={['0.75rem', '0.875rem', '1rem', '1.125rem', '1.25rem', '1.5rem']}
-  fontWeight={400}
-  sampleText="Lavender Finance"
-  fontFamily="Inter, ui-sans-serif, system-ui, sans-serif"
-/>
+### Font size
 
-| Token | Size | Weight | Usage |
-| --- | --- | --- | --- |
-| `text-xs` | 12px | medium | Tooltips, chart labels, badges, Button `sm` |
-| `text-[13px]` | 13px | medium / semibold | Button default, card titles, modal titles |
-| `text-sm` | 14px | regular | Body, form labels, select options |
-| `text-base` | 16px | medium | Tab triggers |
-| `text-lg` | 18px | semibold | Section headings |
-| `text-xl` | 20px | semibold | Page headings |
-| `text-2xl` | 24px | bold | Hero headings |
-| `tracking-[-0.01em]` | — | — | Titles |
-| `font-medium` | 500 | — | Controls |
-| `font-semibold` | 600 | — | Titles |
+| Token | Value |
+| --- | --- |
+| `--text-size-50` | 12px |
+| `--text-size-75` | 14px |
+| `--text-size-100` | 16px |
+| `--text-size-300` | 24px |
+
+### Font weight
+
+| Token | Value |
+| --- | --- |
+| `--text-weight-regular` | 400 |
+| `--text-weight-medium` | 500 |
+| `--text-weight-semibold` | 600 |
+
+### Line height
+
+| Token | Value |
+| --- | --- |
+| `--text-leading-none` | 1 |
+| `--text-leading-tight` | 1.25 |
+| `--text-leading-loose` | 1.6 |
+
+### Letter spacing
+
+| Token | Value |
+| --- | --- |
+| `--text-tracking-tight` | −0.01em |
+
+---
+
+## Body
+
+<div className="text-body text-foreground" style={{ maxWidth: 520, margin: '12px 0 0' }}>
+  Net worth, cash flow, and recent transactions use this stack. Secondary copy uses the same token at `text-muted-foreground`.
+</div>
+
+| Token | Value |
+| --- | --- |
+| `--text-body-size` | `--text-size-75` (14px) |
+| `--text-body-weight` | `--text-weight-regular` (400) |
+| `--text-body-leading` | `--text-leading-loose` (1.6) |
+| `--color-text` | `--colour-text` |
+| `--muted-foreground` | `--colour-muted` |
+
+---
+
+## Label
+
+<div className="text-label text-muted-foreground uppercase tracking-[0.06em]" style={{ margin: '12px 0 4px' }}>
+  Net worth
+</div>
+<div className="text-label text-foreground" style={{ margin: 0 }}>
+  Country
+</div>
+
+| Token | Value |
+| --- | --- |
+| `--text-label-size` | `--text-size-50` (12px) |
+| `--text-label-weight` | `--text-weight-medium` (500) |
+| `--text-label-leading` | `--text-leading-tight` (1.25) |
+| `--color-text` | `--colour-text` |
+| `--muted-foreground` | `--colour-muted` |
+
+---
+
+## Heading
+
+<div className="text-heading text-foreground" style={{ margin: '12px 0 8px' }}>
+  Recent transactions
+</div>
+
+| Token | Value |
+| --- | --- |
+| `--text-heading-size` | `--text-size-100` (16px) |
+| `--text-heading-weight` | `--text-weight-semibold` (600) |
+| `--text-heading-leading` | `--text-leading-none` (1) |
+| `--text-heading-tracking` | `--text-tracking-tight` (−0.01em) |
+| `--color-text` | `--colour-text` |

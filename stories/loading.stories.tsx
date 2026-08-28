@@ -56,7 +56,7 @@ export const Inline: Story = {
   name: "Recipe: Inline in Dashboard",
   render: () => (
     <div className="p-8 bg-background">
-      <h2 className="text-lg font-semibold text-foreground mb-4">Dashboard</h2>
+      <h2 className="text-heading text-foreground mb-4">Dashboard</h2>
       <Loading message="Fetching accounts..." fullScreen={false} />
     </div>
   ),

@@ -1,17 +1,19 @@
 import { ButtonVariant, ButtonSize } from "./Button.types"
 
 export const variantClasses: Record<ButtonVariant, string> = {
-  default: "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90",
+  primary: "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90",
   secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-  destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-  outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-  ghost: "hover:bg-accent hover:text-accent-foreground",
-  link: "text-primary underline-offset-4 hover:underline p-0 h-auto",
+  danger: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
 }
 
 export const sizeClasses: Record<ButtonSize, string> = {
-  sm: "h-8 rounded-lg px-3 text-[12px] font-medium",
-  default: "h-9 px-4 py-2 text-[13px] font-medium",
-  lg: "h-10 rounded-lg px-5 text-[13px] font-medium",
-  icon: "h-8 w-8",
+  small: "h-[var(--size-sm)] px-3 text-label",
+  medium: "h-[var(--size-md)] px-4 text-label",
+  large: "h-[var(--size-lg)] px-5 text-label",
+}
+
+export const iconOnlySizeClasses: Record<ButtonSize, string> = {
+  small: "h-[var(--size-sm)] w-[var(--size-sm)] px-0",
+  medium: "h-[var(--size-md)] w-[var(--size-md)] px-0",
+  large: "h-[var(--size-lg)] w-[var(--size-lg)] px-0",
 }

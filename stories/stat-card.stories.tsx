@@ -20,7 +20,7 @@ const meta: Meta<typeof StatCard> = {
     docs: {
       description: {
         component:
-          "A metric display card showing a label, formatted value, trend indicator (up/down/neutral arrow + label), and optional icon. Designed for dashboard KPIs like net worth, total spending, or portfolio value.",
+          "A metric display card showing a label, formatted value, trend, and optional leading icon.",
       },
     },
   },
@@ -53,7 +53,7 @@ export const WithIcon: Story = {
     label: "Total Assets",
     value: "$929,524.38",
     trend: { direction: "up", value: "+$12,430" },
-    icon: <WalletIcon />,
+    leadingIcon: <WalletIcon />,
   },
   decorators: [(Story) => <div className="w-[260px]"><Story /></div>],
 }
@@ -89,13 +89,13 @@ export const DashboardRow: Story = {
         label="Net Worth"
         value="$685,769"
         trend={{ direction: "up", value: "+2.4%" }}
-        icon={<TrendUpIcon />}
+        leadingIcon={<TrendUpIcon />}
       />
       <StatCard
         label="Total Assets"
         value="$929,524"
         trend={{ direction: "up", value: "+$12.4k" }}
-        icon={<WalletIcon />}
+        leadingIcon={<WalletIcon />}
       />
       <StatCard
         label="Liabilities"

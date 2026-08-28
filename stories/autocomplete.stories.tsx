@@ -63,7 +63,7 @@ export const Playground: Story = {
           placeholder="Type to search countries..."
         />
         {selected && (
-          <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>
+          <p className="mt-3 text-body text-muted-foreground">
             Selected: {selected}
           </p>
         )}
@@ -100,7 +100,7 @@ export const SlowFetch: Story = {
           debounceMs={400}
         />
         {selected && (
-          <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>
+          <p className="mt-3 text-body text-muted-foreground">
             Selected: {selected}
           </p>
         )}

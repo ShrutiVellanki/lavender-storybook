@@ -10,6 +10,8 @@ import React, {
 import { createPortal } from "react-dom"
 import type { Placement, TooltipProps, Position } from "./Tooltip.types"
 
+const OFFSET = 8
+
 function getTooltipPosition(
   triggerRect: DOMRect,
   tooltipRect: DOMRect,
@@ -70,7 +72,6 @@ export function Tooltip({
   content,
   children,
   placement = "top",
-  offset = 8,
   open,
   defaultOpen = false,
   onOpenChange,
@@ -102,7 +103,7 @@ export function Tooltip({
       triggerRect,
       tooltipRect,
       placement,
-      offset,
+      OFFSET,
     )
     setPosition(clampToViewport(nextPosition, tooltipRect))
   }
@@ -110,7 +111,7 @@ export function Tooltip({
   useLayoutEffect(() => {
     if (!isOpen) return
     updatePosition()
-  }, [isOpen, content, placement, offset])
+  }, [isOpen, content, placement])
 
   useEffect(() => {
     if (!isOpen) return
@@ -188,7 +189,7 @@ export function Tooltip({
             ref={tooltipRef}
             id={tooltipId}
             role="tooltip"
-            className="fixed z-[1000] rounded-lg bg-popover text-popover-foreground border border-border px-3 py-2 text-[12px] leading-snug max-w-[240px] shadow-md pointer-events-none"
+            className="fixed z-[1000] rounded-popover bg-popover text-popover-foreground border border-border px-3 py-2 text-label max-w-[240px] shadow-md pointer-events-none"
             style={{
               top: position?.top ?? -9999,
               left: position?.left ?? -9999,

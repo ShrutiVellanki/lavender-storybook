@@ -1,143 +1,136 @@
-import { Meta, ColorPalette, ColorItem } from '@storybook/blocks'
+import { Meta } from '@storybook/blocks'
 
-<Meta title="Design Tokens/Colour" />
+<Meta title="Design Tokens/Colour and Theming" />
 
-# Colour
+export const Swatch = ({ color, label }) => (
+  <div>
+    <div
+      style={{
+        width: 72,
+        height: 72,
+        borderRadius: 'var(--radius)',
+        background: color,
+        border: '1px solid var(--color-border)',
+      }}
+    />
+    <div className="text-label text-muted-foreground" style={{ marginTop: 8 }}>
+      <code>{label}</code>
+    </div>
+  </div>
+)
 
-List of colour tokens. Semantic names swap with the theme; extended palettes are fixed primitives. Use the toolbar to compare Dawn / Moon on the semantic list.
+export const Swatches = ({ items }) => (
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, margin: '16px 0 8px' }}>
+    {items.map((item) => (
+      <Swatch key={item.label} color={item.color} label={item.label} />
+    ))}
+  </div>
+)
+
+# Colour and Theming
+
+## Theme switching
+
+Lavender Dawn is light. Lavender Moon is dark. In Storybook, switch them from the toolbar. In product, `ThemeSwitcher` adds or removes `class="dark"` on the document. `.dark` remaps `--colour-*` primitives only, so semantic `--color-*` tokens keep the same names and follow the theme without component changes.
+
+`--colour-*` primitives are the raw scale. `--color-*` semantic tokens alias those primitives by role: `--color-background` is `--colour-base`, `--color-success` is `--colour-pine`, `--color-focus` is `--colour-iris`.
 
 ---
 
-## Semantic
+## Primitive — Dawn
 
-| Token | Tailwind | Dawn | Moon | Role |
-| --- | --- | --- | --- | --- |
-| `--background` | `bg-background` | `#fafafc` | `#1e1e2e` | Page |
-| `--foreground` | `text-foreground` | `#575279` | `#cdcce0` | Body text |
-| `--card` | `bg-card` | `#ffffff` | `#262639` | Surface |
-| `--card-foreground` | `text-card-foreground` | `#575279` | `#cdcce0` | Text on card |
-| `--popover` | `bg-popover` | `#f3f2f7` | `#2f2f44` | Menu / tooltip |
-| `--popover-foreground` | `text-popover-foreground` | `#575279` | `#cdcce0` | Text on popover |
-| `--primary` | `bg-primary` | `#907aa9` | `#af9ad2` | Accent, actions |
-| `--primary-foreground` | `text-primary-foreground` | `#ffffff` | `#1e1e2e` | Text on primary |
-| `--secondary` | `bg-secondary` | `#efeef5` | `#282842` | Quiet fill |
-| `--secondary-foreground` | `text-secondary-foreground` | `#575279` | `#cdcce0` | Text on secondary |
-| `--muted` | `bg-muted` | `#efeef5` | `#282842` | Disabled / inset |
-| `--muted-foreground` | `text-muted-foreground` | `#9893a5` | `#6e6c88` | Secondary text |
-| `--accent` | `bg-accent` | `#efeef5` | `#282842` | Hover fill |
-| `--accent-foreground` | `text-accent-foreground` | `#575279` | `#cdcce0` | Text on accent |
-| `--destructive` | `bg-destructive` | `#b4637a` | `#d4708a` | Danger |
-| `--destructive-foreground` | `text-destructive-foreground` | `#ffffff` | `#cdcce0` | Text on danger |
-| `--border` | `border-border` | `#dfdee8` | `#3a3a54` | Hairline |
-| `--input` | `border-input` | `#dfdee8` | `#3a3a54` | Field edge |
-| `--ring` | `ring-ring` | `#907aa9` | `#af9ad2` | Focus |
+<Swatches
+  items={[
+    { label: '--colour-base', color: '#fafafc' },
+    { label: '--colour-surface', color: '#ffffff' },
+    { label: '--colour-overlay', color: '#f3f2f7' },
+    { label: '--colour-muted', color: '#9893a5' },
+    { label: '--colour-text', color: '#575279' },
+    { label: '--colour-love', color: '#b4637a' },
+    { label: '--colour-gold', color: '#ea9d34' },
+    { label: '--colour-rose', color: '#d7827e' },
+    { label: '--colour-pine', color: '#286983' },
+    { label: '--colour-foam', color: '#56949f' },
+    { label: '--colour-iris', color: '#907aa9' },
+    { label: '--colour-highlight-low', color: '#efeef5' },
+    { label: '--colour-highlight-med', color: '#dfdee8' },
+    { label: '--colour-highlight-high', color: '#d0cfd9' },
+  ]}
+/>
 
-<ColorPalette>
-  <ColorItem title="background" subtitle="--background" colors={{ Dawn: '#fafafc', Moon: '#1e1e2e' }} />
-  <ColorItem title="foreground" subtitle="--foreground" colors={{ Dawn: '#575279', Moon: '#cdcce0' }} />
-  <ColorItem title="card" subtitle="--card" colors={{ Dawn: '#ffffff', Moon: '#262639' }} />
-  <ColorItem title="primary" subtitle="--primary" colors={{ Dawn: '#907aa9', Moon: '#af9ad2' }} />
-  <ColorItem title="secondary" subtitle="--secondary" colors={{ Dawn: '#efeef5', Moon: '#282842' }} />
-  <ColorItem title="muted-foreground" subtitle="--muted-foreground" colors={{ Dawn: '#9893a5', Moon: '#6e6c88' }} />
-  <ColorItem title="destructive" subtitle="--destructive" colors={{ Dawn: '#b4637a', Moon: '#d4708a' }} />
-  <ColorItem title="border" subtitle="--border" colors={{ Dawn: '#dfdee8', Moon: '#3a3a54' }} />
-  <ColorItem title="ring" subtitle="--ring" colors={{ Dawn: '#907aa9', Moon: '#af9ad2' }} />
-</ColorPalette>
+---
+
+## Primitive — Moon
+
+<Swatches
+  items={[
+    { label: '--colour-base', color: '#1e1e2e' },
+    { label: '--colour-surface', color: '#262639' },
+    { label: '--colour-overlay', color: '#2f2f44' },
+    { label: '--colour-muted', color: '#6e6c88' },
+    { label: '--colour-text', color: '#cdcce0' },
+    { label: '--colour-love', color: '#d4708a' },
+    { label: '--colour-gold', color: '#d9ae6e' },
+    { label: '--colour-rose', color: '#d29290' },
+    { label: '--colour-pine', color: '#3a84a4' },
+    { label: '--colour-foam', color: '#89bcc6' },
+    { label: '--colour-iris', color: '#af9ad2' },
+    { label: '--colour-highlight-low', color: '#282842' },
+    { label: '--colour-highlight-med', color: '#3a3a54' },
+    { label: '--colour-highlight-high', color: '#4c4c65' },
+  ]}
+/>
+
+---
+
+## Surface
+
+<Swatches
+  items={[
+    { label: '--color-background', color: 'var(--color-background)' },
+    { label: '--color-surface', color: 'var(--color-surface)' },
+    { label: '--color-text', color: 'var(--color-text)' },
+    { label: '--color-border', color: 'var(--color-border)' },
+    { label: '--color-icon', color: 'var(--color-icon)' },
+  ]}
+/>
+
+---
+
+## Role
+
+<Swatches
+  items={[
+    { label: '--color-success', color: 'var(--color-success)' },
+    { label: '--color-warning', color: 'var(--color-warning)' },
+    { label: '--color-danger', color: 'var(--color-danger)' },
+    { label: '--color-info', color: 'var(--color-info)' },
+  ]}
+/>
+
+---
+
+## State
+
+<Swatches
+  items={[
+    { label: '--color-hover', color: 'var(--color-hover)' },
+    { label: '--color-active', color: 'var(--color-active)' },
+    { label: '--color-disabled', color: 'var(--color-disabled)' },
+    { label: '--color-focus', color: 'var(--color-focus)' },
+  ]}
+/>
 
 ---
 
 ## Chart
 
-| Token | Dawn | Moon | Role |
-| --- | --- | --- | --- |
-| `--chart-1` | `#907aa9` | `#af9ad2` | Primary series |
-| `--chart-2` | `#56949f` | `#89bcc6` | Secondary series |
-| `--chart-3` | `#286983` | `#3a84a4` | Tertiary series |
-| `--chart-4` | `#ea9d34` | `#d9ae6e` | Warning / highlight |
-| `--chart-5` | `#d7827e` | `#d29290` | Error / negative |
-
-<ColorPalette>
-  <ColorItem title="chart-1" subtitle="--chart-1" colors={{ Dawn: '#907aa9', Moon: '#af9ad2' }} />
-  <ColorItem title="chart-2" subtitle="--chart-2" colors={{ Dawn: '#56949f', Moon: '#89bcc6' }} />
-  <ColorItem title="chart-3" subtitle="--chart-3" colors={{ Dawn: '#286983', Moon: '#3a84a4' }} />
-  <ColorItem title="chart-4" subtitle="--chart-4" colors={{ Dawn: '#ea9d34', Moon: '#d9ae6e' }} />
-  <ColorItem title="chart-5" subtitle="--chart-5" colors={{ Dawn: '#d7827e', Moon: '#d29290' }} />
-</ColorPalette>
-
----
-
-## Primitive — Dawn (`lavenderDawn.*`)
-
-| Token | Hex |
-| --- | --- |
-| `base` | `#fafafc` |
-| `surface` | `#ffffff` |
-| `overlay` | `#f3f2f7` |
-| `muted` | `#9893a5` |
-| `subtle` | `#797593` |
-| `text` | `#575279` |
-| `love` | `#b4637a` |
-| `gold` | `#ea9d34` |
-| `rose` | `#d7827e` |
-| `pine` | `#286983` |
-| `foam` | `#56949f` |
-| `iris` | `#907aa9` |
-| `highlightLow` | `#efeef5` |
-| `highlightMed` | `#dfdee8` |
-| `highlightHigh` | `#d0cfd9` |
-
-<ColorPalette>
-  <ColorItem title="base" subtitle="lavenderDawn.base" colors={{ '': '#fafafc' }} />
-  <ColorItem title="surface" subtitle="lavenderDawn.surface" colors={{ '': '#ffffff' }} />
-  <ColorItem title="overlay" subtitle="lavenderDawn.overlay" colors={{ '': '#f3f2f7' }} />
-  <ColorItem title="muted" subtitle="lavenderDawn.muted" colors={{ '': '#9893a5' }} />
-  <ColorItem title="text" subtitle="lavenderDawn.text" colors={{ '': '#575279' }} />
-  <ColorItem title="love" subtitle="lavenderDawn.love" colors={{ '': '#b4637a' }} />
-  <ColorItem title="gold" subtitle="lavenderDawn.gold" colors={{ '': '#ea9d34' }} />
-  <ColorItem title="rose" subtitle="lavenderDawn.rose" colors={{ '': '#d7827e' }} />
-  <ColorItem title="pine" subtitle="lavenderDawn.pine" colors={{ '': '#286983' }} />
-  <ColorItem title="foam" subtitle="lavenderDawn.foam" colors={{ '': '#56949f' }} />
-  <ColorItem title="iris" subtitle="lavenderDawn.iris" colors={{ '': '#907aa9' }} />
-  <ColorItem title="highlightLow" subtitle="lavenderDawn.highlightLow" colors={{ '': '#efeef5' }} />
-  <ColorItem title="highlightMed" subtitle="lavenderDawn.highlightMed" colors={{ '': '#dfdee8' }} />
-  <ColorItem title="highlightHigh" subtitle="lavenderDawn.highlightHigh" colors={{ '': '#d0cfd9' }} />
-</ColorPalette>
-
----
-
-## Primitive — Moon (`lavenderMoon.*`)
-
-| Token | Hex |
-| --- | --- |
-| `base` | `#1e1e2e` |
-| `surface` | `#262639` |
-| `overlay` | `#2f2f44` |
-| `muted` | `#6e6c88` |
-| `subtle` | `#8e8ca6` |
-| `text` | `#cdcce0` |
-| `love` | `#d4708a` |
-| `gold` | `#d9ae6e` |
-| `rose` | `#d29290` |
-| `pine` | `#3a84a4` |
-| `foam` | `#89bcc6` |
-| `iris` | `#af9ad2` |
-| `highlightLow` | `#282842` |
-| `highlightMed` | `#3a3a54` |
-| `highlightHigh` | `#4c4c65` |
-
-<ColorPalette>
-  <ColorItem title="base" subtitle="lavenderMoon.base" colors={{ '': '#1e1e2e' }} />
-  <ColorItem title="surface" subtitle="lavenderMoon.surface" colors={{ '': '#262639' }} />
-  <ColorItem title="overlay" subtitle="lavenderMoon.overlay" colors={{ '': '#2f2f44' }} />
-  <ColorItem title="muted" subtitle="lavenderMoon.muted" colors={{ '': '#6e6c88' }} />
-  <ColorItem title="text" subtitle="lavenderMoon.text" colors={{ '': '#cdcce0' }} />
-  <ColorItem title="love" subtitle="lavenderMoon.love" colors={{ '': '#d4708a' }} />
-  <ColorItem title="gold" subtitle="lavenderMoon.gold" colors={{ '': '#d9ae6e' }} />
-  <ColorItem title="rose" subtitle="lavenderMoon.rose" colors={{ '': '#d29290' }} />
-  <ColorItem title="pine" subtitle="lavenderMoon.pine" colors={{ '': '#3a84a4' }} />
-  <ColorItem title="foam" subtitle="lavenderMoon.foam" colors={{ '': '#89bcc6' }} />
-  <ColorItem title="iris" subtitle="lavenderMoon.iris" colors={{ '': '#af9ad2' }} />
-  <ColorItem title="highlightLow" subtitle="lavenderMoon.highlightLow" colors={{ '': '#282842' }} />
-  <ColorItem title="highlightMed" subtitle="lavenderMoon.highlightMed" colors={{ '': '#3a3a54' }} />
-  <ColorItem title="highlightHigh" subtitle="lavenderMoon.highlightHigh" colors={{ '': '#4c4c65' }} />
-</ColorPalette>
+<Swatches
+  items={[
+    { label: '--color-chart-1', color: 'var(--color-chart-1)' },
+    { label: '--color-chart-2', color: 'var(--color-chart-2)' },
+    { label: '--color-chart-3', color: 'var(--color-chart-3)' },
+    { label: '--color-chart-4', color: 'var(--color-chart-4)' },
+    { label: '--color-chart-5', color: 'var(--color-chart-5)' },
+  ]}
+/>

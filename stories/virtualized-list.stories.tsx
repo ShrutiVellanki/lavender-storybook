@@ -10,10 +10,10 @@ const manyItems = Array.from({ length: 500 }, function (_, i) {
 function renderRow(item: string, index: number) {
   return (
     <div
+      className="text-body text-foreground"
       style={{
         padding: "8px 12px",
-        borderBottom: "1px solid #eee",
-        fontSize: 14,
+        borderBottom: "1px solid var(--border)",
       }}
     >
       {item}

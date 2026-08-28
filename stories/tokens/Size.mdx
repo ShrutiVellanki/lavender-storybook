@@ -1,30 +1,38 @@
 import { Meta } from '@storybook/blocks'
-import { Button } from '@/components/ui/Button'
 
 <Meta title="Design Tokens/Size" />
 
 # Size
 
-List of size tokens. Control height and spacing.
+`--size-100` is 8px. Tokens increment 4px from 0 to 96px. Control heights alias `--size-400` / `--size-450` / `--size-500`.
 
-| Token | Height | Padding | Type | Usage |
-| --- | --- | --- | --- | --- |
-| `sm` | 32px (`h-8`) | `px-3` | 12px | Compact toolbars, table actions |
-| `default` | 36px (`h-9`) | `px-4` | 13px | Primary density |
-| `lg` | 40px (`h-10`) | `px-5` | 13px | Standalone CTAs |
-| `icon` | 32×32 (`h-8 w-8`) | — | — | Icon-only |
-
-<div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: 12, margin: '20px 0' }}>
-  <Button size="sm">Small</Button>
-  <Button size="default">Default</Button>
-  <Button size="lg">Large</Button>
-  <Button size="icon" aria-label="Icon">+</Button>
-</div>
-
-| Token | Value | Usage |
-| --- | --- | --- |
-| `gap-2` / `p-2` | 8px | Icon gaps, tight stacks |
-| `gap-3` / `p-3` | 12px | Button groups |
-| `gap-4` / `p-4` | 16px | Card internals, modal body |
-| `p-5` | 20px | TransactionList, StatCard |
-| `p-6` | 24px | Modal panel |
+| Token | Value |
+| --- | --- |
+| `--size-0` | 0px |
+| `--size-50` | 4px |
+| `--size-100` | 8px |
+| `--size-150` | 12px |
+| `--size-200` | 16px |
+| `--size-250` | 20px |
+| `--size-300` | 24px |
+| `--size-350` | 28px |
+| `--size-400` | 32px |
+| `--size-450` | 36px |
+| `--size-500` | 40px |
+| `--size-550` | 44px |
+| `--size-600` | 48px |
+| `--size-650` | 52px |
+| `--size-700` | 56px |
+| `--size-750` | 60px |
+| `--size-800` | 64px |
+| `--size-850` | 68px |
+| `--size-900` | 72px |
+| `--size-950` | 76px |
+| `--size-1000` | 80px |
+| `--size-1050` | 84px |
+| `--size-1100` | 88px |
+| `--size-1150` | 92px |
+| `--size-1200` | 96px |
+| `--size-viewport-narrow` | (max-width: 768px) |
+| `--size-viewport-regular` | (min-width: 768px) |
+| `--size-viewport-wide` | (min-width: 1280px) |

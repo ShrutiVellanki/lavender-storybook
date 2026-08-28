@@ -19,7 +19,7 @@ const meta: Meta<typeof Card> = {
     layout: "centered",
     docs: {
       description: {
-        component: "Composable container with five sub-components: CardHeader, CardTitle, CardDescription, CardContent, and CardFooter. Uses theme tokens for background, border, and shadow. Forwards refs on all sub-components.",
+        component: "Composable container with five sub-components: CardHeader, CardTitle, CardDescription, CardContent, and CardFooter. Uses theme tokens for background and border. Forwards refs on all sub-components.",
       },
     },
   },
@@ -38,13 +38,13 @@ export const Playground: Story = {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-foreground">
+        <p className="text-body text-foreground">
           This is the card content area. You can place any content here
           including forms, images, or lists.
         </p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
+        <Button variant="secondary">Cancel</Button>
         <Button>Save</Button>
       </CardFooter>
     </Card>
@@ -62,8 +62,8 @@ export const Playground: Story = {
 export const SimpleCard: Story = {
   render: () => (
     <Card className="w-[350px] p-6">
-      <h3 className="text-lg font-semibold text-foreground">Simple Card</h3>
-      <p className="mt-2 text-sm text-muted-foreground">
+      <h3 className="text-heading text-foreground">Simple Card</h3>
+      <p className="mt-2 text-body text-muted-foreground">
         A minimal card with just padding, no header/footer structure.
       </p>
     </Card>
@@ -76,11 +76,11 @@ export const AccountCard: Story = {
     <Card className="w-[350px]">
       <CardHeader>
         <CardDescription>Total Balance</CardDescription>
-        <CardTitle className="text-3xl">$12,450.00</CardTitle>
+        <p className="text-number-lg text-foreground">$12,450.00</p>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-green-600 dark:text-green-400 font-medium">
+        <div className="flex items-center gap-2 text-label">
+          <span className="text-green-600 dark:text-green-400">
             +2.5%
           </span>
           <span className="text-muted-foreground">vs last month</span>
@@ -96,8 +96,8 @@ export const CardGrid: Story = {
     <div className="grid grid-cols-2 gap-4 max-w-[600px]">
       {["Checking", "Savings", "Investment", "Credit"].map((name) => (
         <Card key={name} className="p-4">
-          <p className="text-sm text-muted-foreground">{name}</p>
-          <p className="text-xl font-semibold text-foreground mt-1">
+          <p className="text-label text-muted-foreground">{name}</p>
+          <p className="text-number-lg text-foreground mt-1">
             ${(Math.random() * 10000).toFixed(2)}
           </p>
         </Card>

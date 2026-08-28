@@ -9,9 +9,7 @@ const preview = {
         order: [
           "Welcome",
           "Design Tokens",
-          ["Overview", "Colour", "Typography", "Size", "Shape", "Elevation", "Theming"],
-          "Contributing",
-          "Adoption and Impact",
+          ["Colour and Theming", "Typography", "Size", "Space", "Shape", "Defining Component Inputs"],
           "Inputs",
           "Layout",
           "Data Display",

@@ -29,7 +29,7 @@ export const Playground: Story = {
     return (
       <div>
         <PinInput length={6} value={value} onChange={setValue} />
-        {value && <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>Value: {value}</p>}
+        {value && <p className="mt-3 text-body text-muted-foreground">Value: {value}</p>}
       </div>
     )
   },
@@ -48,7 +48,7 @@ export const FourDigits: Story = {
     return (
       <div>
         <PinInput length={4} value={value} onChange={setValue} />
-        {value && <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>Value: {value}</p>}
+        {value && <p className="mt-3 text-body text-muted-foreground">Value: {value}</p>}
       </div>
     )
   },
@@ -60,7 +60,7 @@ export const Masked: Story = {
     return (
       <div>
         <PinInput length={6} value={value} onChange={setValue} masked />
-        {value && <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>Value: {value}</p>}
+        {value && <p className="mt-3 text-body text-muted-foreground">Value: {value}</p>}
       </div>
     )
   },

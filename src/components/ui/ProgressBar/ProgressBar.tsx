@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { ProgressBarProps } from "./ProgressBar.types"
-import { variantColors, sizeClasses, resolveVariant } from "./ProgressBar.styles"
+import { variantColors, sizeClasses } from "./ProgressBar.styles"
 
 export function ProgressBar({
   value,
@@ -8,14 +8,12 @@ export function ProgressBar({
   label,
   showValue = true,
   valueFormatter,
-  variant = "default",
-  autoVariant = false,
-  size = "default",
+  variant = "primary",
+  size = "medium",
   className,
 }: ProgressBarProps) {
   const clamped = Math.min(Math.max(value, 0), max)
   const pct = max > 0 ? (clamped / max) * 100 : 0
-  const resolvedVariant = autoVariant ? resolveVariant(clamped, max) : variant
 
   const formatted = valueFormatter
     ? valueFormatter(clamped, max)
@@ -26,10 +24,10 @@ export function ProgressBar({
       {(label || showValue) && (
         <div className="flex items-center justify-between mb-1.5">
           {label && (
-            <span className="text-[13px] font-medium text-foreground tracking-[-0.01em]">{label}</span>
+            <span className="text-label text-foreground">{label}</span>
           )}
           {showValue && (
-            <span className="text-[12px] tabular-nums text-muted-foreground">
+            <span className="text-label tabular-nums text-muted-foreground">
               {formatted}
             </span>
           )}
@@ -37,7 +35,7 @@ export function ProgressBar({
       )}
       <div
         className={cn(
-          "w-full rounded-full bg-muted overflow-hidden",
+          "w-full rounded-pill bg-muted overflow-hidden",
           sizeClasses[size],
         )}
         role="progressbar"
@@ -48,8 +46,8 @@ export function ProgressBar({
       >
         <div
           className={cn(
-            "h-full rounded-full transition-all duration-500 ease-out",
-            variantColors[resolvedVariant],
+            "h-full rounded-pill transition-all duration-500 ease-out",
+            variantColors[variant],
           )}
           style={{ width: `${pct}%` }}
         />

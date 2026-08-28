@@ -1,4 +1,5 @@
-export type ProgressBarVariant = "default" | "success" | "warning" | "danger"
+export type ProgressBarVariant = "primary" | "success" | "warning" | "danger"
+export type ProgressBarSize = "small" | "medium" | "large"
 
 export interface ProgressBarProps {
   value: number
@@ -7,7 +8,6 @@ export interface ProgressBarProps {
   showValue?: boolean
   valueFormatter?: (value: number, max: number) => string
   variant?: ProgressBarVariant
-  autoVariant?: boolean
-  size?: "sm" | "default" | "lg"
+  size?: ProgressBarSize
   className?: string
 }

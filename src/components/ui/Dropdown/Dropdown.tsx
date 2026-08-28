@@ -130,7 +130,7 @@ export function Select<T>({
         <label
           htmlFor={`${listboxId}-button`}
           className={cn(
-            "block mb-1.5 text-[12px] font-medium text-lavenderDawn-muted dark:text-lavenderMoon-muted",
+            "block mb-1.5 text-label text-muted-foreground",
             hideLabel && "sr-only",
           )}
         >
@@ -151,14 +151,14 @@ export function Select<T>({
         aria-haspopup="listbox"
         aria-activedescendant={activeDescendant}
         className={cn(
-          "w-full h-9 px-3 text-left text-[13px] rounded-lg",
-          "border border-lavenderDawn-highlightMed/60 dark:border-lavenderMoon-highlightMed/60",
-          "bg-lavenderDawn-surface dark:bg-lavenderMoon-surface",
-          "text-lavenderDawn-text dark:text-lavenderMoon-text",
+          "w-full h-[var(--size-md)] px-3 text-left text-body rounded-control",
+          "border border-input",
+          "bg-card",
+          "text-foreground",
           "flex justify-between items-center",
-          "focus:outline-none focus:ring-2 focus:ring-lavenderDawn-iris/40 dark:focus:ring-lavenderMoon-iris/40",
+          "focus:outline-none focus:ring-2 focus:ring-ring/40",
           "disabled:opacity-50 disabled:cursor-not-allowed",
-          !selectedValue && "text-lavenderDawn-muted dark:text-lavenderMoon-muted",
+          !selectedValue && "text-muted-foreground",
         )}
       >
         <span className="truncate">
@@ -168,7 +168,7 @@ export function Select<T>({
         </span>
         <ChevronDown
           className={cn(
-            "h-4 w-4 shrink-0 text-lavenderDawn-muted dark:text-lavenderMoon-muted transition-transform",
+            "h-4 w-4 shrink-0 text-muted-foreground transition-transform",
             isOpen && "rotate-180",
           )}
         />
@@ -178,10 +178,10 @@ export function Select<T>({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute top-full left-0 right-0 mt-1 p-1 rounded-lg border border-lavenderDawn-highlightMed/60 dark:border-lavenderMoon-highlightMed/60 bg-lavenderDawn-surface dark:bg-lavenderMoon-surface shadow-md max-h-60 overflow-y-auto z-[1000]"
+          className="absolute top-full left-0 right-0 mt-1 p-1 rounded-popover border border-border bg-card shadow-md max-h-60 overflow-y-auto z-[1000]"
         >
           {options.length === 0 && (
-            <li className="px-3 py-2 text-[13px] text-lavenderDawn-muted dark:text-lavenderMoon-muted">
+            <li className="px-3 py-2 text-body text-muted-foreground">
               No options available.
             </li>
           )}
@@ -205,10 +205,10 @@ export function Select<T>({
                   selectOption(option)
                 }}
                 className={cn(
-                  "px-3 py-2 text-[13px] rounded-md cursor-pointer transition-colors",
-                  isHighlighted && "bg-lavenderDawn-highlightLow dark:bg-lavenderMoon-highlightLow text-lavenderDawn-text dark:text-lavenderMoon-text",
+                  "px-3 py-2 text-body rounded-md cursor-pointer transition-colors",
+                  isHighlighted && "bg-accent text-accent-foreground",
                   isSelected && "font-semibold",
-                  !isHighlighted && "text-lavenderDawn-text dark:text-lavenderMoon-text",
+                  !isHighlighted && "text-foreground",
                 )}
               >
                 {renderOption

@@ -11,7 +11,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className, collaps
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       className={cn(
-        "flex items-center gap-3 rounded-lg transition-all duration-150",
+        "flex items-center gap-3 rounded-control transition-all duration-150",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
         collapsed
           ? "justify-center p-2 w-8 h-8 bg-secondary hover:bg-accent"
@@ -26,7 +26,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className, collaps
         <Moon className="w-[18px] h-[18px] shrink-0 text-foreground" />
       )}
       {!collapsed && (
-        <span className="text-[13px] tracking-[-0.01em]">
+        <span className="text-label">
           {theme === "dark" ? "Light Mode" : "Dark Mode"}
         </span>
       )}

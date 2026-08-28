@@ -4,30 +4,89 @@ import { Meta } from '@storybook/blocks'
 
 # Shape
 
-List of shape tokens. One primitive radius; two derived steps.
+The radius scale covers none through full. Semantic aliases describe usage. Large is 10px.
 
-| Token | Value | Tailwind | Usage |
-| --- | --- | --- | --- |
-| `--radius` | `0.625rem` (10px) | `rounded-lg` | Cards, buttons, inputs |
-| `--radius - 2px` | `0.5rem` | `rounded-md` | Inner elements |
-| `--radius - 4px` | `0.375rem` | `rounded-sm` | Badges, pills |
-| `rounded-full` | `9999px` | `rounded-full` | Avatars, scrollbar thumb |
+---
+
+## Primitive
+
+| Token | Value |
+| --- | --- |
+| `--radius-none` | 0 |
+| `--radius-xs` | 4px |
+| `--radius-sm` | 6px |
+| `--radius-md` | 8px |
+| `--radius-lg` | 10px |
+| `--radius-xl` | 16px |
+| `--radius-full` | 9999px |
 
 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'flex-end', margin: '24px 0' }}>
   <div>
-    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius)' }} />
-    <p style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 8 }}>rounded-lg</p>
+    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius-none)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>None</p>
   </div>
   <div>
-    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'calc(var(--radius) - 2px)' }} />
-    <p style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 8 }}>rounded-md</p>
+    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius-xs)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Extra small</p>
   </div>
   <div>
-    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'calc(var(--radius) - 4px)' }} />
-    <p style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 8 }}>rounded-sm</p>
+    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius-sm)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Small</p>
   </div>
   <div>
-    <div style={{ width: 64, height: 64, background: 'var(--primary)', borderRadius: 9999 }} />
-    <p style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 8 }}>rounded-full</p>
+    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius-md)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Medium</p>
+  </div>
+  <div>
+    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius-lg)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Large</p>
+  </div>
+  <div>
+    <div style={{ width: 96, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius-xl)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Extra large</p>
+  </div>
+  <div>
+    <div style={{ width: 64, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius-full)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Full</p>
+  </div>
+</div>
+
+---
+
+## Semantic
+
+| Token | Value |
+| --- | --- |
+| `--radius-control` | `--radius-lg` (10px) |
+| `--radius-card` | `--radius-xl` (16px) |
+| `--radius-popover` | `--radius-lg` (10px) |
+| `--radius-dialog` | `--radius-xl` (16px) |
+| `--radius-pill` | `--radius-full` |
+| `--radius-circular` | `--radius-full` |
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'flex-end', margin: '24px 0' }}>
+  <div>
+    <div style={{ width: 96, height: 40, background: 'var(--primary)', borderRadius: 'var(--radius-control)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Control</p>
+  </div>
+  <div>
+    <div style={{ width: 120, height: 80, background: 'var(--primary)', borderRadius: 'var(--radius-card)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Card</p>
+  </div>
+  <div>
+    <div style={{ width: 120, height: 64, background: 'var(--primary)', borderRadius: 'var(--radius-popover)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Popover</p>
+  </div>
+  <div>
+    <div style={{ width: 140, height: 88, background: 'var(--primary)', borderRadius: 'var(--radius-dialog)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Dialog</p>
+  </div>
+  <div>
+    <div style={{ width: 120, height: 24, background: 'var(--primary)', borderRadius: 'var(--radius-pill)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Pill</p>
+  </div>
+  <div>
+    <div style={{ width: 40, height: 40, background: 'var(--primary)', borderRadius: 'var(--radius-circular)' }} />
+    <p className="text-label text-muted-foreground" style={{ marginTop: 8 }}>Circular</p>
   </div>
 </div>

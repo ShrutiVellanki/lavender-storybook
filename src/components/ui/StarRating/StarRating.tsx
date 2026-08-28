@@ -106,7 +106,7 @@ export function StarRating({
           )
         })}
       </div>
-      <div className="mt-2 text-[12px] text-muted-foreground">
+      <div className="mt-2 text-label text-muted-foreground">
         Selected rating: {selectedValue}
       </div>
     </div>

@@ -108,7 +108,7 @@ export const Controlled: Story = {
     const [value, setValue] = useState<string>("")
     return (
       <div className="w-[360px]">
-        <p className="mb-2 text-sm text-muted-foreground">
+        <p className="mb-2 text-body text-muted-foreground">
           Open: {value || "(none)"}
         </p>
         <Accordion type="single" value={value} onValueChange={(v) => setValue(v as string)}>

@@ -62,7 +62,7 @@ export const Controlled: Story = {
     return (
       <div>
         <StarRating value={rating} onChange={setRating} />
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p className="mt-2 text-body text-muted-foreground">
           You selected: {rating} star{rating !== 1 ? "s" : ""}
         </p>
       </div>

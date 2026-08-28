@@ -50,7 +50,7 @@ const MastercardLogo = () => (
 )
 
 const AmexLogo = () => (
-  <span className="text-white font-bold text-sm tracking-widest">AMEX</span>
+  <span className="text-white text-label tracking-widest">AMEX</span>
 )
 
 const NetworkLogo = ({ network }: { network: keyof typeof CARD_NETWORKS | null }) => {
@@ -65,9 +65,9 @@ const CardFront = ({ data }: { data: CreditCardData }) => {
   const displayNumber = data.number ? maskCardNumber(data.number) : "•••• •••• •••• ••••"
 
   return (
-    <div className="absolute inset-0 backface-hidden rounded-2xl p-6 flex flex-col justify-between bg-gradient-to-br from-lavenderDawn-iris via-lavenderDawn-pine to-lavenderDawn-foam dark:from-lavenderMoon-iris dark:via-lavenderMoon-pine dark:to-lavenderMoon-foam shadow-2xl overflow-hidden">
-      <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/10" />
-      <div className="absolute -bottom-16 -left-8 w-56 h-56 rounded-full bg-white/5" />
+    <div className="absolute inset-0 backface-hidden rounded-card p-6 flex flex-col justify-between bg-gradient-to-br from-primary via-chart-3 to-chart-2 shadow-lg overflow-hidden">
+      <div className="absolute -top-12 -right-12 w-48 h-48 rounded-circular bg-white/10" />
+      <div className="absolute -bottom-16 -left-8 w-56 h-56 rounded-circular bg-white/5" />
       <div className="relative flex items-start justify-between">
         <Wifi className="w-8 h-8 text-white/80 rotate-90" />
         <NetworkLogo network={network} />
@@ -80,16 +80,16 @@ const CardFront = ({ data }: { data: CreditCardData }) => {
             ))}
           </div>
         </div>
-        <p className="font-mono text-xl tracking-[0.2em] text-white drop-shadow">{displayNumber}</p>
+        <p className="font-mono text-heading tracking-[0.2em] text-white drop-shadow">{displayNumber}</p>
       </div>
       <div className="relative flex items-end justify-between">
         <div>
-          <p className="text-white/60 text-[10px] uppercase tracking-widest mb-0.5">Card Holder</p>
-          <p className="text-white font-medium tracking-wide uppercase text-sm truncate max-w-[180px]">{data.name || "Full Name"}</p>
+          <p className="text-white/60 text-label uppercase tracking-widest mb-0.5">Card Holder</p>
+          <p className="text-white tracking-wide uppercase text-body truncate max-w-[180px]">{data.name || "Full Name"}</p>
         </div>
         <div className="text-right">
-          <p className="text-white/60 text-[10px] uppercase tracking-widest mb-0.5">Expires</p>
-          <p className="text-white font-medium tracking-wide text-sm">{data.expiry || "MM/YY"}</p>
+          <p className="text-white/60 text-label uppercase tracking-widest mb-0.5">Expires</p>
+          <p className="text-white tracking-wide text-body">{data.expiry || "MM/YY"}</p>
         </div>
       </div>
     </div>
@@ -101,7 +101,7 @@ const CardBack = ({ data }: { data: CreditCardData }) => {
 
   return (
     <div
-      className="absolute inset-0 backface-hidden rounded-2xl flex flex-col justify-between bg-gradient-to-br from-lavenderDawn-iris via-lavenderDawn-pine to-lavenderDawn-foam dark:from-lavenderMoon-iris dark:via-lavenderMoon-pine dark:to-lavenderMoon-foam shadow-2xl overflow-hidden"
+      className="absolute inset-0 backface-hidden rounded-card flex flex-col justify-between bg-gradient-to-br from-primary via-chart-3 to-chart-2 shadow-lg overflow-hidden"
       style={{ transform: "rotateY(180deg)" }}
     >
       <div className="mt-8 h-10 bg-black/80 w-full" />
@@ -111,13 +111,13 @@ const CardBack = ({ data }: { data: CreditCardData }) => {
             <div className="flex-1 h-1.5 bg-gray-300/60 rounded" />
           </div>
           <div className="bg-white/90 rounded px-3 py-1.5 min-w-[56px] text-center">
-            <p className="text-[10px] text-gray-500 leading-none mb-0.5">CVV</p>
-            <p className="font-mono text-sm font-bold text-gray-800">
+            <p className="text-label text-gray-500 mb-0.5">CVV</p>
+            <p className="font-mono text-label text-gray-800">
               {data.cvv ? "•".repeat(data.cvv.length) : "•••"}
             </p>
           </div>
         </div>
-        <p className="text-white/50 text-[10px] leading-relaxed">
+        <p className="text-white/50 text-label">
           This card is property of Lavender Finance. Misuse is subject to prosecution. If found, please return to the nearest branch.
         </p>
       </div>
@@ -142,7 +142,7 @@ export const CreditCardDisplay: React.FC<CreditCardDisplayProps> = ({ data, flip
 
 const CardInput: React.FC<CardInputProps> = ({ label, ...props }) => (
   <div className="flex flex-col gap-1">
-    <label className="text-xs font-medium uppercase tracking-widest text-muted-foreground">{label}</label>
+    <label className="text-label uppercase tracking-widest text-muted-foreground">{label}</label>
     <input {...props} className={inputCls} />
   </div>
 )
@@ -186,7 +186,7 @@ export const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit, classN
         </div>
         <button
           type="submit"
-          className="w-full py-3 rounded-xl font-medium text-sm tracking-wide text-primary-foreground bg-gradient-to-r from-lavenderDawn-iris to-lavenderDawn-pine dark:from-lavenderMoon-iris dark:to-lavenderMoon-pine hover:opacity-90 active:scale-[0.98] transition-all duration-200 shadow-lg"
+          className="w-full py-3 rounded-control text-label tracking-wide text-primary-foreground bg-gradient-to-r from-primary to-chart-3 hover:opacity-90 active:scale-[0.98] transition-all duration-200 shadow-lg"
         >
           Add Card
         </button>

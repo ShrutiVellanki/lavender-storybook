@@ -12,6 +12,7 @@ export function Autocomplete<T>({
   debounceMs = 300,
   minQueryLength = 1,
   label = "Search",
+  disabled = false,
   className,
 }: AutocompleteProps<T>) {
   const [query, setQuery] = useState("")
@@ -54,6 +55,13 @@ export function Autocomplete<T>({
   }, [query]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (disabled) {
+      setOptions([])
+      setLoading(false)
+      setError("")
+      setIsOpen(false)
+      return
+    }
     const trimmed = query.trim()
     if (trimmed.length < minQueryLength) {
       setOptions([])
@@ -83,7 +91,7 @@ export function Autocomplete<T>({
       }
     }, debounceMs)
     return () => window.clearTimeout(t)
-  }, [query, debounceMs, minQueryLength, fetchSuggestions])
+  }, [query, debounceMs, minQueryLength, fetchSuggestions, disabled])
 
   function selectOption(option: T) {
     setQuery(getOptionLabel(option))
@@ -126,7 +134,7 @@ export function Autocomplete<T>({
   return (
     <div ref={rootRef} className={cn("relative w-80", className)}>
       {label && (
-        <label htmlFor={`${listboxId}-input`} className="block text-[12px] font-medium text-muted-foreground mb-1.5">
+        <label htmlFor={`${listboxId}-input`} className="block text-label text-muted-foreground mb-1.5">
           {label}
         </label>
       )}
@@ -145,7 +153,8 @@ export function Autocomplete<T>({
           aria-controls={listboxId}
           aria-autocomplete="list"
           aria-activedescendant={activeDescendant}
-          className="w-full h-9 pl-8 pr-3 text-[13px] rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background transition-colors"
+          disabled={disabled}
+          className="w-full h-[var(--size-md)] pl-8 pr-3 text-body rounded-control border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         />
         {loading && <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground animate-spin" />}
       </div>
@@ -154,16 +163,16 @@ export function Autocomplete<T>({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute z-50 top-full left-0 right-0 mt-1 py-1 rounded-lg border border-border bg-popover shadow-md max-h-60 overflow-y-auto"
+          className="absolute z-50 top-full left-0 right-0 mt-1 py-1 rounded-popover border border-border bg-popover shadow-md max-h-60 overflow-y-auto"
         >
           {loading && !hasResults && (
-            <li className="px-3 py-2 text-[13px] text-muted-foreground">Loading...</li>
+            <li className="px-3 py-2 text-body text-muted-foreground">Loading...</li>
           )}
           {!loading && error && (
-            <li role="alert" className="px-3 py-2 text-[13px] text-destructive">{error}</li>
+            <li role="alert" className="px-3 py-2 text-label text-destructive">{error}</li>
           )}
           {!loading && !error && options.length === 0 && query.trim().length >= minQueryLength && (
-            <li className="px-3 py-2 text-[13px] text-muted-foreground">No results found.</li>
+            <li className="px-3 py-2 text-body text-muted-foreground">No results found.</li>
           )}
           {!loading && !error && options.map((option, i) => (
             <li
@@ -173,7 +182,7 @@ export function Autocomplete<T>({
               aria-selected={i === highlightedIndex}
               onMouseDown={(e) => { e.preventDefault(); selectOption(option) }}
               className={cn(
-                "px-3 py-2 text-[13px] cursor-pointer transition-colors",
+                "px-3 py-2 text-body cursor-pointer transition-colors",
                 i === highlightedIndex
                   ? "bg-accent text-accent-foreground"
                   : "text-foreground hover:bg-accent/50",

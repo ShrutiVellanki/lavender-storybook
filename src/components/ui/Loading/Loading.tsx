@@ -17,7 +17,7 @@ export function Loading({
       )}
     >
       <Loader2 className="w-8 h-8 text-primary animate-spin" />
-      <p className="mt-3 text-[14px] font-medium text-muted-foreground tracking-[-0.01em]">{message}</p>
+      <p className="mt-3 text-body text-muted-foreground">{message}</p>
     </div>
   )
 }

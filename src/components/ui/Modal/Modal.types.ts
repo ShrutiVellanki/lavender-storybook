@@ -10,5 +10,4 @@ export interface ModalProps {
   closeOnEscape?: boolean
   showCloseButton?: boolean
   className?: string
-  contentClassName?: string
 }

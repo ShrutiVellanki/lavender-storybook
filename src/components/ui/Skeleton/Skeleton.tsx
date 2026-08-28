@@ -4,7 +4,7 @@ import { SkeletonProps } from "./Skeleton.types"
 import { variantClasses } from "./Skeleton.styles"
 
 export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
-  ({ className, variant = "text", width, height, lines, gap = "0.625rem", style, ...props }, ref) => {
+  ({ className, variant = "text", width, height, lines, style, ...props }, ref) => {
     const baseClasses = cn(
       "animate-pulse bg-muted",
       variantClasses[variant],
@@ -19,7 +19,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
 
     if (variant === "text" && lines && lines > 1) {
       return (
-        <div ref={ref} className="flex flex-col" style={{ gap }} role="status" aria-label="Loading">
+        <div ref={ref} className="flex flex-col gap-2" role="status" aria-label="Loading">
           {Array.from({ length: lines }).map((_, i) => (
             <div
               key={i}

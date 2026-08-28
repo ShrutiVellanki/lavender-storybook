@@ -30,7 +30,7 @@ export const Playground: Story = {
       <>
         <Button onClick={() => setOpen(true)}>Open modal</Button>
         <Modal open={open} onClose={() => setOpen(false)} title="Modal title">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-body text-muted-foreground">
             This is the modal content. You can close by clicking the backdrop,
             pressing Escape, or the close button.
           </p>
@@ -60,11 +60,11 @@ export const WithActions: Story = {
           onClose={() => setOpen(false)}
           title="Confirm action"
         >
-          <p className="text-sm text-muted-foreground">
+          <p className="text-body text-muted-foreground">
             Are you sure you want to continue? This action cannot be undone.
           </p>
           <div className="mt-4 flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setOpen(false)}>
+            <Button variant="secondary" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button onClick={() => setOpen(false)}>Confirm</Button>
@@ -92,7 +92,7 @@ export const NoTitleNoCloseButton: Story = {
     const [open, setOpen] = useState(false)
     return (
       <>
-        <Button variant="outline" onClick={() => setOpen(true)}>
+        <Button variant="secondary" onClick={() => setOpen(true)}>
           Open (no title/close)
         </Button>
         <Modal
@@ -101,7 +101,7 @@ export const NoTitleNoCloseButton: Story = {
           title=""
           showCloseButton={false}
         >
-          <p className="text-sm text-muted-foreground">
+          <p className="text-body text-muted-foreground">
             Modal without a title or close button. Close via backdrop or Escape.
           </p>
         </Modal>
@@ -116,7 +116,7 @@ export const DestructiveConfirm: Story = {
     const [open, setOpen] = useState(false)
     return (
       <>
-        <Button variant="destructive" onClick={() => setOpen(true)}>
+        <Button variant="danger" onClick={() => setOpen(true)}>
           Delete account
         </Button>
         <Modal
@@ -124,15 +124,15 @@ export const DestructiveConfirm: Story = {
           onClose={() => setOpen(false)}
           title="Delete account?"
         >
-          <p className="text-sm text-muted-foreground">
+          <p className="text-body text-muted-foreground">
             This will permanently delete your account and all associated data.
             This action cannot be undone.
           </p>
           <div className="mt-4 flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setOpen(false)}>
+            <Button variant="secondary" onClick={() => setOpen(false)}>
               Cancel
             </Button>
-            <Button variant="destructive" onClick={() => setOpen(false)}>
+            <Button variant="danger" onClick={() => setOpen(false)}>
               Delete
             </Button>
           </div>

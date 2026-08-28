@@ -55,7 +55,7 @@ export const Playground: Story = {
           placeholder="Search or select..."
         />
         {value !== null ? (
-          <p style={{ marginTop: 12, fontSize: 14, color: "#666" }}>
+          <p className="mt-3 text-body text-muted-foreground">
             Selected: {value}
           </p>
         ) : null}

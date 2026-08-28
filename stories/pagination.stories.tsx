@@ -60,7 +60,7 @@ export const Interactive: Story = {
     const [page, setPage] = useState(1)
     return (
       <div className="space-y-4 text-center">
-        <p className="text-sm text-muted-foreground">Page {page} of 20</p>
+        <p className="text-body text-muted-foreground">Page {page} of 20</p>
         <Pagination currentPage={page} totalPages={20} onPageChange={setPage} />
       </div>
     )

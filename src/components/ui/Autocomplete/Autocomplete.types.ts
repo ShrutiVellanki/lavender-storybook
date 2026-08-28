@@ -7,5 +7,6 @@ export type AutocompleteProps<T> = {
   debounceMs?: number
   minQueryLength?: number
   label?: string
+  disabled?: boolean
   className?: string
 }

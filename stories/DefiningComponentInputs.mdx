@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Design Tokens/Defining Component Inputs" />
+
+# Defining Component Inputs
+
+## Goal
+
+Expose the smallest set of inputs needed to support meaningful product variations.
+
+## Common inputs
+
+* **Content:** `label`, `children`, `description`
+* **Variant:** `primary`, `secondary`, `danger`
+* **Size:** `small`, `medium`, `large`
+* **State:** `disabled`, `loading`, `selected`, `invalid`
+* **Behavior:** `onClick`, `onChange`
+* **Slots:** `leadingIcon`, `trailingIcon`, `actions`
+* **Accessibility:** accessible name, description, keyboard behavior
+
+## Rules
+
+* Inputs should describe **intent**, not visual implementation.
+* Use enums for mutually exclusive choices.
+* Use booleans only for independent states.
+* Keep hover, focus, spacing, color, and other internal styling inside the component.
+* Keep Figma properties and code props aligned.
+
+## Example
+
+**Variant** — mutually exclusive intent. Choose `primary` or `danger`; do not encode that choice as visual styling.
+
+```tsx
+<Button variant="primary" size="medium">
+  Save changes
+</Button>
+
+<Button variant="danger" size="medium">
+  Delete account
+</Button>
+```
+
+**Leading icon** — pass a `leadingIcon` slot when the action needs a leading graphic. The component owns placement and styling.
+
+```tsx
+<Button variant="primary" size="medium" leadingIcon={<AddIcon />}>
+  Add account
+</Button>
+```
+
+**Children** — put the label in `children` rather than a style or color prop.
+
+```tsx
+<Button variant="secondary" size="large">
+  Continue
+</Button>
+```
+
+Avoid inputs such as:
+
+```tsx
+backgroundColor="blue"
+padding="12"
+isPrimary
+rounded
+```
+

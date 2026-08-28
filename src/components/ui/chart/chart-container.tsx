@@ -48,7 +48,7 @@ export const ChartContainer = React.forwardRef<
         data-chart={chartId}
         ref={ref}
         className={cn(
-          "flex aspect-video flex-col justify-center text-xs",
+          "flex aspect-video flex-col justify-center text-label",
           "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground",
           "[&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50",
           "[&_.recharts-curve.recharts-tooltip-cursor]:stroke-border",
@@ -66,7 +66,7 @@ export const ChartContainer = React.forwardRef<
         {...props}
       >
         {title && (
-          <h2 className="text-center text-lg font-semibold mb-4 text-foreground">
+          <h2 className="text-center text-heading mb-4 text-foreground">
             {title}
           </h2>
         )}

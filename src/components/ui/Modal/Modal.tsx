@@ -14,7 +14,6 @@ export function Modal({
   closeOnEscape = true,
   showCloseButton = true,
   className,
-  contentClassName,
 }: ModalProps) {
   const titleId = React.useId()
   const contentRef = React.useRef<HTMLDivElement>(null)
@@ -82,17 +81,17 @@ export function Modal({
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         className={cn(
-          "relative z-[10000] w-full max-w-md rounded-xl bg-card p-6 shadow-lg outline-none border border-border",
-          contentClassName,
+          "relative z-[10000] w-full max-w-md rounded-dialog bg-card p-6 shadow-lg outline-none border border-border",
+          className,
         )}
       >
-        <div className={cn("flex flex-col gap-4", className)}>
+        <div className="flex flex-col gap-4">
           {(title || showCloseButton) && (
             <div className="flex items-start justify-between gap-3">
               {title && (
                 <h2
                   id={titleId}
-                  className="text-[15px] font-semibold text-foreground tracking-[-0.01em]"
+                  className="text-heading text-foreground"
                 >
                   {title}
                 </h2>
@@ -102,7 +101,7 @@ export function Modal({
                   type="button"
                   onClick={onClose}
                   aria-label="Close dialog"
-                  className="ml-auto -mt-1 -mr-1 p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                  className="ml-auto -mt-1 -mr-1 p-1.5 rounded-control text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                 >
                   <X size={14} />
                 </button>

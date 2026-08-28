@@ -52,10 +52,10 @@ export default function PassportForm({ onSubmit, title = "Identity Verification"
 
   return (
     <form onSubmit={handleSubmit} noValidate className={cn("max-w-[400px] space-y-5", className)}>
-      <h3 className="text-base font-medium text-foreground">{title}</h3>
+      <h3 className="text-heading text-foreground">{title}</h3>
 
       <div className="space-y-1.5">
-        <label htmlFor="country" className="block text-[13px] font-medium text-foreground">Country</label>
+        <label htmlFor="country" className="block text-label text-foreground">Country</label>
         <select
           id="country"
           value={country}
@@ -71,7 +71,7 @@ export default function PassportForm({ onSubmit, title = "Identity Verification"
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="passport" className="block text-[13px] font-medium text-foreground">Government ID Number</label>
+        <label htmlFor="passport" className="block text-label text-foreground">Government ID Number</label>
         <input
           id="passport"
           type="text"
@@ -84,7 +84,7 @@ export default function PassportForm({ onSubmit, title = "Identity Verification"
           className={cn(inputCls, showError && "border-destructive focus:ring-destructive")}
         />
         {showError && (
-          <p id="passport-error" role="alert" className="text-[12px] text-destructive mt-1">{error}</p>
+          <p id="passport-error" role="alert" className="text-label text-destructive mt-1">{error}</p>
         )}
       </div>
 
@@ -92,7 +92,7 @@ export default function PassportForm({ onSubmit, title = "Identity Verification"
         type="submit"
         disabled={!isValid}
         className={cn(
-          "h-9 px-4 text-[13px] font-medium rounded-lg transition-all duration-150",
+          "h-[var(--size-md)] px-4 text-label rounded-control transition-all duration-150",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
           "active:scale-[0.98]",
           isValid

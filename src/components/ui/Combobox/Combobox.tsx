@@ -104,13 +104,13 @@ export function Combobox<T>({
           onChange={(e) => { setQuery(e.target.value); setIsOpen(true); setHighlightedIndex(0) }}
           onKeyDown={handleKeyDown}
           className={cn(
-            "w-full h-9 pl-3 pr-8 text-[13px] rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+            "w-full h-[var(--size-md)] pl-3 pr-8 text-body rounded-control border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 ring-offset-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
             showOverlay && "text-transparent",
           )}
         />
         {showOverlay && (
           <div
-            className="absolute inset-0 flex items-center pl-3 pr-8 text-[13px] text-foreground pointer-events-none"
+            className="absolute inset-0 flex items-center pl-3 pr-8 text-body text-foreground pointer-events-none"
             aria-hidden
           >
             {renderValue(selectedValue)}
@@ -120,10 +120,10 @@ export function Combobox<T>({
       </div>
 
       {isOpen && (
-        <div className="absolute z-50 top-full left-0 right-0 mt-1 rounded-lg border border-border bg-popover shadow-md max-h-[220px] overflow-y-auto">
+        <div className="absolute z-50 top-full left-0 right-0 mt-1 rounded-popover border border-border bg-popover shadow-md max-h-[220px] overflow-y-auto">
           <ul id={listboxId} role="listbox" className="p-1">
             {filteredOptions.length === 0 ? (
-              <li className="px-3 py-2 text-[13px] text-muted-foreground">No results</li>
+              <li className="px-3 py-2 text-body text-muted-foreground">No results</li>
             ) : (
               filteredOptions.map((option, i) => {
                 const isHighlighted = i === highlightedIndex
@@ -138,7 +138,7 @@ export function Combobox<T>({
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => selectOption(option)}
                     className={cn(
-                      "px-3 py-2 rounded-md text-[13px] cursor-pointer transition-colors",
+                      "px-3 py-2 rounded-md text-body cursor-pointer transition-colors",
                       isHighlighted ? "bg-accent text-accent-foreground" : "text-foreground",
                       isSelected && "font-semibold",
                     )}

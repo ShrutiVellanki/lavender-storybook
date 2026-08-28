@@ -25,16 +25,16 @@ const meta: Meta<typeof Badge> = {
     docs: {
       description: {
         component:
-          "Inline label for status, category, or count. Supports seven variants and an optional leading icon. Pass any React node as the `icon` prop — SVGs are automatically sized to 12px.",
+          "Inline label for status, category, or count. Variants describe intent. Pass a node as `leadingIcon`; icon size stays inside the component.",
       },
     },
   },
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "secondary", "destructive", "outline", "success", "warning", "danger"],
+      options: ["primary", "secondary", "danger", "success", "warning"],
     },
-    icon: { control: false },
+    leadingIcon: { control: false },
   },
 }
 
@@ -54,25 +54,23 @@ export const Playground: Story = {
 export const WithIcon: Story = {
   args: {
     children: "Groceries",
-    icon: <ShoppingCart />,
+    leadingIcon: <ShoppingCart />,
   },
 }
 
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Badge variant="default">Default</Badge>
+      <Badge variant="primary">Primary</Badge>
       <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="destructive">Destructive</Badge>
-      <Badge variant="outline">Outline</Badge>
+      <Badge variant="danger">Danger</Badge>
       <Badge variant="success">Success</Badge>
       <Badge variant="warning">Warning</Badge>
-      <Badge variant="danger">Danger</Badge>
     </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    for (const label of ["Default", "Secondary", "Destructive", "Outline", "Success", "Warning", "Danger"]) {
+    for (const label of ["Primary", "Secondary", "Danger", "Success", "Warning"]) {
       await expect(canvas.getByText(label)).toBeVisible()
     }
   },
@@ -81,12 +79,12 @@ export const AllVariants: Story = {
 export const CategoryBadges: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Badge icon={<ShoppingCart />}>Groceries</Badge>
-      <Badge icon={<UtensilsCrossed />}>Dining</Badge>
-      <Badge icon={<Car />}>Transport</Badge>
-      <Badge icon={<ShoppingBag />}>Shopping</Badge>
-      <Badge icon={<Zap />}>Utilities</Badge>
-      <Badge icon={<Film />}>Entertainment</Badge>
+      <Badge leadingIcon={<ShoppingCart />}>Groceries</Badge>
+      <Badge leadingIcon={<UtensilsCrossed />}>Dining</Badge>
+      <Badge leadingIcon={<Car />}>Transport</Badge>
+      <Badge leadingIcon={<ShoppingBag />}>Shopping</Badge>
+      <Badge leadingIcon={<Zap />}>Utilities</Badge>
+      <Badge leadingIcon={<Film />}>Entertainment</Badge>
     </div>
   ),
 }
@@ -94,9 +92,9 @@ export const CategoryBadges: Story = {
 export const StatusBadges: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Badge variant="success" icon={<CheckCircle2 />}>completed</Badge>
-      <Badge variant="warning" icon={<Clock />}>pending</Badge>
-      <Badge variant="danger" icon={<XCircle />}>failed</Badge>
+      <Badge variant="success" leadingIcon={<CheckCircle2 />}>completed</Badge>
+      <Badge variant="warning" leadingIcon={<Clock />}>pending</Badge>
+      <Badge variant="danger" leadingIcon={<XCircle />}>failed</Badge>
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -110,11 +108,11 @@ export const StatusBadges: Story = {
 export const IconVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Badge variant="default" icon={<Star />}>Featured</Badge>
-      <Badge variant="success" icon={<CheckCircle2 />}>Verified</Badge>
-      <Badge variant="warning" icon={<Bell />}>Notification</Badge>
-      <Badge variant="destructive" icon={<XCircle />}>Error</Badge>
-      <Badge variant="outline" icon={<Clock />}>Scheduled</Badge>
+      <Badge variant="primary" leadingIcon={<Star />}>Featured</Badge>
+      <Badge variant="success" leadingIcon={<CheckCircle2 />}>Verified</Badge>
+      <Badge variant="warning" leadingIcon={<Bell />}>Notification</Badge>
+      <Badge variant="danger" leadingIcon={<XCircle />}>Error</Badge>
+      <Badge variant="secondary" leadingIcon={<Clock />}>Scheduled</Badge>
     </div>
   ),
 }

@@ -1,74 +1,39 @@
 import { Meta } from '@storybook/blocks'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
 
 <Meta title="Welcome" />
 
-# Lavender Design System
+# Lavender Storybook
 
----
+Lavender Storybook is a design system foundation for finance applications including [Lavender Finance](https://lavender-finance.vercel.app/), covering design tokens, reusable components, responsive behavior, and accessibility.
 
-## 1. What the problem is
+## The three problems
 
-Three products — Lavender Finance, Lavender Portfolio, and this Storybook — were sharing a palette in name only.
+The system addresses three main problems:
 
-**Inconsistent UI.** The same action looked like three different buttons. Cards disagreed on radius, border, and shadow. Hierarchy was accidental.
+1. **Inconsistency:** Teams were making repeated decisions about spacing, color, typography, and component behavior, producing subtle differences across the product.
+2. **Design-to-code drift:** Components could look correct in Figma while having different names, properties, states, or behavior in production.
+3. **Incomplete system states:** Happy paths were usually designed, but responsive behavior, validation, loading, disabled states, dark mode, and accessibility requirements were easier to overlook.
 
-**Duplicated implementation.** Each surface rebuilt Save, status pills, and tables. A fix in Finance did not land in the portfolio. The third copy drifted again.
+## Why this matters for finance applications
 
-**Accessibility.** Keyboard, focus, and ARIA existed where someone remembered them. Contrast was a per-screen hex check, not a token.
+Finance products handle dense, sensitive information and consequential actions, so consistency is not merely aesthetic—it improves comprehension, prevents errors, and builds user trust.
 
-**Brand / Theming.** Dark mode was a second copy of every colour. `#333` on cream failed on Moon. There was no single place to change iris and have every product follow.
+## How Its Organized
 
----
+### Component Organization
 
-## 2. Why this matters for finance apps
+Components are organized by product-facing category.
 
-Money UI is dense, stateful, and easy to misread. A design system is not polish — it is how status, amounts, and confirmations stay trustworthy.
+I considered organizing them using atomic design—atoms, molecules, and organisms—but chose categories because people usually search based on the problem they are solving: “I need a form control” or “I need a feedback component.”
 
-**TransactionList + Badge.** A payment table with home-rolled status colours: green “succeeded” that fails WCAG on Moon, a yellow “pending” that looks like a warning in one app and a highlight in another. The system Badge maps succeeded / pending / failed to `chart-2`, `chart-4`, and `destructive` so a failed transfer is the same signal everywhere.
+Atomic design is useful for explaining composition, but financial apps have component categories like charts that don't always compose easily.
 
-<div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '8px 0 20px' }}>
-  <Badge variant="success">succeeded</Badge>
-  <Badge variant="warning">pending</Badge>
-  <Badge variant="danger">failed</Badge>
-</div>
+### Token organization
 
-**Chart.** Net-worth and budget series drawn with leftover hexes. Gain and loss collapse in dark mode; a fifth series is indistinguishable from the axis. Chart tokens `--chart-1` … `--chart-5` are paired Dawn/Moon values meant to stay distinct as strokes.
+Tokens follow a layered architecture:
 
-**Modal.** Confirming a send, a close, or a delete. A custom overlay without focus restore or Escape means the next Tab lands on the amount field behind the dialog — or a backdrop click dismisses a destructive confirm. Layout/Modal is a portal dialog with labelled title, scroll lock, optional backdrop dismiss, and focus returned to the trigger.
+**Primitive tokens** store raw values, such as blue-600, space-16, or radius-8.
 
-<div style={{ margin: '8px 0 0' }}>
-  <Button variant="destructive">Confirm transfer</Button>
-</div>
+**Semantic tokens** describe purpose, such as text-primary, surface-raised, or space-page-gutter.
 
----
 
-## 3. How the library is organized
-
-```
-tokens  →  primitives  →  components
-```
-
-One-way. Nothing below may import anything above.
-
-**Tokens.** Semantic CSS variables for colour, type, size, shape, elevation, and theme. Primitive values (raw iris, 10px radius) feed semantic names (`--primary`, `--radius`). Components see semantics only.
-
-**Primitives.** The smallest shared pieces products must not reimplement: `cn()`, Button, Badge, ThemeProvider.
-
-**Components.** Behaviour — keyboard, ARIA, open/close, composition. Modal, Dropdown, Accordion, Tabs, TransactionList, Chart.
-
-**Component organization.** Sidebar groups are by job, not by Atomic Design (atom / molecule / organism).
-
-| Group | Job | Examples |
-| --- | --- | --- |
-| Inputs | Capture a value | Button, Dropdown, PinCode |
-| Layout | Structure and overlay | Card, Modal, Tabs |
-| Data Display | Render financial data | TransactionList, Chart, StatCard |
-| Information | Status and waiting | Badge, Skeleton, Pagination |
-| Forms | Multi-field product flows | CreditCardForm, PassportForm |
-| Theme | Switch Dawn / Moon | ThemeProvider, ThemeSwitcher |
-
-Atomic Design sizes things (this is small, this is medium, this is large). That does not tell you where a modal belongs, or that TransactionList should compose Pagination instead of restyling it. Job groups plus the token → primitive → component stack are the alternative: dependency direction first, UI task second.
-
-→ **Design Tokens** for the token model. **Contributing** for the federated repo. **Adoption and Impact** for what the products actually took.
